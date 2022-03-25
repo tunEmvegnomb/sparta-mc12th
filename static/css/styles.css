@@ -9,5 +9,5 @@
 
 body {
   font-family: "Noto Sans KR", sans-serif;
-  color: #3a3845;
+  color: var(--default);
 }

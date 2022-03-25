@@ -93,26 +93,18 @@ main {
   margin-right: 5px;
 }
 
-.list-sort-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-}
-
 .list-sort {
   font-size: 20px;
   font-weight: 600;
-  text-decoration: underline;
   margin-left: 30px;
   margin-bottom: 15px;
 }
 
-.list-sort span {
+.list-sort a {
   margin-right: 15px;
+  color: var(--default);
 }
 
-.dropdown button {
-  font-size: 20px;
-  margin-bottom: 15px;
-  padding: 5px;
+.list-sort a:hover {
+  color: var(--orange)
 }
