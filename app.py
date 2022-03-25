@@ -19,7 +19,7 @@ app = Flask(__name__)
 @app.route('/')
 def render_main():
     # index.html에 원하는 클라이언트 파일 입력
-    return render_template('index.html')
+    return render_template('list.html')
 
 
 # 리스트 페이지
@@ -105,7 +105,7 @@ def name():
 
 #GET
 @app.route('/', methods=['GET'])
-def name():
+def name_get():
     sample_receive = request.args.get('sample_give')
     print(sample_receive)
     return jsonify({'msg': 'GET'})
