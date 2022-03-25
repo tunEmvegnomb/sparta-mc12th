@@ -2,11 +2,11 @@ main {
   width: 1080px;
   margin: auto;
   padding: 75px 30px;
-  background-color: #EEEEEE;
+  background-color: #eeeeee;
 }
 
 .list-title {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .list-title span {
@@ -22,7 +22,7 @@ main {
 }
 
 .list-title img:nth-child(2) {
-  transform: translateX(80px);
+  transform: translateX(102px);
 }
 
 .mb-3 {
@@ -45,10 +45,6 @@ main {
   font-size: 28px;
   border-radius: 30px;
   padding-left: 50px;
-}
-
-#searchInput:active {
-  outline: none;
 }
 
 .filters {
@@ -82,16 +78,13 @@ main {
   color: white;
   border-radius: 30px;
   padding: 0, 5px;
-  width: 80px;
+  width: 85px;
   text-align: center;
   margin-right: 20px;
 }
 
 .filter-values {
   background-color: var(--orange);
-  font-size: 20px;
-  font-weight: 600;
-  color: white;
   border-radius: 30px;
   padding-left: 10px;
   padding-right: 10px;
@@ -100,6 +93,15 @@ main {
 .filter-value {
   margin-left: 5px;
   margin-right: 5px;
+  color: white;
+  font-size: 20px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.filter-value:hover {
+  color: var(--default);
 }
 
 .list-sort {
@@ -115,5 +117,5 @@ main {
 }
 
 .list-sort a:hover {
-  color: var(--orange)
+  color: var(--orange);
 }

@@ -1,3 +1,7 @@
+.card-group {
+
+}
+
 .card {
     width: 309.75px;
 }
@@ -16,7 +20,9 @@
     color: var(--default);
     font-size: 20px;
     font-weight: 700;
-    line-height: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .card-text {
