@@ -1,0 +1,7 @@
+.navbar {
+  background-color: var(--orange);
+}
+
+.navbar a {
+  color: white;
+}
