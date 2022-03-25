@@ -105,7 +105,7 @@ def name():
 
 #GET
 @app.route('/', methods=['GET'])
-def name():
+def name_get():
     sample_receive = request.args.get('sample_give')
     print(sample_receive)
     return jsonify({'msg': 'GET'})
