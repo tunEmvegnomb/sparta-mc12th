@@ -12,9 +12,16 @@
             crossorigin="anonymous"></script>
 
     <title>자취생에 의한 자취생만을 위한 너만의 레시피</title>
-    <link rel="stylesheet" type="text/css" href="static\css\index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+          rel="stylesheet">
 </head>
 <style>
+    /*전체 폰트*/
+    * {
+        font-family: 'Noto Sans KR', sans-serif;
+    }
 
     /*여기서부터 네비게이션바*/
     .navbar {
@@ -23,11 +30,44 @@
 
     .nav-item {
         color: #3A3845;
+        font-weight: 900;
+        text-decoration: none;
     }
+
     /*실제 컨텐츠 작성*/
     .wrap {
         width: 1080px;
         margin: auto;
+    }
+
+    /*메인 추천 레시피*/
+    .random-food {
+        width: 500px;
+        right: 229px;
+        margin-top: 30px;
+    }
+
+    .random-food-recipe {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+
+    .random-food-recipe > img {
+        margin-right: 50px;
+    }
+
+    .random-food-recipe-difficulty {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 10px;
+    }
+
+    .ingredient-li {
+        float: left;
+        margin-right: 100px;
+        font-weight: 500;
     }
 </style>
 <body>
@@ -36,19 +76,19 @@
     <nav class="navbar navbar-expand-lg navbar-#FF6219 bg-#FF6219">
         <div class="container-fluid">
             <div class="navbar navbar-collapse">
-                <a class="navbar-brand" href="#">자취생에 의한 자취생만을 위한 너만의 레시피</a>
+                <a class="navbar-brand" href="#" type="text">자취생에 의한 자취생만을 위한 너만의 레시피</a>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">전체 레시피 보기</a>
+                        <a class="nav-link" href="#" type="text">전체 레시피 보기</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">랭킹 보기</a>
+                        <a class="nav-link" href="#" type="text">랭킹 보기</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">나만의 레시피 만들기</a>
+                        <a class="nav-link" href="#" type="text">나만의 레시피 만들기</a>
                     </li>
                 </ul>
-                <img src="C:\github\sparta-mc12th\static\img\login.png"/>
+                <img src="\static\img\login.png" type="button"/>
                 <button class="btn btn-outline-black" type="button">login</button>
             </div>
         </div>
@@ -59,13 +99,13 @@
         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="https://han.gl/YQCwF" class="d-block w-100" alt="1">
+                    <img src="\static\img\Rectangle 11.png" class="d-block w-100" alt="1">
                 </div>
                 <div class="carousel-item">
-                    <img src="https://han.gl/TyNoe" class="d-block w-100" alt="2">
+                    <img src="\static\img\Rectangle 12.png" class="d-block w-100" alt="2">
                 </div>
                 <div class="carousel-item">
-                    <img src="https://han.gl/YQCwF" class="d-block w-100" alt="3">
+                    <img src="\static\img\Rectangle 13.png" class="d-block w-100" alt="3">
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
@@ -81,10 +121,53 @@
         </div>
         <!--메인 추천 레시피-->
         <div>
-        <img src="https://drive.google.com/file/d/1fuG0JpPAew5fwFvAG_WDsEfcCckd-TG1/view?usp=sharing" alt=" "/>
+            <img src="\static\img\ONE-POP-1.png" alt="이미지" class="random-food"/>
+            <div class="random-food-recipe">
+                <img src="\static\img\recipe.png" alt="이미지"/>
+                <div>
+                    <div>
+                        <h2 style="font-weight: 900;">추천 레시피 이름</h2>
+                        <br>
+                        <div class="random-food-recipe-difficulty">
+                            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                                <img src="\static\img\time.png" alt="이미지"
+                                     style="width: 50px; height: 50px; margin-bottom: 10px"/>
+                                <p style="font-weight: 500;">5분 이내</p>
+                            </div>
+                            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                                <img src="\static\img\star.png" alt="이미지"
+                                     style="width: 50px; height: 50px; margin-bottom: 10px"/>
+                                <p style="font-weight: 500;">사람이면 제조 가능</p>
+                            </div>
+                        </div>
+                        <div>
+                            <p style="font-weight: 600;">최소한 이건 준비하자!</p>
+                            <div class="ingredient">
+                                <ul>
+                                    <li class="ingredient-li">1번 재료</li>
+                                    <li class="ingredient-li">1번 재료</li>
+                                    <li class="ingredient-li">1번 재료</li>
+                                </ul>
+                                <ul>
+                                    <li class="ingredient-li">1번 재료</li>
+                                    <li class="ingredient-li">1번 재료</li>
+                                    <li class="ingredient-li">1번 재료</li>
+                                </ul>
+                                <ul>
+                                    <li class="ingredient-li">1번 재료</li>
+                                    <li class="ingredient-li">1번 재료</li>
+                                    <li class="ingredient-li">1번 재료</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!--메인 추천 레시피-->
     </div>
+</div>
+<!--메인 추천 레시피-->
+</div>
 
 </div>
 
