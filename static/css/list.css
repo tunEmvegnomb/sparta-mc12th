@@ -34,7 +34,7 @@ main {
 
 .bi-search {
   color: #3a3845;
-  padding: 12px;
+  padding: 15px;
   position: absolute;
   left: 103px;
 }
@@ -42,9 +42,14 @@ main {
 #searchInput {
   width: 80%;
   background-color: #c4c4c4;
-  font-size: 28px;
+  font-size: 25px;
   border-radius: 30px;
   padding-left: 50px;
+}
+
+#searchInput:focus {
+  box-shadow: 0 0 5px 1px var(--orange);
+  border: 0.5px solid var(--orange);
 }
 
 .filters {
@@ -97,7 +102,7 @@ main {
   font-size: 20px;
   font-weight: 600;
   text-decoration: none;
-  transition: all 0.2s;
+  transition: all 0.2s ease-in-out;
 }
 
 .filter-value:hover {
@@ -114,6 +119,7 @@ main {
 .list-sort a {
   margin-right: 15px;
   color: var(--default);
+  transition: all 0.1s ease-in-out;
 }
 
 .list-sort a:hover {

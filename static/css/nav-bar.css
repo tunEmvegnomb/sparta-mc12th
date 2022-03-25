@@ -3,5 +3,15 @@
 }
 
 .navbar a {
-  color: white;
+  color: #ffffff;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.navbar a:hover {
+  color: var(--default);
+}
+
+.navbar .active {
+  color: var(--default);
 }

@@ -1,32 +1,27 @@
-.card-group {
-
-}
-
 .card {
-    width: 309.75px;
+  width: 309.75px;
 }
 
 .card-img-div {
-    height: 213px;
+  height: 213px;
 }
 
 .card-img-top {
-    height: 100%;
-    object-fit: cover;
+  height: 100%;
+  object-fit: cover;
 }
 
-
 .card-title {
-    color: var(--default);
-    font-size: 20px;
-    font-weight: 700;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+  color: var(--default);
+  font-size: 20px;
+  font-weight: 700;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .card-text {
-    color: #717171;
-    font-size: 20px;
-    font-weight: 700;
+  color: #717171;
+  font-size: 20px;
+  font-weight: 700;
 }
