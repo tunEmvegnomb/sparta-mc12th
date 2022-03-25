@@ -16,95 +16,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
           rel="stylesheet">
+    <!-- style.css 파일을 같은 폴더에 만들고, head 태그에서 불러오기 -->
+    <link rel="stylesheet" type="text/css" href = "\static\css\main.css">
 </head>
-<style>
-    /*전체 폰트*/
-    * {
-        font-family: 'Noto Sans KR', sans-serif;
-    }
 
-    /*여기서부터 네비게이션바*/
-    .navbar {
-        background-color: #FF6219;
-    }
-    .navbar-nav{
-        float: left;
-    }
-
-    .nav-item {
-        color: white;
-        font-weight: 900;
-        text-decoration: none;
-        margin-right: 30px;
-    }
-
-    /*실제 컨텐츠 작성*/
-    .wrap {
-        width: 1080px;
-        margin: auto;
-    }
-
-    /*메인 추천 레시피*/
-    .random-recipe {
-        color: #3A3845;
-    }
-
-    .random-food {
-        width: 500px;
-        right: 229px;
-        margin-top: 30px;
-    }
-
-    .random-food-recipe {
-        display: flex;
-        flex-direction: row;
-        align-items: flex-start;
-        justify-content: flex-start;
-    }
-
-    .random-food-recipe > img {
-        margin-right: 50px;
-    }
-
-    .random-food-recipe-difficulty {
-        display: flex;
-        justify-content: space-around;
-        margin-bottom: 10px;
-    }
-
-    .ingredient-li {
-        float: left;
-        margin-right: 100px;
-        font-weight: 500;
-    }
-
-    /*메인 베스트 레시피*/
-    .best-recipe {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .best-recipe-top {
-        display: flex;
-        flex-direction: row;
-        align-items: self-end;
-        margin-bottom: 10px;
-    }
-
-    .best-recipe-text {
-        text-decoration: underline;
-
-    }
-
-    .btn {
-        background-color: #FF6219;
-        font-weight: 700;
-        float: right;
-        margin-right: 30px;
-    }
-
-
-</style>
 <body>
         <!--    여기서부터 네비게이션바-->
         <nav class="navbar navbar-expand-lg navbar-#FF6219 bg-#FF6219">
