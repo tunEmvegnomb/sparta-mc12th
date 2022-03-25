@@ -1,0 +1,26 @@
+.card {
+    width: 309.75px;
+}
+
+.card-img-div {
+    height: 213px;
+}
+
+.card-img-top {
+    height: 100%;
+    object-fit: cover;
+}
+
+
+.card-title {
+    color: var(--default);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 10px;
+}
+
+.card-text {
+    color: #717171;
+    font-size: 20px;
+    font-weight: 700;
+}

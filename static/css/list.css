@@ -2,7 +2,7 @@ main {
   width: 1080px;
   margin: auto;
   padding: 75px 30px;
-  background-color: #d6d6d6;
+  background-color: #EEEEEE;
 }
 
 .list-title {
@@ -29,13 +29,22 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+}
+
+.bi-search {
+  color: #3a3845;
+  padding: 12px;
+  position: absolute;
+  left: 103px;
 }
 
 #searchInput {
   width: 80%;
   background-color: #c4c4c4;
   font-size: 28px;
-  border-radius: 50px;
+  border-radius: 30px;
+  padding-left: 50px;
 }
 
 #searchInput:active {
@@ -45,7 +54,7 @@ main {
 .filters {
   display: flex;
   flex-direction: column;
-  padding: 30px;
+  padding: 10px 30px;
   background-color: #c4c4c4;
   border-radius: 30px;
   margin-bottom: 30px;

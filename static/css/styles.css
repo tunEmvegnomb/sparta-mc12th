@@ -4,6 +4,7 @@
 
 /* Components */
 @import "nav-bar.css";
+@import "list-card.css";
 /* Screens */
 @import "list.css";
 
