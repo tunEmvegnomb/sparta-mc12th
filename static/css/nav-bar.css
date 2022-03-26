@@ -6,9 +6,14 @@
   color: #ffffff;
   font-size: 25px;
   font-weight: 700;
+  transition: all 0.2s ease-in-out;
 }
 
 .navbar a:hover {
+  color: var(--default);
+}
+
+.navbar a:focus {
   color: var(--default);
 }
 

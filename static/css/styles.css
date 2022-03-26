@@ -11,4 +11,5 @@
 body {
   font-family: "Noto Sans KR", sans-serif;
   color: var(--default);
+  background-color: #eeeeee;
 }
