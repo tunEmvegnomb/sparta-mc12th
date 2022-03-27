@@ -71,3 +71,7 @@
 .rec-icon:hover {
   transform: scale(1.15);
 }
+
+.rec-icon:active {
+  transform: rotateZ(-10deg) scale(1.15);
+}

@@ -130,3 +130,7 @@
 .list-sort a:hover {
   color: var(--orange);
 }
+
+.spinner-border {
+  margin-top: 30px;
+}
