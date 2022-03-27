@@ -1,4 +1,4 @@
-main {
+.main-col {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -65,15 +65,16 @@ main {
   color: #ffffff;
   font-weight: 700;
   border-radius: 100px;
+  width: 403px;
   height: 53px;
 }
 
-.login-form .login-submit {
+.login-form .login-btn {
   background-color: var(--orange);
   margin-bottom: 15px;
 }
 
-.login-form .signup_link {
+.login-form .signup_btn {
   background-color: var(--bluegreen);
   margin-bottom: 30px;
 }
@@ -81,6 +82,7 @@ main {
 .find_account-link {
   font-size: 20px;
   color: var(--default);
+  margin-bottom: 100px;
 }
 
 .find_account-link:hover {

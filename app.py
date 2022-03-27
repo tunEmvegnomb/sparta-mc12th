@@ -19,7 +19,7 @@ app = Flask(__name__)
 @app.route('/')
 def render_main():
     # index.html에 원하는 클라이언트 파일 입력
-    return render_template('login.html')
+    return render_template('signup.html')
 
 
 # 리스트 페이지
