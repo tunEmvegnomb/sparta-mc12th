@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/detail.css/">
+
+    <title>상세 레시피 페이지</title>
+</head>
+<body>
+    <nav class="naviBar">
+        <ul>
+            <li><a class="logoLink" href="#">로고 미정</a></li>
+            <li><a class="menuLink" href="#">전체 레시피 보기</a></li>
+            <li><a class="menuLink" href="#">랭킹 보기</a></li>
+            <li><a class="menuLink" href="#">나만의 레시피</a></li>
+            <li><a class="menuLink" href="#">마이페이지</a></li>
+            <li><a class="myPageLink" href="#"><img src="/static/img/myPageIcon.png" class="loginIcon"></a></li>
+            <li><a class="link" href="#"><img src="/static/img/menuIcon.png" class="menuIcon"></a></li>
+        </ul>
+    </nav>
+
+    <div class="wrap">
+        <div class="detailWrap">
+            <div class="detailImgWrap">
+                <img class="recipe_img" src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMTEyMDZfMjcw%2FMDAxNjM4NzY4OTg4NzA5.UdPCOWRxfcqs0g-3I7eTp6UzgeOnvk9dtSV0S2nqtugg.Ea81k1ieqCBxoIZrKHqJ95zRtvaPrkisR6rfBg4ELkQg.JPEG.yoondasol2%2FKakaoTalk_20211206_141054263_10.jpg&type=sc960_832">
+            </div>
+            <div class="detailTitleWrap">
+                <span class="recipe_name">풍미가 가득한 간장버터계란밥</span><br>
+                <span class="recipe_writter">홍길동</span><br>
+                <span class="recipe_diff"><img src="/static/img/diffIcon.png" class="diffIcon">똥손 아니면 가능</span><br>
+                <span class="recipe_add"><img src="/static/img/addIcon.png" class="addIcon"></span>
+                <span class="recipe_like"><img src="/static/img/likeIcon.png" class="likeIcon">100</span>
+            </div>
+            <div class="imforWrap">
+                <div class="container">
+                    <div class="sortBar">
+                        <ul class="tabs">
+                            <li class="recipeSort current" data-tab="tab-1">레시피</li>
+                            <li class="recipeSort" data-tab="tab-2">조리과정</li>
+                            <li class="recipeSort" data-tab="tab-3">리뷰</li>
+                        </ul>
+                        <div id="tab-1" class="tabContent current">
+                            <div class="iconWrap">
+                                <div class="timeIconWrap">
+                                    <img src="/static/img/timeIcon.png" class="timeIcon">
+                                    <span class="timeBox">5분 이내</span>
+                                </div>
+                                <div class="diff2IconWrap">
+                                    <img src="/static/img/3starsIcon.png" class="diff2Icon">
+                                    <span class="diff2Box">똥손 아니면 가능</span>
+                                </div>
+<!--                                주의) timeBox 및 diff2Box 둘다 두줄이거나, 둘다 한줄이어야 디자인이 맞아떨어짐-->
+<!--                                하나는 너무 길어서 두줄이고, 하나는 한줄이면 둘 위치가 맞지 않음 -->
+                            </div>
+                        </div>
+                        <div id="tab-2" class="tabContent">tab content2</div>
+                        <div id="tab-3" class="tabContent">tab content3</div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+    </div>
+    <script type="text/javascript" src="/static/js/detail.js/"></script>
+</body>

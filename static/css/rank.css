@@ -16,8 +16,8 @@
     line-height: 50px;
     vertical-align: middle;
     text-align: center;
-
 }
+
 .logoLink {
     width: 112px;
     display: block;
@@ -129,7 +129,6 @@
     padding-right: 10px;
     font-weight: bold;
     border-radius: 10px 10px 10px 0;
-    border-bottom: #3A3845 solid 2px;
     background-color: white;
     box-shadow: 0 0 0.5px 0.5px #E1E1E1;
 }
@@ -149,19 +148,19 @@
 }
 
 .recipeWrap {
-    border: solid 3pt #FF6219;
+    border: solid 2pt #FF6219;
     border-radius: 15pt;
-    padding: 5px 20px;
+    padding: 5px 20px 15px 20px;
     margin: 5px 20px 25px 20px;
     position: relative;
     background-color: white;
 }
 
 .medalIcon {
-    width: 80px;
+    width: 120px;
     position: absolute;
-    left: -25px;
-    top: -10pt;
+    left: -35px;
+    top: -27pt;
 }
 
 .recipeImgWrap {
@@ -176,6 +175,7 @@
     width: 250px;
     border-radius: 10pt;
     vertical-align: middle;
+    background-size: contain;
 }
 
 .recipeDescWrap {
@@ -192,7 +192,7 @@
     display: inline-block;
     position: absolute;
     right: 80px;
-    top: 70px;
+    top: 78px;
     color: #3A3845;
     text-align: center;
 }
@@ -205,12 +205,16 @@
     font-size: 30px;
     font-weight: normal;
     color: #3A3845;
+    display: inline-block;
+    width: 265px;
+    position: relative;
+    line-height: 30px;
 }
 
 .recipe_name:hover {
     transition: 0.3s;
     font-weight: bolder;
-    font-size: 30.5px;
+    font-size: 30.3px;
 }
 
 .recipeTimeWrap {
@@ -247,33 +251,52 @@
 
 .recipeWraps {
     position: relative;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
 }
 
 .recipeRank {
     font-size: 65px;
     font-weight: bolder;
     position: absolute;
-    top: -25px;
+    top: -5px;
     left: -19px;
     color: #3A3845;
 }
 
 .recipeNameWrap {
-    line-height: 70px;
+    line-height: 65px;
     position: relative;
-    left: 30px;
+    left: 33px;
 }
 
 .recipeDescWraps {
     display: inline-block;
     position: absolute;
     width: 300px;
-    right: -15px;
+    right: 2px;
     text-align: center;
-    top: 1px;
+    top: -1px;
     line-height: 2;
 }
 
+.recipe_name2 {
+    font-size: 30px;
+    font-weight: normal;
+    color: #3A3845;
+    display: inline-block;
+    width: 300px;
+    position: relative;
+    line-height: 30px;
+    vertical-align: center;
+}
+
+.recipe_name2:hover {
+    transition: 0.3s;
+    font-weight: bolder;
+    font-size: 30.3px;
+}
 
 
 
