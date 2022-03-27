@@ -1,0 +1,88 @@
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo {
+  margin-top: 130px;
+  margin-bottom: 65px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form div {
+  border: 1px solid black;
+  position: relative;
+  width: 410px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+}
+
+.login-form .login-id {
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+  border-bottom: 0.5px solid black;
+}
+
+.login-form .login-password {
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+  border-top: 0.5px solid black;
+  margin-bottom: 95px;
+}
+
+.login-form .login-icon {
+  position: absolute;
+  top: 17px;
+  left: 16px;
+}
+
+.login-form .password-icon {
+  left: 17px;
+}
+
+.login-form input {
+  all: unset;
+  padding-left: 45px;
+  color: var(--default);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.login-form input::placeholder {
+  color: var(--default);
+}
+
+.login-form button {
+  border: none;
+  text-align: center;
+  font-size: 25px;
+  color: #ffffff;
+  font-weight: 700;
+  border-radius: 100px;
+  height: 53px;
+}
+
+.login-form .login-submit {
+  background-color: var(--orange);
+  margin-bottom: 15px;
+}
+
+.login-form .signup_link {
+  background-color: var(--bluegreen);
+  margin-bottom: 30px;
+}
+
+.find_account-link {
+  font-size: 20px;
+  color: var(--default);
+}
+
+.find_account-link:hover {
+  color: var(--orange);
+}

@@ -7,6 +7,7 @@
 @import "list-card.css";
 /* Screens */
 @import "list.css";
+@import "login.css";
 
 body {
   font-family: "Noto Sans KR", sans-serif;
