@@ -4,8 +4,10 @@
 
 .naviBar {
     background-color: #FF6219;
+    width: 100%;
     height: 50px;
-    position: relative;
+    position: fixed;
+    z-index: 100;
 }
 
 .naviBar ul li {
@@ -84,7 +86,7 @@
     padding: 20px 20px 5px 30px;
     letter-spacing: -4px;
     color: #3A3845;
-    font-weight: bolder;
+    font-weight: 750;
     border-radius: 30px 30px 30px 0;
     border-bottom: #3A3845 solid 3px;
     background-color: white;
@@ -115,11 +117,11 @@
 
 .sortBar ul li {
     list-style: none;
-    color: white;
     display: inline-block;
+    cursor: pointer;
 }
 
-.periodSort {
+.sortTab {
     text-decoration: none;
     color: #3A3845;
     display: inline-block;
@@ -133,7 +135,7 @@
     box-shadow: 0 0 0.5px 0.5px #E1E1E1;
 }
 
-.periodSort:hover {
+.sortTab:hover {
     color: #3A3845;
     font-weight: bolder;
     transition: 0.3s;
@@ -141,10 +143,30 @@
     text-decoration: none;
 }
 
+.sortBar ul li.current {
+    color: white;
+    font-weight: 550;
+    transition: 0.3s;
+    font-size: 17.5px;
+    text-decoration: none;
+    display: inline-block;
+    margin: 0 0 0 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 10px 10px 10px 0;
+    background-color: #3A3845;
+    box-shadow: 0 0 0.5px 0.5px #E1E1E1;
+}
+
 .listWrap {
+    display: none;
     width: 650px;
     margin: auto;
     position: relative;
+}
+
+.listWrap.current {
+    display: inherit;
 }
 
 .recipeWrap {
@@ -203,12 +225,13 @@
 
 .recipe_name {
     font-size: 30px;
-    font-weight: normal;
+    font-weight: 600;
     color: #3A3845;
     display: inline-block;
     width: 265px;
     position: relative;
     line-height: 30px;
+    letter-spacing: -1px;
 }
 
 .recipe_name:hover {
@@ -283,13 +306,14 @@
 
 .recipe_name2 {
     font-size: 30px;
-    font-weight: normal;
+    font-weight: 600;
     color: #3A3845;
     display: inline-block;
     width: 300px;
     position: relative;
     line-height: 30px;
     vertical-align: center;
+    letter-spacing: -1px;
 }
 
 .recipe_name2:hover {
