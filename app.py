@@ -19,7 +19,7 @@ app = Flask(__name__)
 @app.route('/')
 def render_main():
     # index.html에 원하는 클라이언트 파일 입력
-    return render_template('signup.html')
+    return render_template('main.html')
 
 
 # 리스트 페이지
@@ -167,4 +167,3 @@ def review_delete():
 # localhost:5000 으로 들어갈 수 있게 해주는 코드
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
-
