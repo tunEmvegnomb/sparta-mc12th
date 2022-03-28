@@ -1,6 +1,6 @@
 # flask 프레임워크 임포트.
-# render_template(페이지 이동), jsonify(json값 리턴), request(클라이언트 값 받기) 라이브러리 임포트
-from flask import Flask, render_template, jsonify, request
+# render_template(페이지 이동), jsonify(json값 리턴), request(클라이언트 값 받기), session(로그인) 라이브러리 임포트
+from flask import Flask, render_template, jsonify, request, session
 
 # MongoClient(몽고DB 관리 라이브러리) 임포트
 from pymongo import MongoClient
@@ -117,6 +117,52 @@ def listing():
     Foodlist = list(db.mc12th.find({}, {'_id': False}))
 
     return jsonify({'all_Foodlist':Foodlist})
+
+# 리뷰(댓글) create 기능
+@app.route('/detail/review-post', methods=['POST'])
+def review_post():
+    if 'user_id' in session:
+        user_name_receive = request.form['user_name_give']
+        review_content_receive = request.form['review_content_give']
+
+        doc = {
+            'user_name': user_name_receive,
+            'review_content': review_content_receive
+        }
+        db.review.insert_one(doc)
+        return jsonify({'msg': '댓글 작성 완료'})
+    else:
+        return jsonify({'msg': '로그인해주세요'})
+
+
+# 리뷰(댓글) list기능
+@app.route('/detail/review-list', methods=['GET'])
+def review_list():
+    reviews = list(db.review.find({}, {'_id': False}))
+    return jsonify({'reviews': reviews})
+
+# 리뷰(댓글) update 기능
+@app.route('/detail/review-update', methods=['POST'])
+def review_update():
+    if 'user_id' in session:
+        user_name_receive = request.form['user_name_give']
+        update_content_receive = request.form['review_content_give']
+
+        db.review.update_one({'user_name': user_name_receive}, {'$set': {'review_content': update_content_receive}})
+        return jsonify({'POST': '댓글 수정 완료'})
+    else:
+        return jsonify({'msg': '로그인해주세요'})
+
+# 리뷰(댓글) 삭제 기능
+@app.route('/detail/review-delete', methods=['POST'])
+def review_delete():
+    if 'user_id' in session:
+        user_name_receive = request.form['user_name_give']
+        db.review.delete_one({'name': user_name_receive})
+        return jsonify({'msg': '댓글이 삭제되었습니다'})
+    else:
+        return jsonify({'msg': '로그인해주세요'})
+
 
 # localhost:5000 으로 들어갈 수 있게 해주는 코드
 if __name__ == '__main__':
