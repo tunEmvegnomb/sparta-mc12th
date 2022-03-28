@@ -167,4 +167,3 @@ def review_delete():
 # localhost:5000 으로 들어갈 수 있게 해주는 코드
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
-
