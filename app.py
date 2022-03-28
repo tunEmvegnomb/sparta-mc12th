@@ -45,6 +45,7 @@ def render_theme():
 def render_rank():
     return render_template('rank.html')
 
+#test
 
 # 나만의 레시피 작성 페이지
 @app.route('/write')
