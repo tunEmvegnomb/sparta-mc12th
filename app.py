@@ -91,6 +91,8 @@ def name():
     print(sample_receive)
     return jsonify({'POST'})
 
+# 회원가입
+
 
 # GET
 @app.route('/', methods=['GET'])
