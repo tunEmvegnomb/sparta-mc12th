@@ -22,36 +22,35 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-md fixed-top">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">로고</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#"
-                >전체 레시피 보기</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">랭킹 보기</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">마이 페이지</a>
-            </li>
-          </ul>
-        </div>
-      </div>
+    <nav class="naviBar">
+      <ul>
+        <li>
+          <a class="logoLink" href="#"
+            ><img src="/static/img/cook-hat.svg" class="logoIcon"
+          /></a>
+        </li>
+        <li><a class="menuLink current" href="#">전체 레시피</a></li>
+        <li><a class="menuLink" href="#">랭킹 보기</a></li>
+        <li><a class="menuLink" href="#">마이페이지</a></li>
+        <li>
+          <a class="myPageLink" href="#"
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              fill="currentColor"
+              class="bi bi-person-circle loginIcon"
+              viewBox="0 0 16 16"
+            >
+              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+              <path
+                fill-rule="evenodd"
+                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
+              />
+            </svg>
+          </a>
+        </li>
+      </ul>
     </nav>
     <main class="wrap">
       <div class="list-title">
@@ -134,17 +133,21 @@
             </div>
             <div class="card-body">
               <div class="card-info">
-                <span class="card-title">일이삼사오육칠팔구십열하나</span>
+                <a href="#" class="recipe-link"
+                  ><span class="card-title"
+                    >일이삼사오육칠팔구십십일십이</span
+                  ></a
+                >
                 <div class="card-bottom-row">
                   <span class="card-text">일이삼사오육칠팔구십</span>
-                  <div class="rec-div">
-                    <span class="rec-text">추천</span>
-                    <span class="rec-num">76</span>
+                  <div class="like-div">
+                    <span class="like-text">추천</span>
+                    <span class="like-num">76</span>
                   </div>
                 </div>
               </div>
-              <div class="card-rec">
-                <img src="/static/img/good.png" class="rec-icon" />
+              <div class="card-like">
+                <img src="/static/img/good.png" class="like-icon" />
               </div>
             </div>
           </div>
@@ -162,17 +165,21 @@
             </div>
             <div class="card-body">
               <div class="card-info">
-                <span class="card-title">일이삼사오육칠팔구십열하나</span>
+                <a href="#" class="recipe-link"
+                  ><span class="card-title"
+                    >일이삼사오육칠팔구십십일십이</span
+                  ></a
+                >
                 <div class="card-bottom-row">
                   <span class="card-text">일이삼사오육칠팔구십</span>
-                  <div class="rec-div">
-                    <span class="rec-text">추천</span>
-                    <span class="rec-num">222</span>
+                  <div class="like-div">
+                    <span class="like-text">추천</span>
+                    <span class="like-num">76</span>
                   </div>
                 </div>
               </div>
-              <div class="card-rec">
-                <img src="/static/img/good.png" class="rec-icon" />
+              <div class="card-like">
+                <img src="/static/img/good.png" class="like-icon" />
               </div>
             </div>
           </div>
@@ -190,17 +197,21 @@
             </div>
             <div class="card-body">
               <div class="card-info">
-                <span class="card-title">일이삼사오육칠팔구십열하나</span>
+                <a href="#" class="recipe-link"
+                  ><span class="card-title"
+                    >일이삼사오육칠팔구십십일십이</span
+                  ></a
+                >
                 <div class="card-bottom-row">
                   <span class="card-text">일이삼사오육칠팔구십</span>
-                  <div class="rec-div">
-                    <span class="rec-text">추천</span>
-                    <span class="rec-num">0</span>
+                  <div class="like-div">
+                    <span class="like-text">추천</span>
+                    <span class="like-num">76</span>
                   </div>
                 </div>
               </div>
-              <div class="card-rec">
-                <img src="/static/img/good.png" class="rec-icon" />
+              <div class="card-like">
+                <img src="/static/img/good.png" class="like-icon" />
               </div>
             </div>
           </div>
@@ -218,17 +229,21 @@
             </div>
             <div class="card-body">
               <div class="card-info">
-                <span class="card-title">일이삼사오육칠팔구십열하나</span>
+                <a href="#" class="recipe-link"
+                  ><span class="card-title"
+                    >일이삼사오육칠팔구십십일십이</span
+                  ></a
+                >
                 <div class="card-bottom-row">
                   <span class="card-text">일이삼사오육칠팔구십</span>
-                  <div class="rec-div">
-                    <span class="rec-text">추천</span>
-                    <span class="rec-num">222</span>
+                  <div class="like-div">
+                    <span class="like-text">추천</span>
+                    <span class="like-num">76</span>
                   </div>
                 </div>
               </div>
-              <div class="card-rec">
-                <img src="/static/img/good.png" class="rec-icon" />
+              <div class="card-like">
+                <img src="/static/img/good.png" class="like-icon" />
               </div>
             </div>
           </div>
@@ -246,129 +261,21 @@
             </div>
             <div class="card-body">
               <div class="card-info">
-                <span class="card-title">일이삼사오육칠팔구십열하나</span>
+                <a href="#" class="recipe-link"
+                  ><span class="card-title"
+                    >일이삼사오육칠팔구십십일십이</span
+                  ></a
+                >
                 <div class="card-bottom-row">
                   <span class="card-text">일이삼사오육칠팔구십</span>
-                  <div class="rec-div">
-                    <span class="rec-text">추천</span>
-                    <span class="rec-num">222</span>
+                  <div class="like-div">
+                    <span class="like-text">추천</span>
+                    <span class="like-num">76</span>
                   </div>
                 </div>
               </div>
-              <div class="card-rec">
-                <img src="/static/img/good.png" class="rec-icon" />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card">
-            <div class="card-img-div">
-              <a href="#">
-                <img
-                  src="http://cdn.cnn.com/cnnnext/dam/assets/181114130138-korean-food-2620014201204004k-jeonju-bibimbap.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
-              </a>
-            </div>
-            <div class="card-body">
-              <div class="card-info">
-                <span class="card-title">일이삼사오육칠팔구십열하나</span>
-                <div class="card-bottom-row">
-                  <span class="card-text">일이삼사오육칠팔구십</span>
-                  <div class="rec-div">
-                    <span class="rec-text">추천</span>
-                    <span class="rec-num">222</span>
-                  </div>
-                </div>
-              </div>
-              <div class="card-rec">
-                <img src="/static/img/good.png" class="rec-icon" />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card">
-            <div class="card-img-div">
-              <a href="#">
-                <img
-                  src="http://cdn.cnn.com/cnnnext/dam/assets/181114130138-korean-food-2620014201204004k-jeonju-bibimbap.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
-              </a>
-            </div>
-            <div class="card-body">
-              <div class="card-info">
-                <span class="card-title">일이삼사오육칠팔구십열하나</span>
-                <div class="card-bottom-row">
-                  <span class="card-text">일이삼사오육칠팔구십</span>
-                  <div class="rec-div">
-                    <span class="rec-text">추천</span>
-                    <span class="rec-num">222</span>
-                  </div>
-                </div>
-              </div>
-              <div class="card-rec">
-                <img src="/static/img/good.png" class="rec-icon" />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card">
-            <div class="card-img-div">
-              <a href="#">
-                <img
-                  src="http://cdn.cnn.com/cnnnext/dam/assets/181114130138-korean-food-2620014201204004k-jeonju-bibimbap.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
-              </a>
-            </div>
-            <div class="card-body">
-              <div class="card-info">
-                <span class="card-title">일이삼사오육칠팔구십열하나</span>
-                <div class="card-bottom-row">
-                  <span class="card-text">일이삼사오육칠팔구십</span>
-                  <div class="rec-div">
-                    <span class="rec-text">추천</span>
-                    <span class="rec-num">222</span>
-                  </div>
-                </div>
-              </div>
-              <div class="card-rec">
-                <img src="/static/img/good.png" class="rec-icon" />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card">
-            <div class="card-img-div">
-              <a href="#">
-                <img
-                  src="http://cdn.cnn.com/cnnnext/dam/assets/181114130138-korean-food-2620014201204004k-jeonju-bibimbap.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
-              </a>
-            </div>
-            <div class="card-body">
-              <div class="card-info">
-                <span class="card-title">일이삼사오육칠팔구십열하나</span>
-                <div class="card-bottom-row">
-                  <span class="card-text">일이삼사오육칠팔구십</span>
-                  <div class="rec-div">
-                    <span class="rec-text">추천</span>
-                    <span class="rec-num">222</span>
-                  </div>
-                </div>
-              </div>
-              <div class="card-rec">
-                <img src="/static/img/good.png" class="rec-icon" />
+              <div class="card-like">
+                <img src="/static/img/good.png" class="like-icon" />
               </div>
             </div>
           </div>
