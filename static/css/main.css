@@ -1,78 +1,94 @@
-    /*전체 폰트*/
-    * {
-        font-family: 'Noto Sans KR', sans-serif;
-    }
+/*전체 폰트*/
+* {
+    font-family: 'Noto Sans KR', sans-serif;
+}
 
-    /*여기서부터 네비게이션바*/
-    .navbar {
-        background-color: #FF6219;
-    }
+/*여기서부터 네비게이션바*/
+.navbar {
+    background-color: #FF6219;
+}
 
-    .nav-item {
-        color: #3A3845;
-        font-weight: 900;
-        text-decoration: none;
-        margin-right: 30px;
-    }
+.nav-item {
+    color: #3A3845;
+    font-weight: 900;
+    text-decoration: none;
+    margin-right: 30px;
+}
 
-    /*실제 컨텐츠 작성*/
-    .wrap {
-        width: 1080px;
-        margin: auto;
-        color: #3A3845;
-    }
+/*실제 컨텐츠 작성*/
+.wrap {
+    width: 1080px;
+    margin: auto;
+    color: #3A3845;
+}
 
-    /*메인 추천 레시피*/
-    .random-food {
-        width: 500px;
-        right: 229px;
-        margin-top: 30px;
-    }
+/*메인 추천 레시피*/
+.random-food {
+    width: 500px;
+    right: 229px;
+    margin-top: 30px;
+}
 
-    .random-food-recipe {
-        display: flex;
-        flex-direction: row;
-        align-items: flex-start;
-        justify-content: flex-start;
-    }
+.random-food-recipe {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
 
-    .random-food-recipe > img {
-        margin-right: 50px;
-    }
+.random-food-recipe > img {
+    margin-right: 50px;
+}
 
-    .random-food-recipe-difficulty {
-        display: flex;
-        justify-content: space-around;
-        margin-bottom: 10px;
-    }
+.random-food-recipe-difficulty {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
 
-    .ingredient-li {
-        float: left;
-        margin-right: 100px;
-        font-weight: 500;
-    }
+.ingredient-li {
+    float: left;
+    margin-right: 100px;
+    font-weight: 500;
+}
 
-    /*메인 베스트 레시피*/
-    .best-recipe {
-        display: flex;
-        flex-direction: column;
-    }
+/*메인 베스트 레시피*/
+.best-recipe {
+    display: flex;
+    flex-direction: column;
+}
 
-    .best-recipe-top {
-        display: flex;
-        flex-direction: row;
-        align-items: self-end;
-        margin-bottom: 10px;
-    }
+.best-recipe-top {
+    display: flex;
+    flex-direction: row;
+    align-items: self-end;
+    margin-bottom: 10px;
+}
 
-    .best-recipe-text {
-        text-decoration: underline;
-    }
+.best-recipe-text {
+    text-decoration: underline;
+}
 
-    .btn {
-        background-color: #FF6219;
-        font-weight: 700;
-        float: right;
-        margin-right: 30px;
-    }
+.btn {
+    background-color: #FF6219;
+    font-weight: 700;
+    float: right;
+    margin-right: 30px;
+}
+
+.best-recipe-rank-top {
+    position: relative;
+    top: 12%;
+}
+
+.best-recipe-rank-second {
+    position: relative;
+    top: 12%;
+}
+
+.best-recipe-rank-third {
+    position: relative;
+    top: 12%;
+}
+
 
