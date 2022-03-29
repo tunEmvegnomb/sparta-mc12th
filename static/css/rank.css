@@ -46,23 +46,14 @@
 
 .myPageLink {
     position: absolute;
-    right: 17%;
-}
-
-.link {
-    position: absolute;
-    right: 12%;
+    right: 19%;
 }
 
 .loginIcon {
-    height: 30px;
+    height: 32px;
 }
 
-.menuIcon {
-    height: 30px;
-}
-
-.loginIcon:hover, .menuIcon:hover {
+.loginIcon:hover {
     transition: 0.5s;
     transform: scale(1.08)
 }
@@ -323,10 +314,3 @@
 }
 
 
-
-
-
-<<<<<<< HEAD
-
-=======
->>>>>>> 65cb8183e1fd0816a242f853259cd220f63bdada

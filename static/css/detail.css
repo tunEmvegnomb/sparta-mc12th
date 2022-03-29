@@ -50,47 +50,40 @@ body {
 
 .myPageLink {
     position: absolute;
-    right: 17%;
-}
-
-.link {
-    position: absolute;
-    right: 12%;
+    right: 19%;
 }
 
 .loginIcon {
-    height: 30px;
+    height: 32px;
 }
 
-.menuIcon {
-    height: 30px;
-}
-
-.loginIcon:hover, .menuIcon:hover {
+.loginIcon:hover {
     transition: 0.5s;
     transform: scale(1.08)
 }
 
 .wrap {
-    background-color: #FF6219;
     width: 800px;
     height: auto;
-    margin: 15px auto 0 auto;
+    margin: 0 auto 0 auto;
     padding: 4px;
     border-radius: 30px;
 }
 
 .detailWrap {
     position: relative;
+    margin-top: 70px;
+    border: 4pt solid #ff6219;
+    border-radius: 25px;
+    width: 800px;
 }
 
 .detailImgWrap {
-    width: 792px;
-    margin: auto;
     text-align: center;
     background-color: white;
-    border-top-left-radius: 25px;
-    border-top-right-radius: 25px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+
 }
 
 .recipe_img {
@@ -178,8 +171,8 @@ body {
     background-color: white;
     border-top: #EDEDED solid 1pt;
     padding: 250px 30px 50px 30px;
-    border-bottom-left-radius: 25px;
-    border-bottom-right-radius: 25px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 
 .container {
@@ -309,8 +302,3 @@ body {
 
 
 
-
-<<<<<<< HEAD
-
-=======
->>>>>>> 65cb8183e1fd0816a242f853259cd220f63bdada
