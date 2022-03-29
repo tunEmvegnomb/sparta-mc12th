@@ -80,21 +80,22 @@
   font-weight: 700;
   width: 400px;
   height: 50px;
-  margin-bottom: 55px;
 }
 
 .myrecipe-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 35px;
+  margin: 55px 0;
 }
 
 .myrecipe-item {
-  width: 180px;
-  height: 150px;
+  width: 170px;
+  height: 160px;
   border: 1px solid var(--default);
   border-radius: 23px;
-  padding: 13px;
+  padding: 14px;
+  font-size: 20px;
   font-weight: 500;
 }
 
@@ -108,9 +109,24 @@
 
 .myrecipe-title {
   grid-column: 1 / span 2;
-  font-size: 20px;
   font-weight: 600;
   text-align: center;
   word-break: keep-all;
+  overflow-wrap: normal;
   line-height: 120%;
+  text-decoration: none;
+  color: var(--default);
+}
+
+.myrecipe-title:hover,
+.myrecipe-update:hover,
+.myrecipe-remove:hover {
+  color: black;
+}
+
+.myrecipe-update,
+.myrecipe-remove {
+  font-size: 15px;
+  text-decoration: underline;
+  cursor: pointer;
 }
