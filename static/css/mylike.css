@@ -9,6 +9,7 @@
   align-self: flex-end;
   margin-right: 40px;
   cursor: pointer;
+  margin-bottom: 15px;
 }
 
 .recipe-folder {
@@ -16,7 +17,52 @@
   border: 1px solid #8c8c8c;
   border-radius: 15px;
   padding: 20px 30px;
-  margin: 15px 0;
+  margin-bottom: 15px;
   font-size: 20px;
   font-weight: 500;
+  position: relative;
+}
+
+.folder-head {
+  margin-bottom: 12px;
+}
+
+.folder-title {
+  margin-right: 10px;
+  margin-left: 5px;
+  font-weight: 600;
+}
+
+.folder-row {
+  margin-bottom: 3px;
+}
+
+.folder-row .recipe-link {
+  color: var(--default);
+}
+
+.folder-row .recipe-link:hover {
+  color: black;
+}
+
+.folder-row .recipe-title {
+  font-weight: 600;
+  display: inline-block;
+  width: 210px;
+}
+
+.folder-functions {
+  cursor: pointer;
+  position: absolute;
+  top: 15px;
+  right: 30px;
+}
+
+.fa-pen-to-square:hover,
+.fa-trash-can:hover {
+  color: black;
+}
+
+.folder-functions .fa-pen-to-square {
+  margin-right: 20px;
 }

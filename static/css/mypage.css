@@ -6,13 +6,11 @@
 .mypage-first-col {
   display: flex;
   flex-direction: column;
-  background-color: aliceblue;
   padding: 0 50px;
 }
 
 .mypage-title {
   padding: 100px 50px 0 50px;
-  background-color: antiquewhite;
 }
 
 .mypage-title > span {
@@ -35,17 +33,25 @@
 }
 
 .mypage-menubar {
-  padding: 100px 0;
+  margin: 80px 0;
+  padding: 20px 30px;
+  border: 3px solid var(--orange);
+  border-radius: 15px;
 }
 
 .mypage-menubar li {
   list-style: none;
+  margin: 10px 0;
 }
 
 .mypage-menu a {
   text-decoration: none;
   color: #8c8c8c;
   font-size: 25px;
+}
+
+.mypage-menu a:hover {
+  color: var(--default);
 }
 
 .mypage-menubar .current a {
@@ -68,7 +74,7 @@
   flex-direction: column;
   align-items: center;
   padding: 0 50px;
-  background-color: honeydew;
+  /* background-color: honeydew; */
 }
 
 .mypage-sec-col .new_recipe-btn {
@@ -116,6 +122,10 @@
   overflow-wrap: normal;
   line-height: 120%;
   text-decoration: none;
+  color: var(--default);
+}
+
+.myrecipe-item i {
   color: var(--default);
 }
 
