@@ -77,8 +77,8 @@ def render_login():
 
 
 # 회원가입 페이지
-@app.route('/signup')
-def render_signup():
+@app.route('/signUp')
+def render_signUp():
     return render_template('signup.html')
 
 
