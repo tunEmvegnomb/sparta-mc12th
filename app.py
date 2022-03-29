@@ -133,6 +133,7 @@ def review_list():
     return jsonify({'reviews': reviews})
 
 
+
 # 리뷰(댓글) update 기능 - test완료(session제외)
 @app.route('/detail/review-update', methods=['POST'])
 def review_update():
@@ -144,6 +145,7 @@ def review_update():
         return jsonify({'POST': '댓글 수정 완료'})
     else:
         return jsonify({'msg': '로그인해주세요'})
+
 
 
 # 리뷰(댓글) 삭제 기능 - test완료(session제외)
@@ -165,6 +167,7 @@ def recipe_detail():
     target_recipe = db.recipes_test.find_one({'recipe_name': recipe_name_receive},{'_id' : False})
     print(target_recipe)
     return jsonify({'target_recipe': target_recipe})
+
 
 # localhost:5000 으로 들어갈 수 있게 해주는 코드
 if __name__ == '__main__':
