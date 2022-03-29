@@ -59,7 +59,7 @@
 }
 
 .wrap {
-    width: 800px;
+    width: 1080px;
     height: auto;
     margin: 0px auto 0 auto;
     padding: 40px 20px 40px 20px;
@@ -97,7 +97,7 @@
 }
 
 .sortBar {
-    width: 680px;
+    width: 927px;
     text-align: right;
     margin: 80px 0 10px 0;
     height: 25pt;
@@ -116,7 +116,7 @@
     text-decoration: none;
     color: #3A3845;
     display: inline-block;
-    font-size: 17px;
+    font-size: 20px;
     margin: 0 0 0 5px;
     padding-left: 10px;
     padding-right: 10px;
@@ -130,7 +130,7 @@
     color: #3A3845;
     font-weight: bolder;
     transition: 0.3s;
-    font-size: 17.5px;
+    font-size: 21px;
     text-decoration: none;
 }
 
@@ -138,7 +138,7 @@
     color: white;
     font-weight: 550;
     transition: 0.3s;
-    font-size: 17.5px;
+    font-size: 20px;
     text-decoration: none;
     display: inline-block;
     margin: 0 0 0 5px;
@@ -151,7 +151,7 @@
 
 .listWrap {
     display: none;
-    width: 650px;
+    width: 880px;
     margin: auto;
     position: relative;
 }
@@ -161,7 +161,7 @@
 }
 
 .recipeWrap {
-    border: solid 2pt #FF6219;
+    border: solid 3.5pt #FF6219;
     border-radius: 15pt;
     padding: 5px 20px 15px 20px;
     margin: 5px 20px 25px 20px;
@@ -170,22 +170,22 @@
 }
 
 .medalIcon {
-    width: 120px;
+    width: 150px;
     position: absolute;
-    left: -35px;
+    left: -40px;
     top: -27pt;
 }
 
 .recipeImgWrap {
-    width: 290px;
-    height: 220px;
-    line-height : 220px;
+    width: 400px;
+    height: 300px;
+    line-height : 300px;
     text-align: center;
     display: inline-block;
 }
 
 .recipe_img {
-    width: 250px;
+    width: 380px;
     border-radius: 10pt;
     vertical-align: middle;
     background-size: contain;
@@ -194,8 +194,8 @@
 .recipeDescWrap {
     display: inline-block;
     position: absolute;
-    padding: 15pt 0 0 0;
-    right: 27px;
+    padding: 40pt 0 0 0;
+    right: -15px;
     top: 15px;
     color: #3A3845;
     text-align: center;
@@ -204,8 +204,8 @@
 .recipeDesc2Wrap {
     display: inline-block;
     position: absolute;
-    right: 80px;
-    top: 78px;
+    right: 120px;
+    top: 130px;
     color: #3A3845;
     text-align: center;
 }
@@ -215,11 +215,11 @@
 }
 
 .recipe_name {
-    font-size: 30px;
+    font-size: 43px;
     font-weight: 600;
     color: #3A3845;
     display: inline-block;
-    width: 265px;
+    width: 450px;
     position: relative;
     line-height: 30px;
     letter-spacing: -1px;
@@ -228,7 +228,7 @@
 .recipe_name:hover {
     transition: 0.3s;
     font-weight: bolder;
-    font-size: 30.3px;
+    font-size: 44px;
 }
 
 .recipeTimeWrap {
@@ -237,14 +237,17 @@
 }
 
 .timeIcon {
-    width: 28px;
+    width: 32px;
 }
 
 .recipe_time {
+    display: inline-block;
     padding-left: 10px;
-    font-size: 17px;
+    font-size: 23px;
     font-weight: bold;
     color: #3A3845;
+    position: relative;
+    top: 3px;
 }
 
 .recipeDiffWrap {
@@ -253,14 +256,16 @@
 }
 
 .diffIcon {
-    width: 35px;
+    width: 38px;
 }
 
 .recipe_diff {
     padding-left: 3px;
-    font-size: 17px;
+    font-size: 23px;
     font-weight: bold;
     color: #3A3845;
+    position: relative;
+    top: 3px;
 }
 
 .recipeWraps {
@@ -271,7 +276,7 @@
 }
 
 .recipeRank {
-    font-size: 65px;
+    font-size: 70px;
     font-weight: bolder;
     position: absolute;
     top: -5px;
@@ -280,29 +285,29 @@
 }
 
 .recipeNameWrap {
-    line-height: 65px;
+    line-height: 70px;
     position: relative;
-    left: 33px;
+    left: 50px;
 }
 
 .recipeDescWraps {
     display: inline-block;
     position: absolute;
-    width: 300px;
-    right: 2px;
+    width: 400px;
+    right: 20px;
     text-align: center;
-    top: -1px;
+    top: -5px;
     line-height: 2;
 }
 
 .recipe_name2 {
-    font-size: 30px;
+    font-size: 38px;
     font-weight: 600;
     color: #3A3845;
     display: inline-block;
-    width: 300px;
+    width: 500px;
     position: relative;
-    line-height: 30px;
+    line-height: 40px;
     vertical-align: center;
     letter-spacing: -1px;
 }
@@ -310,7 +315,7 @@
 .recipe_name2:hover {
     transition: 0.3s;
     font-weight: bolder;
-    font-size: 30.3px;
+    font-size: 39px;
 }
 
 
