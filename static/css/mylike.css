@@ -1,0 +1,22 @@
+.mylike-border {
+  width: 567px;
+  height: 2px;
+  background-color: black;
+  margin: 15px 0;
+}
+
+.new_folder-icon {
+  align-self: flex-end;
+  margin-right: 40px;
+  cursor: pointer;
+}
+
+.recipe-folder {
+  width: 567px;
+  border: 1px solid #8c8c8c;
+  border-radius: 15px;
+  padding: 20px 30px;
+  margin: 15px 0;
+  font-size: 20px;
+  font-weight: 500;
+}
