@@ -2,7 +2,6 @@
 # render_template(페이지 이동), jsonify(json값 리턴), request(클라이언트 값 받기) 라이브러리 임포트
 from flask import Flask, render_template, jsonify, request
 
-# MongoClient(몽고DB 관리 라이브러리) 임포트
 from pymongo import MongoClient
 
 # 클라이언트 정의 - MongoClient를 로컬호스트와 연결
