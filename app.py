@@ -70,6 +70,14 @@ def render_mylike():
 
     return render_template('mylike.html')
 
+# 내가 쓴 후기 조회 페이지
+
+
+@app.route('/myreview')
+def render_myreview():
+
+    return render_template('myreview.html')
+
 
 # 나만의 레시피 조회 페이지
 @app.route('/myrecipe')
@@ -92,33 +100,37 @@ def render_signup():
     return render_template('signup.html')
 
 
+# API 역할을 하는 부분
 
-
-## API 역할을 하는 부분
-
-#POST
+# POST
 @app.route('/', methods=['POST'])
 def name():
     sample_receive = request.form['sample_give']
     print(sample_receive)
     return jsonify({'POST'})
 
-#GET
+# GET
+
+
 @app.route('/', methods=['GET'])
 def name_get():
     sample_receive = request.args.get('sample_give')
     print(sample_receive)
     return jsonify({'msg': 'GET'})
 
-#GET 2
+# GET 2
+
+
 @app.route('/', methods=['GET'])
-#list
+# list
 def listing():
     Foodlist = list(db.mc12th.find({}, {'_id': False}))
 
-    return jsonify({'all_Foodlist':Foodlist})
+    return jsonify({'all_Foodlist': Foodlist})
 
 # 리뷰(댓글) create 기능
+
+
 @app.route('/detail/review-post', methods=['POST'])
 def review_post():
     if 'user_id' in session:
@@ -142,18 +154,23 @@ def review_list():
     return jsonify({'reviews': reviews})
 
 # 리뷰(댓글) update 기능
+
+
 @app.route('/detail/review-update', methods=['POST'])
 def review_update():
     if 'user_id' in session:
         user_name_receive = request.form['user_name_give']
         update_content_receive = request.form['review_content_give']
 
-        db.review.update_one({'user_name': user_name_receive}, {'$set': {'review_content': update_content_receive}})
+        db.review.update_one({'user_name': user_name_receive}, {
+                             '$set': {'review_content': update_content_receive}})
         return jsonify({'POST': '댓글 수정 완료'})
     else:
         return jsonify({'msg': '로그인해주세요'})
 
 # 리뷰(댓글) 삭제 기능
+
+
 @app.route('/detail/review-delete', methods=['POST'])
 def review_delete():
     if 'user_id' in session:
