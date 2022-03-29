@@ -1,0 +1,121 @@
+    /*전체 폰트*/
+    * {
+        font-family: 'Noto Sans KR', sans-serif;
+    }
+
+    /*여기서부터 네비게이션바*/
+    .navbar {
+        background-color: #FF6219;
+    }
+
+    .nav-item {
+        color: #3A3845;
+        font-weight: 900;
+        text-decoration: none;
+        margin-right: 30px;
+    }
+
+   /*실제 컨텐츠 작성*/
+    .wrap {
+        width: 1080px;
+        margin: auto;
+        color: #3A3845;
+    }
+
+    /*여기서부터 입력 창*/
+    .random-food {
+        width: 500px;
+        right: 229px;
+        margin-top: 30px;
+    }
+
+    .recipe-total{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /*레시피 타이틀*/
+    .recipe-title{
+        margin-top: 41px;
+        border: 1px solid #8C8C8C;
+        box-sizing: border-box;
+        border-radius: 5px;
+        width: 643px;
+        height: 200px;
+        padding: 21px;
+    }
+
+    .input-title{
+        display: flex;
+        flex-direction: row;
+        margin-left: 10px;
+     }
+
+    .input-title > label{
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 18px;
+    }
+
+    .input-title > input{
+        width: 390px;
+        height: 30px;
+        border: 1px solid #8C8C8C;
+        border-radius: 5px 0px 0px 5px;
+        box-sizing: border-box;
+        font-size: 15px;
+        text-align: left;
+        font-weight: 500;
+        color: #3A3845;
+    }
+
+    .input-title > button{
+        width: 83px;
+        height: 30px;
+        border: 1px solid #8C8C8C;
+        border-radius: 0px 5px 5px 0px;
+        box-sizing: border-box;
+        font-size: 15px;
+        display: block;
+        text-align: center;
+        font-weight: 500;
+    }
+    .input-title > button > span{
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 18px;
+        text-align: center;
+    }
+
+    .input-img{
+        display: flex;
+        flex-direction: row;
+        margin-left: 10px;
+    }
+
+    .input-img > label{
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 18px;
+    }
+
+    .input-img > input{
+        width: 473px;
+        height: 30px;
+        font-weight: 500;
+        font-size: 15px;
+        color: #3A3845;
+    }
+
+    /*난이도 및 레시피*/
+    .recipe-level{
+        margin-top: 41px;
+        border: 1px solid #8C8C8C;
+        box-sizing: border-box;
+        border-radius: 5px;
+        width: 643px;
+        height: 675px;
+        padding: 21px;
+    }

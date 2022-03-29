@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+
+    <title>자취생에 의한 자취생만을 위한 너만의 레시피</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+          rel="stylesheet">
+    <!-- style.css 파일을 같은 폴더에 만들고, head 태그에서 불러오기 -->
+    <link rel="stylesheet" type="text/css" href="\static\css\make_recipe.css">
+</head>
+
+<body>
+<!--    여기서부터 네비게이션바-->
+<nav class="navbar navbar-expand-lg navbar-#FF6219 bg-#FF6219">
+    <div class="container-fluid">
+        <div class="navbar navbar-collapse">
+            <a class="navbar-brand" href="#" type="text">자취생에 의한 자취생만을 위한 너만의 레시피</a>
+            <div class="navbar-nav me-auto mb-2 mb-lg-0">
+                <a href="/" class="nav-item">전체 레시피 보기</a>
+                <a href="/" class="nav-item">랭킹 보기</a>
+                <a href="/" class="nav-item">나만의 레시피 만들기</a>
+            </div>
+            <img src="\static\img\login.png" type="button"/>
+            <button class="btn btn-outline-black" type="button">login</button>
+        </div>
+    </div>
+</nav>
+<!--실제 컨텐츠 작성-->
+<div class="wrap">
+    <!--메인 추천 레시피-->
+    <div>
+        <img src="\static\img\selmake.png" alt="이미지" class="random-food"/>
+        <div class="recipe-total">
+            <div class="recipe-title">
+                <p style="font-weight: 600;">레시피 타이틀</p>
+                <hr style="width: 600px; border: 1px solid #8C8C8C;">
+                <div class="input-title  mb-3">
+                    <label class="col-sm-2 col-form-label">제목</label>
+                    <input type="text" class="form-control" placeholder="내가 만드는 레시피의 타이틀을 입력해주세요."
+                           aria-label="Recipient's username" aria-describedby="button-addon2">
+                    <button class="btn btn-outline-secondary" type="button" id="button-addon2"><span>중복확인</span></button>
+                </div>
+                <div class="input-img mb-3">
+                  <label class="col-sm-2 col-form-label">이미지</label>
+                  <input class="form-control form-control-sm" id="formFileSm" type="file">
+                </div>
+            </div>
+
+            <div class="recipe-level">
+                <p style="font-weight: 600;">난이도 및 레시피</p>
+               <hr style="width: 600px; border: 1px solid #8C8C8C;">
+                <div class="input-title  mb-3">
+                    <p>제목</p><pre>  </pre>
+                    <input type="text" class="form-control" placeholder="내가 만드는 레시피의 타이틀을 입력해주세요."
+                           aria-label="Recipient's username" aria-describedby="button-addon2">
+                    <button class="btn btn-outline-secondary" type="button" id="button-addon2"><span>중복확인</span></button>
+                </div>
+                <div class="input-img mb-3">
+                  <p>이미지</p><pre>  </pre>
+                  <input class="form-control form-control-sm" id="formFileSm" type="file">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+</body>
+</html>
