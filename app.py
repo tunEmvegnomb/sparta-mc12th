@@ -61,7 +61,6 @@ def render_mypage():
         return jsonify({'mypage': mypage})
 
 
-
 # 즐겨찾기 조회 페이지
 @app.route('/mylike')
 def render_mylike():
