@@ -8,8 +8,10 @@ body {
 
 .naviBar {
     background-color: #FF6219;
+    width: 100%;
     height: 50px;
-    position: relative;
+    position: fixed;
+    z-index: 100;
 }
 
 .naviBar ul li {
@@ -48,47 +50,40 @@ body {
 
 .myPageLink {
     position: absolute;
-    right: 17%;
-}
-
-.link {
-    position: absolute;
-    right: 12%;
+    right: 19%;
 }
 
 .loginIcon {
-    height: 30px;
+    height: 32px;
 }
 
-.menuIcon {
-    height: 30px;
-}
-
-.loginIcon:hover, .menuIcon:hover {
+.loginIcon:hover {
     transition: 0.5s;
     transform: scale(1.08)
 }
 
 .wrap {
-    background-color: #FF6219;
-    width: 800px;
+    width: 1080px;
     height: auto;
-    margin: 15px auto 0 auto;
+    margin: 0 auto 0 auto;
     padding: 4px;
     border-radius: 30px;
 }
 
 .detailWrap {
     position: relative;
+    border: 4pt solid #ff6219;
+    border-radius: 25px;
+    width: 927px;
+    margin: 70px auto 0 auto;
 }
 
 .detailImgWrap {
-    width: 792px;
-    margin: auto;
     text-align: center;
     background-color: white;
-    border-top-left-radius: 25px;
-    border-top-right-radius: 25px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+
 }
 
 .recipe_img {
@@ -99,10 +94,10 @@ body {
 
 .detailTitleWrap {
     background-color: #FFFDFC;
-    width: 740px;
+    width: 851px;
     position: absolute;
     top: 340px;
-    left: 26px;
+    left: 32px;
     padding: 30px 40px 10px 40px;
     border-radius: 25px;
     box-shadow: rgba(193,193,193,0.92) 0 4pt 4pt -0.5pt;
@@ -176,8 +171,8 @@ body {
     background-color: white;
     border-top: #EDEDED solid 1pt;
     padding: 250px 30px 50px 30px;
-    border-bottom-left-radius: 25px;
-    border-bottom-right-radius: 25px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 
 .container {
@@ -207,7 +202,7 @@ body {
     color: #3A3845;
     display: inline-block;
     font-size: 20px;
-    margin: 0 40px 0 50px;
+    margin: 0 60px 0 70px;
     padding-left: 10px;
     padding-right: 10px;
     width: 130px;
@@ -250,6 +245,7 @@ body {
     padding-top: 10px;
     padding-left: 40px;
     padding-right: 40px;
+    text-align: center;
 }
 
 .timeIconWrap {
@@ -302,6 +298,169 @@ body {
     width: 170px;
     color: #3A3845;
 }
+
+.ingredientWrap {
+    padding: 20px 20px 20px 20px;
+}
+
+.ingTitle {
+    display: inline-block;
+    font-size: 28px;
+    font-weight: 720;
+    letter-spacing: -1.2px;
+    padding-bottom: 20px;
+    color: #3a3845;
+}
+
+.ingList {
+    background-color: white;
+    border-radius: 20px;
+    display: inline-block;
+}
+
+.ingList li {
+    list-style: none;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    color: #3a3845;
+    display: inline-block;
+    width: 45%;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    position: relative;
+    left: 23px;
+}
+
+.processTitle {
+    display: inline-block;
+    font-size: 28px;
+    font-weight: 720;
+    letter-spacing: -1.2px;
+    padding-bottom: 20px;
+    color: #3a3845;
+}
+
+.processList {
+    background-color: white;
+    border-radius: 20px;
+    display: inline-block;
+}
+
+.process {
+    list-style: none;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    color: #3a3845;
+    display: inline-block;
+    width: 100%;
+    padding: 20px 20px 10px 20px;
+    margin: 0;
+    letter-spacing: -0.5px;
+}
+
+.reviewTitle {
+    display: inline-block;
+    font-size: 28px;
+    font-weight: 720;
+    letter-spacing: -1.2px;
+    padding-bottom: 20px;
+    color: #3a3845;
+}
+
+.reviewWrite {
+    text-align: center;
+}
+
+.reviewInput {
+    display: inline-block;
+    margin-top: 10px;
+    width: 83%;
+    outline: 0;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 10px;
+    border: 1pt solid #FFF8F5;
+    font-weight: 600;
+}
+
+.reviewInput:hover {
+    border: 1pt solid #ECECEC;
+}
+
+.reviewInput:focus {
+    border: 1pt solid #ECECEC;
+}
+
+.reviewInput::placeholder {
+    letter-spacing: -1px;
+    font-size: 16px;
+}
+
+.reviewBtn {
+    outline: 0;
+    border: 0;
+    display: inline-block;
+    padding: 10px 15px 10px 15px;
+    font-size: 18px;
+    color: white;
+    background-color: #3a3845;
+    border-radius: 10px;
+    margin-left: 11px;
+    letter-spacing: -0.5px;
+}
+
+.reviewBtn:hover {
+    font-weight: 600;
+}
+
+.reviewBtn:focus {
+    outline: 0;
+    border: 0;
+}
+
+.line {
+    border: solid 1px #E1E1E1;
+}
+
+.reviewListWrap {
+    background-color: white;
+}
+
+.reviewList {
+    border-bottom: solid 1.5px #E1E1E1;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.userName {
+    padding: 10px 20px 0 20px;
+    letter-spacing: -0.5px;
+    color: #3a3845;
+    font-size: 16px;
+}
+
+.reviewDate {
+    padding-left: 10px;
+    font-size: 13px;
+    line-height: 15px;
+    color: #8c8c8c;
+    vertical-align: center;
+}
+
+.review {
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    color: #3a3845;
+    display: inline-block;
+    width: 100%;
+    padding: 20px 28px 10px 28px;
+    margin: 0;
+    letter-spacing: -0.5px;
+}
+
 
 
 
