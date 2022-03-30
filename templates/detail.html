@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/detail.css/">
+
+    <title>상세 레시피 페이지</title>
+</head>
+<body>
+    <nav class="naviBar">
+        <ul>
+            <li><a class="logoLink" href="#">로고 미정</a></li>
+            <li><a class="menuLink" href="#">전체 레시피 보기</a></li>
+            <li><a class="menuLink" href="#">랭킹 보기</a></li>
+            <li><a class="menuLink" href="#">나만의 레시피</a></li>
+            <li><a class="menuLink" href="#">마이페이지</a></li>
+            <li><a class="myPageLink" href="#"><img src="/static/img/myPageIcon.png" class="loginIcon"></a></li>
+        </ul>
+    </nav>
+
+    <div class="wrap">
+        <div class="detailWrap">
+            <div class="detailImgWrap">
+                <img class="recipe_img" src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMTEyMDZfMjcw%2FMDAxNjM4NzY4OTg4NzA5.UdPCOWRxfcqs0g-3I7eTp6UzgeOnvk9dtSV0S2nqtugg.Ea81k1ieqCBxoIZrKHqJ95zRtvaPrkisR6rfBg4ELkQg.JPEG.yoondasol2%2FKakaoTalk_20211206_141054263_10.jpg&type=sc960_832">
+            </div>
+            <div class="detailTitleWrap">
+                <span class="recipe_name">풍미가 가득한 간장버터계란밥</span><br>
+                <span class="recipe_writter">홍길동</span><br>
+                <span class="recipe_diff"><img src="/static/img/diffIcon.png" class="diffIcon">똥손 아니면 가능</span><br>
+                <span class="recipe_add"><img src="/static/img/addIcon.png" class="addIcon"></span>
+                <span class="recipe_like"><img src="/static/img/likeIcon.png" class="likeIcon">100</span>
+            </div>
+            <div class="imforWrap">
+                <div class="container">
+                    <div class="sortBar">
+                        <ul class="tabs">
+                            <li class="recipeSort current" data-tab="tab-1">레시피</li>
+                            <li class="recipeSort" data-tab="tab-2">조리과정</li>
+                            <li class="recipeSort" data-tab="tab-3">리뷰</li>
+                        </ul>
+                        <div id="tab-1" class="tabContent current">
+                            <div class="iconWrap">
+                                <div class="timeIconWrap">
+                                    <img src="/static/img/timeIcon.png" class="timeIcon">
+                                    <span class="timeBox">5분 이내</span>
+                                </div>
+                                <div class="diff2IconWrap">
+                                    <img src="/static/img/3starsIcon.png" class="diff2Icon">
+                                    <span class="diff2Box">똥손 아니면 가능</span>
+                                </div>
+                            </div>
+                            <div class="ingredientWrap">
+                                <span class="ingTitle">📌 최소한 이건 준비하자!</span>
+                                <ul class="ingList">
+                                    <li class="ingredient">계란 1알 60g</li>
+                                    <li class="ingredient">설탕 60g </li>
+                                    <li class="ingredient">버터 60g 0g</li>
+                                    <li class="ingredient">박력분 60g </li>
+                                    <li class="ingredient">얼그레이 티백 1개 </li>
+                                    <li class="ingredient">바닐라오일 2방울</li>
+                                    <li class="ingredient">계란 1알 60g</li>
+                                    <li class="ingredient">설탕 60g </li>
+                                    <li class="ingredient">버터 60g 0g</li>
+                                    <li class="ingredient">박력분 60g </li>
+                                    <li class="ingredient">얼그레이 티백 1개 </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="tab-2" class="tabContent">
+                            <div class="processWrap">
+                                <span class="processTitle">📌 이정돈 만들 수 있다!</span>
+                                <ul class="processList">
+                                    <li class="process">1. 비엔나 소세지는 썰어서 끓는물에 데쳐서 물기를 빼내고, 치킨 너겟도 해동 후 다져놓습니다.</li>
+                                    <li class="process">2. 또띠아 4장 준비합니다.</li>
+                                    <li class="process">2. 다진야채 2컵 필요합니다. 기호에 따라 양파, 새송이버섯, 파프리카 등을 다져서 준비합니다.</li>
+                                    <li class="process">4. 또띠아 두장에 스파게티소스를 한수저씩 펴바릅니다.</li>
+                                    <li class="process">5. 야채와 햄, 치킨너겟을 섞어서 볶아주고</li>
+                                    <li class="process">6. 야채가 익으면 스파게티소스 3수저를 넣어 섞어줍니다.</li>
+                                    <li class="process">계란:설탕:버터:밀가루 = 1:1:1:1 라고 기억하시면 편합니다. 우선 계란 1개를 풀어서 섞어줍니다.</li>
+                                    <li class="process">계란:설탕:버터:밀가루 = 1:1:1:1 라고 기억하시면 편합니다. 우선 계란 1개를 풀어서 섞어줍니다.</li>
+                                    <li class="process">계란:설탕:버터:밀가루 = 1:1:1:1 라고 기억하시면 편합니다. 우선 계란 1개를 풀어서 섞어줍니다.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="tab-3" class="tabContent">
+                            <div class="reviewWrap">
+                                <span class="reviewTitle">📌 나도 만들었다! 내가 만든 요리 후기</span>
+                                <div class="reviewWrite">
+                                    <input type="text" placeholder="후기를 작성해주세요!" class="reviewInput">
+                                    <button type="button" class="reviewBtn">등록</button>
+                                </div>
+                                <hr class="line">
+                                <div class="reviewListWrap">
+                                    <div class="reviewList">
+                                        <span class="userName">작성자: 김댕댕</span>
+                                        <span class="reviewDate">2022-03-01</span>
+                                        <span class="review">너무 맛있어요!</span>
+                                    </div>
+                                    <div class="reviewList">
+                                        <span class="userName">작성자: 김댕댕</span>
+                                        <span class="reviewDate">2022-03-01</span>
+                                        <span class="review">실제로 해먹어 봤는데 엄청 쉬워요</span>
+                                    </div>
+                                    <div class="reviewList">
+                                        <span class="userName">작성자: 김댕댕</span>
+                                        <span class="reviewDate">2022-03-01</span>
+                                        <span class="review">또 해먹을거에요</span>
+                                    </div>
+                                    <div class="reviewList">
+                                        <span class="userName">작성자: 김댕댕</span>
+                                        <span class="reviewDate">2022-03-01</span>
+                                        <span class="review">다른 친구한테도 추천했어요!</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+    </div>
+    <script type="text/javascript" src="/static/js/detail.js/"></script>
+</body>

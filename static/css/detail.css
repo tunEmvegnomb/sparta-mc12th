@@ -1,0 +1,469 @@
+* {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+body {
+    background-color: #ECECEC;
+}
+
+.naviBar {
+    background-color: #FF6219;
+    width: 100%;
+    height: 50px;
+    position: fixed;
+    z-index: 100;
+}
+
+.naviBar ul li {
+    list-style: none;
+    color: #3A3845;
+    background-color: #FF6219;
+    float: left;
+    line-height: 50px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.logoLink {
+    width: 112px;
+    display: block;
+    color: #3A3845;
+    margin-right: 80px;
+}
+
+.menuLink {
+    text-decoration: none;
+    color: #3A3845;
+    display: block;
+    width: 150px;
+    font-size: 16px;
+    font-weight: bolder;
+}
+
+.menuLink:hover {
+    transition: 0.5s;
+    font-size: 17px;
+    text-decoration: none;
+    color: #3A3845;
+    background: #FFF3ED;
+}
+
+.myPageLink {
+    position: absolute;
+    right: 19%;
+}
+
+.loginIcon {
+    height: 32px;
+}
+
+.loginIcon:hover {
+    transition: 0.5s;
+    transform: scale(1.08)
+}
+
+.wrap {
+    width: 1080px;
+    height: auto;
+    margin: 0 auto 0 auto;
+    padding: 4px;
+    border-radius: 30px;
+}
+
+.detailWrap {
+    position: relative;
+    border: 4pt solid #ff6219;
+    border-radius: 25px;
+    width: 927px;
+    margin: 70px auto 0 auto;
+}
+
+.detailImgWrap {
+    text-align: center;
+    background-color: white;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+
+}
+
+.recipe_img {
+    display: inline-block;
+    max-width: 730px;
+    height: 420px;
+}
+
+.detailTitleWrap {
+    background-color: #FFFDFC;
+    width: 851px;
+    position: absolute;
+    top: 340px;
+    left: 32px;
+    padding: 30px 40px 10px 40px;
+    border-radius: 25px;
+    box-shadow: rgba(193,193,193,0.92) 0 4pt 4pt -0.5pt;
+    text-align: center;
+}
+
+.recipe_name {
+    display: inline-block;
+    width: 500px;
+    font-size: 35px;
+    font-weight: 730;
+    color: #3A3845;
+    line-height: 45px;
+}
+
+.recipe_writter {
+    display: inline-block;
+    width: 500px;
+    font-size: 17px;
+    color: #3A3845;
+    padding-top: 10px;
+    font-weight: 500;
+    letter-spacing: -0.5px;
+}
+
+.recipe_diff {
+    display: inline-block;
+    font-size: 19px;
+    color: #3A3845;
+    padding-top: 20px;
+    font-weight: 600;
+    letter-spacing: -1px;
+}
+
+.diffIcon {
+    display: inline-block;
+    width: 40px;
+    padding-right: 10px;
+    padding-bottom: 3px;
+}
+
+.recipe_like {
+    display: inline-block;
+    float: right;
+    padding-top: 50px;
+    position: relative;
+    font-size: 18px;
+    font-weight: 750;
+    letter-spacing: -1px;
+    padding-right: 22px;
+}
+
+.likeIcon {
+    width: 35px;
+    position: absolute;
+    top: 16px;
+    left: -2px;
+}
+
+.recipe_add {
+    display: inline-block;
+    float: right;
+    padding-top: 30px;
+}
+
+.addIcon {
+    width: 35px;
+}
+
+.imforWrap {
+    background-color: white;
+    border-top: #EDEDED solid 1pt;
+    padding: 250px 30px 50px 30px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.container {
+    padding: 0 30px 0 30px;
+}
+
+.sortBar {
+    position: relative;
+    margin: 0;
+}
+.sortBar ul {
+    margin: 0;
+    padding: 0;
+}
+
+.sortBar ul li {
+    list-style: none;
+    color: #3A3845;
+    display: inline-block;
+    text-align: center;
+}
+
+.recipeSort {
+    text-decoration: none;
+    outline: 0;
+    border: 0;
+    color: #3A3845;
+    display: inline-block;
+    font-size: 20px;
+    margin: 0 60px 0 70px;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 130px;
+    font-weight: bold;
+    border-radius: 20px 20px 0 0;
+    background-color: white;
+    box-shadow: 0 -2px 2.5px -0.5px #E1E1E1;
+    cursor: pointer;
+    letter-spacing: -0.5px;
+    transition: 0.3s;
+}
+
+.recipeSort:hover {
+    color: #3A3845;
+    transition: 0.3s;
+    text-decoration: none;
+    background-color: #FFF8F5;
+    box-shadow: 0 -3px 2.5px -0.3px #E1E1E1;
+    outline: 0;
+    border: 0;
+}
+
+.sortBar ul li.current {
+    background-color: #FFF8F5;
+    box-shadow: 0 -3px 2.5px -0.3px #E1E1E1;
+}
+
+.tabContent {
+    display: none;
+    padding: 60px 70px 60px 70px;
+    border-radius: 20px;
+    box-shadow: rgba(193,193,193,0.92) 0 2pt 2pt -0.5pt;
+    background-color: #FFF8F5;
+}
+
+.tabContent.current {
+    display: inherit;
+}
+.iconWrap {
+    padding-top: 10px;
+    padding-left: 40px;
+    padding-right: 40px;
+    text-align: center;
+}
+
+.timeIconWrap {
+    position: relative;
+    display: inline-block;
+    width: 200px;
+    height: 200px;
+    text-align: center;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.timeIcon {
+    width: 90px;
+}
+
+.timeBox {
+    padding-top: 10px;
+    display: inline-block;
+    font-size: 25px;
+    font-weight: 700;
+    letter-spacing: -2px;
+    text-align: center;
+    width: 170px;
+    color: #3A3845;
+}
+
+.diff2IconWrap {
+    position: relative;
+    display: inline-block;
+    width: 200px;
+    height: 200px;
+    text-align: center;
+    margin-left: 10px;
+    margin-right: 10px;
+
+}
+
+.diff2Icon {
+    width: 90px;
+}
+
+.diff2Box {
+    padding-top: 10px;
+    display: inline-block;
+    font-size: 25px;
+    font-weight: 700;
+    letter-spacing: -2px;
+    text-align: center;
+    width: 170px;
+    color: #3A3845;
+}
+
+.ingredientWrap {
+    padding: 20px 20px 20px 20px;
+}
+
+.ingTitle {
+    display: inline-block;
+    font-size: 28px;
+    font-weight: 720;
+    letter-spacing: -1.2px;
+    padding-bottom: 20px;
+    color: #3a3845;
+}
+
+.ingList {
+    background-color: white;
+    border-radius: 20px;
+    display: inline-block;
+}
+
+.ingList li {
+    list-style: none;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    color: #3a3845;
+    display: inline-block;
+    width: 45%;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    position: relative;
+    left: 23px;
+}
+
+.processTitle {
+    display: inline-block;
+    font-size: 28px;
+    font-weight: 720;
+    letter-spacing: -1.2px;
+    padding-bottom: 20px;
+    color: #3a3845;
+}
+
+.processList {
+    background-color: white;
+    border-radius: 20px;
+    display: inline-block;
+}
+
+.process {
+    list-style: none;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    color: #3a3845;
+    display: inline-block;
+    width: 100%;
+    padding: 20px 20px 10px 20px;
+    margin: 0;
+    letter-spacing: -0.5px;
+}
+
+.reviewTitle {
+    display: inline-block;
+    font-size: 28px;
+    font-weight: 720;
+    letter-spacing: -1.2px;
+    padding-bottom: 20px;
+    color: #3a3845;
+}
+
+.reviewWrite {
+    text-align: center;
+}
+
+.reviewInput {
+    display: inline-block;
+    margin-top: 10px;
+    width: 83%;
+    outline: 0;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 10px;
+    border: 1pt solid #FFF8F5;
+    font-weight: 600;
+}
+
+.reviewInput:hover {
+    border: 1pt solid #ECECEC;
+}
+
+.reviewInput:focus {
+    border: 1pt solid #ECECEC;
+}
+
+.reviewInput::placeholder {
+    letter-spacing: -1px;
+    font-size: 16px;
+}
+
+.reviewBtn {
+    outline: 0;
+    border: 0;
+    display: inline-block;
+    padding: 10px 15px 10px 15px;
+    font-size: 18px;
+    color: white;
+    background-color: #3a3845;
+    border-radius: 10px;
+    margin-left: 11px;
+    letter-spacing: -0.5px;
+}
+
+.reviewBtn:hover {
+    font-weight: 600;
+}
+
+.reviewBtn:focus {
+    outline: 0;
+    border: 0;
+}
+
+.line {
+    border: solid 1px #E1E1E1;
+}
+
+.reviewListWrap {
+    background-color: white;
+}
+
+.reviewList {
+    border-bottom: solid 1.5px #E1E1E1;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.userName {
+    padding: 10px 20px 0 20px;
+    letter-spacing: -0.5px;
+    color: #3a3845;
+    font-size: 16px;
+}
+
+.reviewDate {
+    padding-left: 10px;
+    font-size: 13px;
+    line-height: 15px;
+    color: #8c8c8c;
+    vertical-align: center;
+}
+
+.review {
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    color: #3a3845;
+    display: inline-block;
+    width: 100%;
+    padding: 20px 28px 10px 28px;
+    margin: 0;
+    letter-spacing: -0.5px;
+}
+
+
+
+
+
+
+
