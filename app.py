@@ -108,14 +108,14 @@ def listing():
     return jsonify({'all_Foodlist': Foodlist})
 
 
-# 리뷰(댓글) create 기능 -따로 db에서 가져와야할듯..
+# 리뷰(댓글) create 기능
 @app.route('/detail/review-post', methods=['POST'])
 def review_post():
-    # if 'user_id' in session:
+    if 'user_id' in session:
         user_nickname_receive = request.form['user_nickname_give']
         review_content_receive = request.form['review_content_give']
         recipe_name_receive = request.form['recipe_name_give']
-        print(user_nickname_receive, review_content_receive, recipe_name_receive)
+        # print(user_nickname_receive, review_content_receive, recipe_name_receive)
 
         doc = {
             'user_nickname': user_nickname_receive,
@@ -124,8 +124,8 @@ def review_post():
         }
         db.reviews.insert_one(doc)
         return jsonify({'msg': '댓글 작성 완료'})
-    # else:
-    #     return jsonify({'msg': '로그인해주세요'})
+    else:
+        return jsonify({'msg': '로그인해주세요'})
 
 
 # 리뷰(댓글) list기능
@@ -143,8 +143,9 @@ def review_update():
     if 'user_id' in session:
         user_nickname_receive = request.form['user_nickname_give']
         update_content_receive = request.form['review_content_give']
+        recipe_name_receive = request.form['recipe_name_give']
 
-        db.reviews.update_one({'user_name': user_nickname_receive}, {'$set': {'review_content': update_content_receive}})
+        db.reviews.update_one({'user_nickname': user_nickname_receive, 'recipe_name':recipe_name_receive}, {'$set': {'review_content': update_content_receive}})
         return jsonify({'POST': '댓글 수정 완료'})
     else:
         return jsonify({'msg': '로그인해주세요'})
@@ -169,7 +170,7 @@ def review_delete():
 def recipe_detail():
     recipe_name_receive = request.args.get('recipe_name_give')
     target_recipe = db.recipes_test.find_one({'recipe_name': recipe_name_receive},{'_id' : False})
-    print(target_recipe)
+    # print(target_recipe)
     return jsonify({'target_recipe': target_recipe})
 
 
