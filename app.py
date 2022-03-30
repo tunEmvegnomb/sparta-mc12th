@@ -53,9 +53,12 @@ def render_write():
 
 
 # 마이 페이지
-@app.route('/mypage')
+@app.route('/mypage', methods=['GET'])
 def render_mypage():
-    return render_template('mypage.html')
+    if session is not None:
+        user_id = "admin" #추후 로그인 세션값으로 변경
+        mypage = list(db.users.find({'user_id': user_id}, {'_id': False}))
+        return jsonify({'mypage': mypage})
 
 
 # 즐겨찾기 조회 페이지
