@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
+
 from pymongo import MongoClient
 
-client = MongoClient('localhost', 27017)
+client = MongoClient(
+    'mongodb+srv://making:making@cluster0.ymxju.mongodb.net/Cluster0?retryWrites=true&w=majority')
 db = client.mc12th
 
 doc = [
     {
-        "recipe_name": "[1인 가구 홈베이킹] 풍미가 가득한 얼그레이 마들렌 만들기",
+        "recipe_name": "얼그레이 마들렌",
         "recipe_img": "https://recipe1.ezmember.co.kr/cache/recipe/2021/07/29/34b267df8d75f994b49b3300e5d440d11_m.jpg",
         "recipe_ing": "계란 1알 60g \n설탕 60g \n버터 60g \n박력분 60g \n얼그레이 티백 1개 \n바닐라오일 2방울",
         "recipe_diff": "상",
@@ -20,7 +22,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "[우리집 식탁] 1인 1판 또띠아 피자.",
+        "recipe_name": "또띠아 피자",
         "recipe_img": "https://recipe1.ezmember.co.kr/cache/recipe/2016/04/28/30266c6c90a5e6e328613d78c6dfbd6e1_m.jpg",
         "recipe_ing": "치킨너겟 5조각\n피자치즈 2컵\n토마토 스파게티 소스 5수저\n8호 또띠아 4장\n비엔나 소세지 5알 \n[다진야채 2컵분량]\n버섯 적당량\n파프리카 적당량\n양파",
         "recipe_diff": "하",
@@ -34,7 +36,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "[1인 가구 요리] 색다른 밥이 먹고 싶을 때, 건강한 맛의 숙주밥 만들기",
+        "recipe_name": "숙주밥",
         "recipe_img": "https://recipe1.ezmember.co.kr/cache/recipe/2022/03/19/3102d1922fd6294ded5a98e6d43022181_m.jpg",
         "recipe_ing": "숙주 적당량 쌀밥 또는 현미밥 적당량 후추 약간 참기름 1~2스푼",
         "recipe_diff": "하",
@@ -48,7 +50,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "[1인 가구 요리] 굴소스를 활용한 푸짐한 대패숙주볶음 만들기",
+        "recipe_name": "대패숙주볶음",
         "recipe_img": "https://recipe1.ezmember.co.kr/cache/recipe/2022/03/13/79a552921e5e333a5c295a728dc42d4d1_m.jpg",
         "recipe_ing": "대파 1단 대패삼겹살 300g 굴소스 1스푼 숙주 적당량 간장 1스푼 참기름 1스푼 깨 약간",
         "recipe_diff": "하",
@@ -62,7 +64,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "[1인 가구 요리] 자취요리로 딱 좋은 깔끔한 순두부계란탕 만들기",
+        "recipe_name": "순두부계란탕",
         "recipe_img": "https://recipe1.ezmember.co.kr/cache/recipe/2022/03/12/20aa333b96c13148a374e4e60ba5dd651_m.jpg",
         "recipe_ing": "물 500ml 육수팩 1개 순두부 1봉 계란 2개 소금 1꼬집 대패 또는 쪽파 1/2단 국간장 2스푼 액젓 1스푼 후추 약간",
         "recipe_diff": "하",
@@ -76,7 +78,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "[1인 가구 요리] 10분만에 완성하는 백종원 간장비빔국수 만들기",
+        "recipe_name": "간장비빔국수",
         "recipe_img": "https://recipe1.ezmember.co.kr/cache/recipe/2022/03/09/5f5484a40b64cacf23cbe8b5d15d8f5c1_m.jpg",
         "recipe_ing": "소면 1인분 소금 1꼬집 간장 2스푼 설탕 1스푼 참기름 1스푼 참깨 약간",
         "recipe_diff": "하",
@@ -90,7 +92,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "[1인 가구 홈베이킹] 마시멜로를 이용한 오레오 스모어 쿠키 만들기",
+        "recipe_name": "오레오 스모어쿠키",
         "recipe_img": "https://recipe1.ezmember.co.kr/cache/recipe/2022/03/05/ec39face6f93bf9260d52d44670709581_m.jpg",
         "recipe_ing": "버터 90g 황설탕 50g 백설탕 30g 바닐라오일 2~3방울 계란 1알 밀가루중력분 140g 소금 1꼬집 베이킹파우더 2g 오레오쿠키 8개 오레오쿠키 6개 마시멜로우6개",
         "recipe_diff": "하",
@@ -104,7 +106,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "[1인 가구 간식] 달달한 디저트의 대명사, 초코 스모어딥 만들기",
+        "recipe_name": "초코 스모어딥",
         "recipe_img": "https://recipe1.ezmember.co.kr/cache/recipe/2022/03/01/100cd4977c8a84f7e9055968c07525dc1_m.jpg",
         "recipe_ing": "초콜릿 적당량 마시멜로우적당량 크래커 적당량",
         "recipe_diff": "하",
@@ -118,7 +120,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "[1인 가구 간식] 캔옥수수를 이용해서 옥수수전(부침) 만들기",
+        "recipe_name": "옥수수전",
         "recipe_img": "https://recipe1.ezmember.co.kr/cache/recipe/2022/02/24/f7621b81cda0e4d3eea8b08221e804061_m.jpg",
         "recipe_ing": "캔옥수수 340g 부침가루 70g 물 50ml 설탕 2t 파슬리 약간",
         "recipe_diff": "하",
@@ -132,7 +134,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "[1인 가구 홈베이킹] 발렌타인데이 선물, 연유 생초콜릿 만들기",
+        "recipe_name": "연유 생초콜릿",
         "recipe_img": "https://recipe1.ezmember.co.kr/cache/recipe/2022/02/20/86d9c1fd3cd20e0dbe1e2435f1a13baa1_m.jpg",
         "recipe_ing": "연유 110g 코코아가루 40g 코코아가루 10g",
         "recipe_diff": "상",
@@ -146,7 +148,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "[1인 가구 요리] 참치쌈장으로 깻잎쌈 만들기 초간단 비법",
+        "recipe_name": "참치쌈장 깻잎쌈",
         "recipe_img": "https://recipe1.ezmember.co.kr/cache/recipe/2022/02/19/d4c5a9b5f4ba9cbf14ef6ef5f7a9d6901_m.jpg",
         "recipe_ing": "양파 1/2개 대파 1/2개 청양고추 1개 참치캔 1개 된장 2스푼 고추장 1스푼 고춧가루 1스푼 다진마늘 1스푼 간장 1스푼 설탕 1/2스푼 깻잎 적당량",
         "recipe_diff": "하",
@@ -160,7 +162,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "[1인 가구 요리] 에어프라이어를 활용해 바삭한 연근칩 만들기",
+        "recipe_name": "연근칩",
         "recipe_img": "https://recipe1.ezmember.co.kr/cache/recipe/2022/02/18/f03d27f5a08462b429344557189e11281_m.jpg",
         "recipe_ing": "연근 1통 식초 1스푼 포도씨유 2스푼 소금 2꼬집 파슬리가루 약간",
         "recipe_diff": "하",
@@ -174,7 +176,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "[1인 가구 요리] 무 하나만으로 초간단한 반찬, 무조림 만들기",
+        "recipe_name": "무조림",
         "recipe_img": "https://recipe1.ezmember.co.kr/cache/recipe/2022/02/13/76d50fb44e95effc952f2696b7a3fd531_m.jpg",
         "recipe_ing": "무 0.5개 멸치육수팩1개 대파 0.5개 청량고추 2개 고춧가루 3스푼 간장 2스푼 설탕 1.5스푼 들기름or참기름 1.5스푼 다진마늘 1.5스푼 물 500ml",
         "recipe_diff": "하",
@@ -188,7 +190,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "[1인 가구 홈베이킹] 겉은 더 바삭하게, 속은 더 촉촉하게 갈릭스콘 만들기",
+        "recipe_name": "갈릭스콘",
         "recipe_img": "https://recipe1.ezmember.co.kr/cache/recipe/2022/02/12/74d9ff3af383dd7a44155c9b8986402f1_m.jpg",
         "recipe_ing": "[스콘]\n박력분 밀가루 200g\n베이킹파우더 2g\n설탕 40g\n소금 1꼬집\n버터 70g\n계란 1알\n우유 40ml \n[갈릭소스]\n버터 30g\n설탕 15g\n연유 15g\n다진마늘 15g\n파슬리 조금",
         "recipe_diff": "상",
@@ -202,7 +204,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "[1인 가구 간식] 다이어트 음식으로 좋은 양배추 스테이크 만들기",
+        "recipe_name": "양배추 스테이크",
         "recipe_img": "https://recipe1.ezmember.co.kr/cache/recipe/2022/02/09/0d562637ad95c62230aff995dd82b8cb1_m.jpg",
         "recipe_ing": "양배추  버터 10g 다진마늘 0.5~1스푼 간장 1스푼 후추 1꼬집",
         "recipe_diff": "하",
@@ -216,7 +218,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "[1인 가구 간식] 에어프라이어로 초간단 안주, 어묵 튀김 만들기",
+        "recipe_name": "어묵 튀김",
         "recipe_img": "https://recipe1.ezmember.co.kr/cache/recipe/2022/01/22/9cdcb1562c21898d05d7651632fbadb81_m.jpg",
         "recipe_ing": "어묵                                                        \n3~4장\n마요네즈\n청양고추",
         "recipe_diff": "하",
@@ -230,7 +232,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "[1인 가구 홈베이킹] 모양도 맛도 좋은 쫀득한 로투스스모어쿠키 만들기",
+        "recipe_name": "로투스 스모어쿠키",
         "recipe_img": "https://recipe1.ezmember.co.kr/cache/recipe/2022/01/16/997406bf2b1f96e7f029b337a4b3c2071_m.jpg",
         "recipe_ing": "무염버터                                                        \n90g\n황설탕                                                        \n45g\n백설탕                                                        \n30g\n계란                                                        \n1알\n중력분 밀가루                                                        \n140g\n베이킹파우더                                                        \n2g\n소금                                                        \n2꼬집\n반죽용 로투스쿠키  8개\n데코용 로투스쿠키 6개\n마시멜로  6개",
         "recipe_diff": "상",
@@ -244,7 +246,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "[1인 가구 간식] 단짠의 매력이 있는 라면땅 만들기",
+        "recipe_name": "라면땅",
         "recipe_img": "https://recipe1.ezmember.co.kr/cache/recipe/2022/01/09/5c8951558c75a96497b40df9fa81c41e1_m.jpg",
         "recipe_ing": "라면                                                        \n1개\n마요네즈                                                        \n2스푼\n설탕                                                        \n1스푼\n라면 수프                                                        \n1스푼",
         "recipe_diff": "하",
@@ -258,7 +260,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "[1인 가구 홈베이킹] 치즈 덕후에게 추천, 황치즈스콘 만들기",
+        "recipe_name": "황치즈스콘",
         "recipe_img": "https://recipe1.ezmember.co.kr/cache/recipe/2022/01/09/6a28adfef0a96781efffd723798b757c1_m.jpg",
         "recipe_ing": "박력분 밀가루                                                        \n170g\n설탕                                                        \n15g\n소금                                                        \n2꼬집\n베이킹파우더                                                        \n5g\n황치즈가루 15g\n버터                                                        \n60g\n우유                                                        \n40ml\n계란                                                        \n1알",
         "recipe_diff": "상",
@@ -272,7 +274,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "[1인 가구 간식] 새콤달콤한 떡꼬치 만들기",
+        "recipe_name": "떡꼬치",
         "recipe_img": "https://recipe1.ezmember.co.kr/cache/recipe/2022/01/08/034ebbaab1ee77806792d5165aaff3e41_m.jpg",
         "recipe_ing": "가래떡                                                        \n2개\n버터                                                        \n조금\n설탕                                                        \n1스푼\n고추장                                                        \n0.5스푼\n진간장                                                        \n0.5스푼\n케첩                                                        \n1.5스푼\n다진마늘                                                        \n0.3스푼\n물엿                                                        \n1스푼",
         "recipe_diff": "하",
@@ -286,7 +288,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "[1인 가구 자취밥] 손쉬운 김치 찬치국수 만들기",
+        "recipe_name": "김치 찬치국수",
         "recipe_img": "https://recipe1.ezmember.co.kr/cache/recipe/2022/01/08/cb92b5efced21c2b91b0918f788694631_m.jpg",
         "recipe_ing": "소면                                                        \n1인분\n멸치다시팩                                                        \n1개\n김치                                                        \n1컵\n진간장                                                        \n2.5스푼\n고춧가루                                                        \n1스푼\n다진마늘                                                        \n0.5스푼",
         "recipe_diff": "하",
@@ -300,7 +302,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "[1인 가구 홈베이킹] 머핀틀로 미니 레몬파운드 케이크 만들기",
+        "recipe_name": "미니 레몬파운드 케이크",
         "recipe_img": "https://recipe1.ezmember.co.kr/cache/recipe/2022/01/01/f857c21bb44281e7b1d16191c8f973551_m.jpg",
         "recipe_ing": "버터                                                        \n80g\n설탕                                                        \n65g\n계란                                                        \n1알\n박력분 밀가루                                                        \n80g\n소금                                                        \n1g\n베이킹파우더                                                        \n2g\n레몬제스트                                                        \n4g\n레몬즙                                                        \n5g\n레몬즙                                                        \n5g\n슈가파우더                                                        \n50g",
         "recipe_diff": "상",
@@ -314,7 +316,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "[1인 가구 홈베이킹] 에어프라이어로 겨울간식 고구마스틱 만들기",
+        "recipe_name": "고구마스틱",
         "recipe_img": "https://recipe1.ezmember.co.kr/cache/recipe/2021/12/19/9fbdea5e4fb5e8f4e8f39ea0221092851_m.jpg",
         "recipe_ing": "고구마                                                        \n2개\n식용유                                                        \n5g\n소금                                                        \n약간",
         "recipe_diff": "하",
@@ -328,7 +330,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "[1인 가구 홈베이킹] 실패없는 초코마들렌 만들기",
+        "recipe_name": "초코마들렌",
         "recipe_img": "https://recipe1.ezmember.co.kr/cache/recipe/2021/12/12/66b9f6ef56eb5ee629810f2ddac39b111_m.jpg",
         "recipe_ing": "버터                                                        \n60g\n계란                                                        \n1알\n설탕                                                        \n60g\n박력분 밀가루                                                        \n60g\n베이킹파우더                                                        \n2g\n코코아가루                                                        \n15g",
         "recipe_diff": "상",
@@ -342,7 +344,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "[1인 가구 홈베이킹] 색다른 재료로 만든 대파치즈스콘 만들기",
+        "recipe_name": "대파치즈스콘",
         "recipe_img": "https://recipe1.ezmember.co.kr/cache/recipe/2021/12/05/7544ddc332cdf5cdfa3c802705fde55e1_m.jpg",
         "recipe_ing": "밀가루 박력분                                                        \n250g\n베이킹파우더                                                        \n5g\n설탕                                                        \n35g\n소금                                                        \n2g\n버터                                                        \n60g\n우유                                                        \n40ml\n계란                                                        \n1개\n대파                                                        \n원하는만큼\n치즈                                                        \n2장",
         "recipe_diff": "상",
@@ -356,7 +358,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "[1인 가구 홈베이킹] 식감이 매력적인 르뱅쿠키 만들기",
+        "recipe_name": "르뱅쿠키",
         "recipe_img": "https://recipe1.ezmember.co.kr/cache/recipe/2021/11/27/6df78c3212a2bd1f4da483844124ae651_m.jpg",
         "recipe_ing": "버터                                                        \n100g\n설탕                                                        \n100g\n소금                                                        \n1꼬집\n계란                                                        \n1알\n밀가루박력분                                                        \n100g\n밀가루중력분                                                        \n100g\n베이킹파우더                                                        \n1/2스푼\n베이킹소다                                                        \n1/4스푼\n옥수수전분                                                        \n1/2스푼\n초코칩                                                        \n150g\n견과류                                                        \n150g",
         "recipe_diff": "상",
@@ -370,7 +372,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "[1인 가구 홈베이킹] 촉촉하고 달콤한 초코머핀 만들기",
+        "recipe_name": "초코머핀",
         "recipe_img": "https://recipe1.ezmember.co.kr/cache/recipe/2021/11/21/e653eb2fc9a1c849a086614e79d295ea1_m.jpg",
         "recipe_ing": "버터                                                        \n60g\n설탕                                                        \n60g\n계란                                                        \n1알\n밀가루박력분                                                        \n100g\n코코아 가루                                                        \n12g\n베이킹파우더                                                        \n3g\n소금                                                        \n2g\n우유                                                        \n35g\n초코칩                                                        \n35g",
         "recipe_diff": "상",
@@ -384,7 +386,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "[1인 가구 홈베이킹] 새콤달콤한 레몬타르트 만들기",
+        "recipe_name": "레몬타르트",
         "recipe_img": "https://recipe1.ezmember.co.kr/cache/recipe/2021/10/24/03b89d3cd6039166a931db663d84d2f21_m.jpg",
         "recipe_ing": "밀가루박력분                                                        \n100g\n설탕                                                        \n35g\n포도씨 오일                                                        \n15g\n우유                                                        \n45g\n물                                                        \n120ml\n설탕                                                        \n60g\n포도씨 오일                                                        \n10g\n옥수수전분                                                        \n20g\n달걀 노른자                                                        \n1개\n레몬즙                                                        \n20g",
         "recipe_diff": "상",
@@ -398,7 +400,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "[1인 가구 홈베이킹] 남은 식빵으로 마늘빵 만드는 초간단 방법",
+        "recipe_name": "마늘빵",
         "recipe_img": "https://recipe1.ezmember.co.kr/cache/recipe/2021/10/23/fb43cee87e7863535dad287467aa41671_m.jpg",
         "recipe_ing": "식빵                                                        \n2장\n마요네즈                                                        \n3스푼\n설탕                                                        \n1.5스푼\n다진마늘                                                        \n1스푼\n소금                                                        \n1꼬집\n파슬리                                                        \n적당량",
         "recipe_diff": "상",
@@ -412,7 +414,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "판두부 조림 만들기 - 푸짐하게 즐기는 1인 1판 반찬",
+        "recipe_name": "판두부 조림",
         "recipe_img": "https://recipe1.ezmember.co.kr/cache/recipe/2021/10/06/70361d016d0370cf8ab0fe9e017e1c861_m.jpg",
         "recipe_ing": "두부                                                        \n1모\n대파                                                        \n1/2대\n양파                                                        \n1/4개\n홍고추                                                        \n1개\n양조간장                                                        \n3큰술\n국간장                                                        \n1큰술\n매실액                                                        \n1큰술\n올리고당                                                        \n1/2큰술\n고춧가루                                                        \n1큰술\n다진마늘                                                        \n1큰술\n참기름                                                        \n1큰술\n깨소금                                                        \n1작은술\n물                                                        \n150ml",
         "recipe_diff": "하",
@@ -426,7 +428,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "[1인 가구 홈베이킹] 달콤하고 부드러운 레드벨벳크림치즈쿠키 만들기",
+        "recipe_name": "레드벨벳크림치즈쿠키",
         "recipe_img": "https://recipe1.ezmember.co.kr/cache/recipe/2021/10/06/f0a7443a36daa3a9de87aec6aa376a361_m.jpg",
         "recipe_ing": "크림치즈                                                        \n180g\n슈가파우더                                                        \n30g\n버터                                                        \n113g\n설탕                                                        \n80g\n소금                                                        \n1꼬집\n계란                                                        \n1개\n바닐라오일                                                        \n2~3방울\n레드 식용색소                                                        \n5~6방울\n중력분 밀가루                                                        \n160g\n코코아 가루                                                        \n26g",
         "recipe_diff": "상",
@@ -440,7 +442,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "[1인 가구 홈베이킹] 향긋한 얼그레이 스콘 만들기",
+        "recipe_name": "얼그레이 스콘",
         "recipe_img": "https://recipe1.ezmember.co.kr/cache/recipe/2021/09/29/fc1dbbd6bc03668636ac96b11a2234511_m.jpg",
         "recipe_ing": "우유                                                        \n100ml\n중력분 밀가루                                                        \n220g\n설탕                                                        \n30g\n베이킹파우더                                                        \n6g\n버터                                                        \n60g\n소금                                                        \n1꼬집\n계란                                                        \n1개\n슈가파우더                                                        \n100g\n홍차티백                                                        \n2개",
         "recipe_diff": "상",
@@ -454,7 +456,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "[1인 가구 홈베이킹] 커피와 어울리는 상큼한 레몬 마들렌 만들기",
+        "recipe_name": "레몬 마들렌",
         "recipe_img": "https://recipe1.ezmember.co.kr/cache/recipe/2021/09/21/72324bad2f2175aebb964904c8a740f41_m.jpg",
         "recipe_ing": "계란                                                        \n1알\n설탕                                                        \n60g\n박력분                                                        \n60g\n베이킹파우더                                                        \n2g\n바닐라 오일                                                        \n2방울\n버터                                                        \n60g\n레몬 제스트                                                        \n1스푼\n슈가 파우더                                                        \n70g\n레몬즙                                                        \n10g",
         "recipe_diff": "상",
@@ -468,7 +470,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "[1인 가구 홈베이킹] 냉동 블루베리를 이용한 소보루 블루베리 머핀 만들기",
+        "recipe_name": "소보루 블루베리 머핀",
         "recipe_img": "https://recipe1.ezmember.co.kr/cache/recipe/2021/09/04/e77bcf16d0897549b628da46fcde28d51_m.jpg",
         "recipe_ing": "버터                                                        \n60g\n설탕                                                        \n120g\n박력분                                                        \n70g\n버터                                                        \n85g\n식용유                                                        \n25g\n설탕                                                        \n150g\n계란                                                        \n2개\n박력분                                                        \n220g\n베이킹파우더                                                        \n8g\n소금                                                        \n1꼬집\n우유                                                        \n50g\n블루베리                                                        \n170g\n슈가파우더",
         "recipe_diff": "상",
@@ -482,7 +484,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "[1인 가구 홈베이킹] 상큼하고 부드러운 레몬 파운드 케이크 만들기",
+        "recipe_name": "레몬 파운드 케이크",
         "recipe_img": "https://recipe1.ezmember.co.kr/cache/recipe/2021/08/20/9db8d9465c9f4a8903df28791a2655111_m.jpg",
         "recipe_ing": "버터                                                        \n100g\n설탕                                                        \n100g\n레몬 제스트                                                        \n2스푼\n계란                                                        \n2개\n소금                                                        \n1꼬집\n밀가루박력분                                                        \n100g\n베이킹 파우더                                                        \n2스푼\n레몬즙                                                        \n10g\n슈가파우더                                                        \n3스푼\n레몬즙                                                        \n1스푼",
         "recipe_diff": "상",
@@ -496,7 +498,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "[1인 가구 홈베이킹] 따뜻하게, 또는 차갑게 먹기 좋은 에그타르트 만들기",
+        "recipe_name": "에그타르트",
         "recipe_img": "https://recipe1.ezmember.co.kr/cache/recipe/2021/08/14/b0c95ced40602f010f226aae273476291_m.jpg",
         "recipe_ing": "밀가루박력분                                                        \n100g\n버터                                                        \n55g\n설탕                                                        \n10g\n소금                                                        \n1꼬집\n찬물                                                        \n30ml\n계란노른자                                                        \n3~4개\n설탕                                                        \n30g\n우유                                                        \n200ml\n생크림                                                        \n120ml\n바닐라 오일                                                        \n1g",
         "recipe_diff": "상",
@@ -510,7 +512,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "[1인 가구 홈베이킹] 홈파티용으로도 좋은 바스크 치즈 케이크 만들기",
+        "recipe_name": "바스크 치즈 케이크",
         "recipe_img": "https://recipe1.ezmember.co.kr/cache/recipe/2021/08/04/e5d716e46847e2397a36865513c28c191_m.jpg",
         "recipe_ing": "크림치즈 300g 달걀 2개 박력분 밀가루 15g 설탕 80g 생크림 180g",
         "recipe_diff": "중",
@@ -524,7 +526,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "[1인 가구 홈베이킹] 편의점 쿠키, 초코블랑 브라우니 쿠키 만들기",
+        "recipe_name": "초코블랑 브라우니 쿠키",
         "recipe_img": "https://recipe1.ezmember.co.kr/cache/recipe/2021/07/22/d4803b7cf98edf2e1ab7e4a22ea0a6181_m.jpg",
         "recipe_ing": "[플레인반죽(걷)]버터 30g 설탕 25g 달걀 10g 바닐라 오일 1g 박력분 65g [초코반죽(속)] 버터 40g 설탕 30g 달걀 10g 박력분 30g 중력분 25g 다크초콜릿 15g 코코아가루 10g 베이킹파우더 1g",
         "recipe_diff": "상",
@@ -538,7 +540,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "[1인 가구 홈베이킹] 부드럽고 촉촉한 크림치즈 스콘",
+        "recipe_name": "크림치즈 스콘",
         "recipe_img": "https://recipe1.ezmember.co.kr/cache/recipe/2021/07/20/752fdae0318e8b488b687997b9b6c8a81_m.jpg",
         "recipe_ing": "박력분밀가루 170g 베이킹파우더 5g 크림치즈 60g 우유 40g 설탕 15g 버터 60g 계란 1개",
         "recipe_diff": "상",
@@ -552,7 +554,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "겉바속촉 간장치킨과 로스트치킨, 저렴하고 맛있게 1인 1닭 해보세요. :)",
+        "recipe_name": "로스트치킨",
         "recipe_img": "https://recipe1.ezmember.co.kr/cache/recipe/2020/12/12/75983a8cf1c9cb54e415d4bc787626061_m.jpg",
         "recipe_ing": "영계2마리 허브솔트 조금 양파 1/2개 마늘 1줌 진간장 5T 설탕 1T 올리고당 2T 꿀 1T 맛술 1T 다진마늘 2T 후추 0.5 굴소스 1T 물 5T 케첩 5T 올리고당 2T 설탕 4T 고춧가루 1T 고추장 1.5T 물 3T",
         "recipe_diff": "상",
@@ -566,7 +568,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "사골부대라면:: 시판곰탕으로 끓인 1인 라면 레시피",
+        "recipe_name": "사골부대라면",
         "recipe_img": "https://recipe1.ezmember.co.kr/cache/recipe/2016/12/06/2b051b28f9026dff135cc6bfd8a3cbde1_m.jpg",
         "recipe_ing": "인스턴트사골곰탕 1팩(600g) 캔햄 1/3개 고춧가루 1/2큰술 무 약간 양파 1/4개 대파 1/3개 라면 1개 신김치 40g 깻잎 5장 느타리버섯 30g 청양고추 1개",
         "recipe_diff": "초",
@@ -580,7 +582,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "딱 10분이면 완성! 초간단 애호박덮밥",
+        "recipe_name": "애호박덮밥",
         "recipe_img": "https://recipe1.ezmember.co.kr/cache/recipe/2018/04/02/66156603476fcaebb89569b4593758ed1_m.jpg",
         "recipe_ing": "밥 1공기 애호박 1/2개 양파 1/3개 기름 1T 고추기름 1T 다진파 1줌 참기름 1t 고춧가루 1T 고추장 0.5T 간장 2T 물 2T 굴소스 1T 다진마늘 0.5T 후추 톡톡",
         "recipe_diff": "초",
@@ -594,7 +596,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "바사삭 바사락 먹는데 혼자 ASMR 인줄 ★ 식빵팝콘",
+        "recipe_name": "식빵팝콘",
         "recipe_img": "https://recipe1.ezmember.co.kr/img/icon_vod.png",
         "recipe_ing": "식빵 5장 설탕 5숟가락 식용유 적당량",
         "recipe_diff": "초",
@@ -608,7 +610,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "[1분영상](혼자 잠깐 프랑스 다녀오기) 우아한 맛의 연어 파피요트 만들기 1분 레시피 영상 와인안주 추천",
+        "recipe_name": "연어 파피요트",
         "recipe_img": "https://recipe1.ezmember.co.kr/img/icon_vod.png",
         "recipe_ing": "연어 300g 타임 적당량 방울토마토 5개 화이트와인 4~5T 소금 적당량 버터 20g 레몬 1개 아스파라거스 6개 양송이버섯 2개 올리브오일 4~5T 후추 적당량",
         "recipe_diff": "중",
@@ -622,7 +624,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "인기가요 샌드위치 만드는법 혼자먹기 아까워",
+        "recipe_name": "인기가요 샌드위치",
         "recipe_img": "https://recipe1.ezmember.co.kr/img/icon_vod.png",
         "recipe_ing": "식빵 4장 계란 4개 감자 3개 양배추 5장 오이 1/2개 스위트콘 3큰술 마요네즈 4큰술 설탕 1큰술 소금 1큰술 후추 약간 버터 약간 딸기잼",
         "recipe_diff": "중",
@@ -636,7 +638,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "여름디저트 그릭모모 만들기 나혼자산다 박나래 복숭아 그릭요거트",
+        "recipe_name": "그릭모모",
         "recipe_img": "https://recipe1.ezmember.co.kr/img/icon_vod.png",
         "recipe_ing": "부드러운 복숭아 1개 그릭요거트 1통 그래놀라 혹은 시리얼 1줌 메이플시럽 혹은 꿀 취향껏",
         "recipe_diff": "하",
@@ -650,7 +652,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "[간단 자취요리] 혼자 아프지 마세요! 초간단 계란죽 만들기 / 죽 끓이기",
+        "recipe_name": "계란죽",
         "recipe_img": "https://recipe1.ezmember.co.kr/img/icon_vod.png",
         "recipe_ing": "계란 2개 치킨스톡 2/1개 밥 1공기 물 800ml",
         "recipe_diff": "하",
@@ -664,7 +666,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "혼자서도 잘해요! 전자레인지 푸딩",
+        "recipe_name": "전자레인지 푸딩",
         "recipe_img": "https://recipe1.ezmember.co.kr/img/icon_vod.png",
         "recipe_ing": "우유 2컵 설탕 2숟가락 달걀 2개 물 1숟가락 설탕 2숟가락",
         "recipe_diff": "하",
@@ -678,7 +680,7 @@ doc = [
         "recipe_post_update": "2022-03-01"
     },
     {
-        "recipe_name": "초간단 10분 요리 김치비빔국수 양념장 끝내줘요",
+        "recipe_name": "김치비빔국수",
         "recipe_img": "https://recipe1.ezmember.co.kr/cache/recipe/2018/03/22/599723cfecc8d9dd610aabadcbf6f3a71_m.jpg",
         "recipe_ing": "국수 1인분 김치 2/3컵 고추장 1큰술 설탕 1큰술 식초 1큰술 통깨 약간 식용유 1큰술 간장 1큰술 고춧가루 1큰술 올리고당 1/2큰술 참기름 1큰술",
         "recipe_diff": "하",
@@ -693,4 +695,4 @@ doc = [
     }
 ]
 
-db.recipes_test.insert_many(doc)
+db.recipes.insert_many(doc)
