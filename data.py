@@ -1,10 +1,9 @@
-# -*- coding: utf-8 - *-
-
+# -*- coding: utf-8 -*-
 
 from pymongo import MongoClient
 
-
-client = MongoClient("localhost", 27017)
+client = MongoClient(
+    'mongodb+srv://making:making@cluster0.ymxju.mongodb.net/Cluster0?retryWrites=true&w=majority')
 db = client.mc12th
 
 doc = [

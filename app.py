@@ -2,11 +2,11 @@
 # render_template(페이지 이동), jsonify(json값 리턴), request(클라이언트 값 받기), session(로그인) 라이브러리 임포트
 from flask import Flask, render_template, jsonify, request, session
 
-# MongoClient(몽고DB 관리 라이브러리) 임포트
 from pymongo import MongoClient
 
 # 클라이언트 정의 - MongoClient를 로컬호스트와 연결
-client = MongoClient('localhost', 27017)
+client = MongoClient(
+    'mongodb+srv://making:making@cluster0.ymxju.mongodb.net/Cluster0?retryWrites=true&w=majority')
 
 # 컬렉션 정의. mc12th라는 컬렉션이 생성됨
 db = client.mc12th
@@ -25,49 +25,42 @@ def render_main():
 # 리스트 페이지
 @app.route('/list')
 def render_list():
-
     return render_template('list.html')
 
 
 # 레시피 페이지
 @app.route('/detail')
 def render_detail():
-
     return render_template('detail.html')
 
 
 # 테마 페이지
 @app.route('/theme')
 def render_theme():
-
     return render_template('theme.html')
 
 
 # 인기 페이지
 @app.route('/rank')
 def render_rank():
-
     return render_template('rank.html')
 
 
 # 나만의 레시피 작성 페이지
 @app.route('/write')
 def render_write():
-
     return render_template('write.html')
 
 
 # 마이 페이지
 @app.route('/mypage')
 def render_mypage():
-
     return render_template('mypage.html')
 
 
 # 즐겨찾기 조회 페이지
 @app.route('/mylike')
 def render_mylike():
-
     return render_template('mylike.html')
 
 # 내가 쓴 후기 조회 페이지
@@ -82,21 +75,18 @@ def render_myreview():
 # 나만의 레시피 조회 페이지
 @app.route('/myrecipe')
 def render_myrecipe():
-
     return render_template('myrecipe.html')
 
 
 # 로그인 페이지
 @app.route('/login')
 def render_login():
-
     return render_template('login.html')
 
 
 # 회원가입 페이지
 @app.route('/signup')
 def render_signup():
-
     return render_template('signup.html')
 
 
@@ -109,18 +99,16 @@ def name():
     print(sample_receive)
     return jsonify({'POST'})
 
+
 # GET
-
-
 @app.route('/', methods=['GET'])
 def name_get():
     sample_receive = request.args.get('sample_give')
     print(sample_receive)
     return jsonify({'msg': 'GET'})
 
+
 # GET 2
-
-
 @app.route('/', methods=['GET'])
 # list
 def listing():
@@ -153,6 +141,7 @@ def review_list():
     reviews = list(db.review.find({}, {'_id': False}))
     return jsonify({'reviews': reviews})
 
+
 # 리뷰(댓글) update 기능
 
 
@@ -168,6 +157,7 @@ def review_update():
     else:
         return jsonify({'msg': '로그인해주세요'})
 
+
 # 리뷰(댓글) 삭제 기능
 
 
@@ -179,6 +169,15 @@ def review_delete():
         return jsonify({'msg': '댓글이 삭제되었습니다'})
     else:
         return jsonify({'msg': '로그인해주세요'})
+
+
+# 상세페이지 - 상세 레시피 데이터 출력
+# list페이지에서 해당card를 클릭하면 get요청으로 레시피이름이 url을 통해 넘어와
+@app.route('/detail/recipe-detail', methods=['GET'])
+def recipe_detail():
+    recipe_name_receive = request.args.get('recipe_name_give')
+    target_recipe = db.recipe.find_one({'recipe_name': recipe_name_receive})
+    return jsonify({'recipe': target_recipe})
 
 
 # localhost:5000 으로 들어갈 수 있게 해주는 코드
