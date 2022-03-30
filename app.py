@@ -108,57 +108,62 @@ def listing():
     return jsonify({'all_Foodlist': Foodlist})
 
 
-# 리뷰(댓글) create 기능 - test완료(session제외)
+# 리뷰(댓글) create 기능 -따로 db에서 가져와야할듯..
 @app.route('/detail/review-post', methods=['POST'])
 def review_post():
-    if 'user_id' in session:
-        user_name_receive = request.form['user_name_give']
+    # if 'user_id' in session:
+        user_nickname_receive = request.form['user_nickname_give']
         review_content_receive = request.form['review_content_give']
-        print(user_name_receive, review_content_receive)
+        recipe_name_receive = request.form['recipe_name_give']
+        print(user_nickname_receive, review_content_receive, recipe_name_receive)
+
         doc = {
-            'user_name': user_name_receive,
-            'review_content': review_content_receive
+            'user_nickname': user_nickname_receive,
+            'review_content': review_content_receive,
+            'recipe_name' : recipe_name_receive
         }
-        db.review.insert_one(doc)
+        db.reviews.insert_one(doc)
         return jsonify({'msg': '댓글 작성 완료'})
-    else:
-        return jsonify({'msg': '로그인해주세요'})
+    # else:
+    #     return jsonify({'msg': '로그인해주세요'})
 
 
-# 리뷰(댓글) list기능 - test완료(session제외)
+# 리뷰(댓글) list기능
 @app.route('/detail/review-list', methods=['GET'])
 def review_list():
-    reviews = list(db.review.find({}, {'_id': False}))
+    target_recipe_name = request.args.get['recipe_name_give']
+    reviews = list(db.reviews.find({'recipe_name' : target_recipe_name}, {'_id': False}))
     return jsonify({'reviews': reviews})
 
 
 
-# 리뷰(댓글) update 기능 - test완료(session제외)
+# 리뷰(댓글) update 기능
 @app.route('/detail/review-update', methods=['POST'])
 def review_update():
     if 'user_id' in session:
-        user_name_receive = request.form['user_name_give']
+        user_nickname_receive = request.form['user_nickname_give']
         update_content_receive = request.form['review_content_give']
 
-        db.review.update_one({'user_name': user_name_receive}, {'$set': {'review_content': update_content_receive}})
+        db.reviews.update_one({'user_name': user_nickname_receive}, {'$set': {'review_content': update_content_receive}})
         return jsonify({'POST': '댓글 수정 완료'})
     else:
         return jsonify({'msg': '로그인해주세요'})
 
 
 
-# 리뷰(댓글) 삭제 기능 - test완료(session제외)
+# 리뷰(댓글) 삭제 기능
 @app.route('/detail/review-delete', methods=['POST'])
 def review_delete():
     if 'user_id' in session:
-        user_name_receive = request.form['user_name_give']
-        db.review.delete_one({'user_name': user_name_receive})
+        user_nickname_receive = request.form['user_nickname_give']
+        recipe_name_receive = request.form['recipe_name_give']
+        db.reviews.delete_one({'user_nickname': user_nickname_receive, 'recipe_name': recipe_name_receive})
         return jsonify({'msg': '댓글이 삭제되었습니다'})
     else:
         return jsonify({'msg': '로그인해주세요'})
 
 
-# 상세페이지 - 상세 레시피 데이터 출력 - test완료(session제외)
+# 상세페이지 - 상세 레시피 데이터 출력
 # list페이지에서 해당card를 클릭하면 get요청으로 해당레시피이름이 url을 통해 넘어와
 @app.route('/detail/recipe-detail', methods=['GET'])
 def recipe_detail():
