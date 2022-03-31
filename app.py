@@ -9,6 +9,7 @@ from pymongo import MongoClient
 client = MongoClient(
     'mongodb+srv://making:making@cluster0.ymxju.mongodb.net/Cluster0?retryWrites=true&w=majority')
 
+
 # 컬렉션 정의. mc12th라는 컬렉션이 생성됨
 db = client.mc12th
 
@@ -54,9 +55,12 @@ def render_write():
 
 
 # 마이 페이지
-@app.route('/mypage')
+@app.route('/mypage', methods=['GET'])
 def render_mypage():
-    return render_template('mypage.html')
+    if session is not None:
+        user_id = "admin"  # 추후 로그인 세션값으로 변경
+        mypage = list(db.users.find({'user_id': user_id}, {'_id': False}))
+        return jsonify({'mypage': mypage})
 
 
 # 즐겨찾기 조회 페이지
@@ -117,63 +121,76 @@ def listing():
     return jsonify({'all_Foodlist': Foodlist})
 
 
-# 리뷰(댓글) create 기능 - test완료(session제외)
+# 리뷰(댓글) create 기능
 @app.route('/detail/review-post', methods=['POST'])
 def review_post():
     if 'user_id' in session:
-        user_name_receive = request.form['user_name_give']
+        user_nickname_receive = request.form['user_nickname_give']
         review_content_receive = request.form['review_content_give']
-        print(user_name_receive, review_content_receive)
+        recipe_name_receive = request.form['recipe_name_give']
+        print(user_nickname_receive, review_content_receive, recipe_name_receive)
+
         doc = {
-            'user_name': user_name_receive,
-            'review_content': review_content_receive
+            'user_nickname': user_nickname_receive,
+            'review_content': review_content_receive,
+            'recipe_name': recipe_name_receive
         }
-        db.review.insert_one(doc)
+        db.reviews.insert_one(doc)
         return jsonify({'msg': '댓글 작성 완료'})
     else:
         return jsonify({'msg': '로그인해주세요'})
 
 
-# 리뷰(댓글) list기능 - test완료(session제외)
+# 리뷰(댓글) list기능
 @app.route('/detail/review-list', methods=['GET'])
 def review_list():
-    reviews = list(db.review.find({}, {'_id': False}))
+    recipe_name_receive = request.args.get('recipe_name_give')
+    # print(recipe_name_receive)
+    reviews = list(db.reviews.find(
+        {'recipe_name': recipe_name_receive}, {'_id': False}))
     return jsonify({'reviews': reviews})
 
 
-# 리뷰(댓글) update 기능 - test완료(session제외)
+# 리뷰(댓글) update 기능
 @app.route('/detail/review-update', methods=['POST'])
 def review_update():
     if 'user_id' in session:
-        user_name_receive = request.form['user_name_give']
-        update_content_receive = request.form['review_content_give']
+        # user식별하기위한값
+        user_nickname_receive = request.form['user_nickname_give']
+        # 해당 레시피를 식별하기위한값
+        recipe_name_receive = request.form['recipe_name_give']
+        update_content_receive = request.form['review_content_give']  # 수정된 리뷰값
 
-        db.review.update_one({'user_name': user_name_receive}, {
-                             '$set': {'review_content': update_content_receive}})
+        db.reviews.update_one({'user_nickname': user_nickname_receive, 'recipe_name': recipe_name_receive}, {
+                              '$set': {'review_content': update_content_receive}})
         return jsonify({'POST': '댓글 수정 완료'})
     else:
         return jsonify({'msg': '로그인해주세요'})
 
 
-# 리뷰(댓글) 삭제 기능 - test완료(session제외)
+# 리뷰(댓글) 삭제 기능
 @app.route('/detail/review-delete', methods=['POST'])
 def review_delete():
     if 'user_id' in session:
-        user_name_receive = request.form['user_name_give']
-        db.review.delete_one({'user_name': user_name_receive})
+        # user를 식별하기위한 값
+        user_nickname_receive = request.form['user_nickname_give']
+        # 해당 레시피를 식별하기위한 값
+        recipe_name_receive = request.form['recipe_name_give']
+        db.reviews.delete_one(
+            {'user_nickname': user_nickname_receive, 'recipe_name': recipe_name_receive})
         return jsonify({'msg': '댓글이 삭제되었습니다'})
     else:
         return jsonify({'msg': '로그인해주세요'})
 
 
-# 상세페이지 - 상세 레시피 데이터 출력 - test완료(session제외)
+# 상세페이지 - 상세 레시피 데이터 출력
 # list페이지에서 해당card를 클릭하면 get요청으로 해당레시피이름이 url을 통해 넘어와
 @app.route('/detail/recipe-detail', methods=['GET'])
 def recipe_detail():
     recipe_name_receive = request.args.get('recipe_name_give')
-    target_recipe = db.recipes_test.find_one(
+    # print(recipe_name_receive)
+    target_recipe = db.recipes.find_one(
         {'recipe_name': recipe_name_receive}, {'_id': False})
-    print(target_recipe)
     return jsonify({'target_recipe': target_recipe})
 
 
