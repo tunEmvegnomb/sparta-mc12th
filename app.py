@@ -7,7 +7,7 @@ from pymongo import MongoClient
 
 # 클라이언트 정의 - MongoClient를 로컬호스트와 연결
 client = MongoClient('mongodb+srv://making:making@cluster0.ymxju.mongodb.net/Cluster0?retryWrites=true&w=majority')
-
+# client = MongoClient('localhost',27017)
 
 # 컬렉션 정의. mc12th라는 컬렉션이 생성됨
 db = client.mc12th
@@ -176,13 +176,12 @@ def review_delete():
 # list페이지에서 해당card를 클릭하면 get요청으로 해당레시피이름이 url을 통해 넘어와
 @app.route('/detail/recipe-detail', methods=['GET'])
 def recipe_detail():
-    recipe_name_receive = request.args.get('recipe_name_give')
-
+    recipe_name_receive = request.args.get('name')
     print(recipe_name_receive)
-    target_recipe = db.recipes.find_one({'recipe_name': recipe_name_receive})
+    target_recipe = db.recipes.find_one({'recipe_name': recipe_name_receive},{'_id':False})
     print(target_recipe)
 
-    return jsonify({'recipe': target_recipe})
+    return jsonify({'target_recipe': target_recipe})
 
 
 

@@ -12,14 +12,15 @@ $(document).ready(function(){
 
     const urlParams = new URLSearchParams(window.location.search);
     const name = urlParams.get("recipe_name");
-
+    console.log(name)
 
     $.ajax({
         type: "GET",
-        url: `/detail/recipe-detail?recipe_name=${name}`,
-        data: {'recipe_name_give': name},
+        url: `/detail/recipe-detail?name=${name}`,
+        data: {},
         success: function (response) {
             console.log(response)
+            console.log(response['recipe'])
         }
     })
 
