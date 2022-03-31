@@ -97,7 +97,6 @@ def name_get():
 # list
 def listing():
     Foodlist = list(db.mc12th.find({}, {'_id': False}))
-
     return jsonify({'all_Foodlist': Foodlist})
 
 
@@ -172,6 +171,7 @@ def review_delete():
         return jsonify({'msg': '로그인해주세요'})
 
 
+
 # 나만의 레시피 작성 페이지
 @app.route('/write')
 def render_write():
@@ -193,9 +193,9 @@ def myrecipe_write():
         myrecipe_detail_receive = request.form['myrecipe_detail_give']
 
         print(myrecipe_img_receive)
-        num = 0
-        myrecipe_img_id =
-        myrecipe_img_receive.save('static/myrecipe_img/{}.png'.format(1))
+        # num = 0
+        # myrecipe_img_id =
+        # myrecipe_img_receive.save('static/myrecipe_img/{}.png'.format(1))
 
         # print(myrecipe_title_receive, myrecipe_writter_receive,myrecipe_diff_receive, myrecipe_time_receive,myrecipe_ing_receive,myrecipe_detail_receive )
 
@@ -212,6 +212,22 @@ def myrecipe_write():
         return jsonify({'msg': '나만의 레시피 작성 완료'})
     # else:
     #     return jsonify({'msg': '로그인 해주세요'})
+
+# 상세페이지 - 상세 레시피 데이터 출력
+# list페이지에서 해당card를 클릭하면 get요청으로 해당레시피이름이 url을 통해 넘어와
+@app.route('/detail/recipe-detail', methods=['GET'])
+def recipe_detail():
+    recipe_name_receive = request.args.get('recipe_name_give')
+
+    print(recipe_name_receive)
+    target_recipe = db.recipes.find_one({'recipe_name': recipe_name_receive})
+    print(target_recipe)
+
+    return jsonify({'recipe': target_recipe})
+
+
+
+
 
 
 # localhost:5000 으로 들어갈 수 있게 해주는 코드
