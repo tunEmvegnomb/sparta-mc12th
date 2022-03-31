@@ -104,7 +104,6 @@ def name_get():
 # list
 def listing():
     Foodlist = list(db.mc12th.find({}, {'_id': False}))
-
     return jsonify({'all_Foodlist': Foodlist})
 
 
@@ -161,8 +160,14 @@ def review_delete():
 @app.route('/detail/recipe-detail', methods=['GET'])
 def recipe_detail():
     recipe_name_receive = request.args.get('recipe_name_give')
-    target_recipe = db.recipe.find_one({'recipe_name': recipe_name_receive})
+    print(recipe_name_receive)
+    target_recipe = db.recipes.find_one({'recipe_name': recipe_name_receive})
+    print(target_recipe)
+
     return jsonify({'recipe': target_recipe})
+
+
+
 
 # localhost:5000 으로 들어갈 수 있게 해주는 코드
 if __name__ == '__main__':
