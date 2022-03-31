@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="54f3923f-a858-49af-b62f-17f23c426f35" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/mypage.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/mypage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/signup.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +66,7 @@
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager" selected="Python.app">
+  <component name="RunManager" selected="Python.sparta-mc12th">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="sparta-mc12th" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -132,6 +134,7 @@
       <method v="2" />
     </configuration>
     <configuration name="sparta-mc12th" type="PythonConfigurationType" factoryName="Python">
+      <module name="sparta-mc12th" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -139,10 +142,9 @@
       </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/app.py" />
       <option name="PARAMETERS" value="" />
@@ -180,6 +182,7 @@
       <workItem from="1648533282691" duration="266000" />
       <workItem from="1648649578123" duration="871000" />
       <workItem from="1648650633005" duration="259000" />
+      <workItem from="1648732467714" duration="59000" />
     </task>
     <servers />
   </component>

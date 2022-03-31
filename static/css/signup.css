@@ -30,7 +30,7 @@
 }
 
 .signup-form input {
-  width: 318px;
+  width: 376px;
   border: none;
   border-bottom: 1px solid #8c8c8c;
   font-size: 15px;
@@ -47,7 +47,7 @@
   color: #8c8c8c;
 }
 
-.signup-form .id_check {
+/* .signup-form .id_check {
   font-size: 10px;
   font-weight: 500;
   color: #8c8c8c;
@@ -63,7 +63,7 @@
 
 .signup-form .id_check:active {
   transform: scale(0.98);
-}
+} */
 
 .signup-form .signup-btn {
   border: none;
