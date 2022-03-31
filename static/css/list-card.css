@@ -1,0 +1,79 @@
+.card {
+  width: 309.75px;
+  border: none;
+  margin-left: 6px;
+  margin-bottom: 6px;
+}
+
+.card .card-img-div {
+  height: 213px;
+}
+
+.card-img-div .card-img-top {
+  height: 100%;
+  object-fit: cover;
+}
+
+.card .card-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 7px;
+  padding-right: 7px;
+}
+
+.card-body .card-info {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.card-info span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-info .recipe-link {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-decoration: none;
+  color: var(--default);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.card-info .card-bottom-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-bottom-row .card-text {
+  color: #717171;
+  font-size: 20px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+}
+
+.card-bottom-row .like-div {
+  color: #717171;
+  font-size: 20px;
+  font-weight: 700;
+  margin-left: 10px;
+  width: 110px;
+}
+
+.card-like .like-icon {
+  transform: scale(1.1);
+  transition: all 0.1s ease-in-out;
+}
+
+.card-like .like-icon:hover {
+  transform: scale(1.15);
+}
+
+.card-like .like-icon:active {
+  transform: rotateZ(5deg) scale(1.15);
+}

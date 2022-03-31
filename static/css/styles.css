@@ -1,0 +1,35 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap");
+/*@import "reset.css";*/
+@import "variables.css";
+/* Components */
+@import "nav-bar.css";
+@import "list-card.css";
+/* Screens */
+@import "list.css";
+@import "login.css";
+@import "signup.css";
+@import "mypage.css";
+@import "mylike.css";
+@import "myreview.css";
+
+body {
+  font-family: "Noto Sans KR", sans-serif;
+  color: var(--default);
+  background-color: #eeeeee;
+}
+
+@media screen and (min-width: 500px) and (max-width: 1080px) {
+  .naviBar,
+  .login-main,
+  .signup-main {
+    width: 100vw;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .login-main,
+  .signup-main,
+  .naviBar {
+    width: 500px;
+  }
+}

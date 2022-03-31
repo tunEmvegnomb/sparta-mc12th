@@ -1,0 +1,321 @@
+* {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.naviBar {
+    background-color: #FF6219;
+    width: 100%;
+    height: 50px;
+    position: fixed;
+    z-index: 100;
+}
+
+.naviBar ul li {
+    list-style: none;
+    color: #3A3845;
+    background-color: #FF6219;
+    float: left;
+    line-height: 50px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.logoLink {
+    width: 112px;
+    display: block;
+    color: #3A3845;
+    margin-right: 80px;
+}
+
+.menuLink {
+    text-decoration: none;
+    color: #3A3845;
+    display: block;
+    width: 150px;
+    font-size: 16px;
+    font-weight: bolder;
+}
+
+.menuLink:hover {
+    transition: 0.5s;
+    font-size: 17px;
+    text-decoration: none;
+    color: #3A3845;
+    background: #FFF3ED;
+}
+
+.myPageLink {
+    position: absolute;
+    right: 19%;
+}
+
+.loginIcon {
+    height: 32px;
+}
+
+.loginIcon:hover {
+    transition: 0.5s;
+    transform: scale(1.08)
+}
+
+.wrap {
+    width: 1080px;
+    height: auto;
+    margin: 0px auto 0 auto;
+    padding: 40px 20px 40px 20px;
+    position: relative;
+}
+
+.rankTitleWrap {
+    text-align: center;
+    position: relative;
+    left: -25px;
+}
+
+.rankTitle {
+    font-size: 45px;
+    padding: 20px 20px 5px 30px;
+    letter-spacing: -4px;
+    color: #3A3845;
+    font-weight: 750;
+    border-radius: 30px 30px 30px 0;
+    border-bottom: #3A3845 solid 3px;
+    background-color: white;
+
+}
+
+.starIcon {
+    position: relative;
+    left: 47px;
+    top: -13px;
+    height: 55px;
+}
+
+.rankTitleTop10 {
+    font-size: 70px;
+    letter-spacing: -10px;
+}
+
+.sortBar {
+    width: 927px;
+    text-align: right;
+    margin: 80px 0 10px 0;
+    height: 25pt;
+}
+/*이 부분 논의 필요*/
+/*오른쪽 정렬을 위한 속성인 float:right를 사용하고 싶었으나*/
+/*이를 적용하면 wrap 바깥으로 벗어나는 현상이 자꾸 발생함*/
+
+.sortBar ul li {
+    list-style: none;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.sortTab {
+    text-decoration: none;
+    color: #3A3845;
+    display: inline-block;
+    font-size: 20px;
+    margin: 0 0 0 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-weight: bold;
+    border-radius: 10px 10px 10px 0;
+    background-color: white;
+    box-shadow: 0 0 0.5px 0.5px #E1E1E1;
+}
+
+.sortTab:hover {
+    color: #3A3845;
+    font-weight: bolder;
+    transition: 0.3s;
+    font-size: 21px;
+    text-decoration: none;
+}
+
+.sortBar ul li.current {
+    color: white;
+    font-weight: 550;
+    transition: 0.3s;
+    font-size: 20px;
+    text-decoration: none;
+    display: inline-block;
+    margin: 0 0 0 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 10px 10px 10px 0;
+    background-color: #3A3845;
+    box-shadow: 0 0 0.5px 0.5px #E1E1E1;
+}
+
+.listWrap {
+    display: none;
+    width: 880px;
+    margin: auto;
+    position: relative;
+}
+
+.listWrap.current {
+    display: inherit;
+}
+
+.recipeWrap {
+    border: solid 3.5pt #FF6219;
+    border-radius: 15pt;
+    padding: 5px 20px 15px 20px;
+    margin: 5px 20px 25px 20px;
+    position: relative;
+    background-color: white;
+}
+
+.medalIcon {
+    width: 150px;
+    position: absolute;
+    left: -40px;
+    top: -27pt;
+}
+
+.recipeImgWrap {
+    width: 400px;
+    height: 300px;
+    line-height : 300px;
+    text-align: center;
+    display: inline-block;
+}
+
+.recipe_img {
+    width: 380px;
+    border-radius: 10pt;
+    vertical-align: middle;
+    background-size: contain;
+}
+
+.recipeDescWrap {
+    display: inline-block;
+    position: absolute;
+    padding: 40pt 0 0 0;
+    right: -15px;
+    top: 15px;
+    color: #3A3845;
+    text-align: center;
+}
+
+.recipeDesc2Wrap {
+    display: inline-block;
+    position: absolute;
+    right: 120px;
+    top: 130px;
+    color: #3A3845;
+    text-align: center;
+}
+
+.recipe_link, .recipe_link:hover {
+    text-decoration: none;
+}
+
+.recipe_name {
+    font-size: 43px;
+    font-weight: 600;
+    color: #3A3845;
+    display: inline-block;
+    width: 450px;
+    position: relative;
+    line-height: 30px;
+    letter-spacing: -1px;
+}
+
+.recipe_name:hover {
+    transition: 0.3s;
+    font-weight: bolder;
+    font-size: 44px;
+}
+
+.recipeTimeWrap {
+    margin: 35px 0 0 0;
+    text-align: center;
+}
+
+.timeIcon {
+    width: 32px;
+}
+
+.recipe_time {
+    display: inline-block;
+    padding-left: 10px;
+    font-size: 23px;
+    font-weight: bold;
+    color: #3A3845;
+    position: relative;
+    top: 3px;
+}
+
+.recipeDiffWrap {
+    margin-top: 10px;
+    display: inline-block;
+}
+
+.diffIcon {
+    width: 38px;
+}
+
+.recipe_diff {
+    padding-left: 3px;
+    font-size: 23px;
+    font-weight: bold;
+    color: #3A3845;
+    position: relative;
+    top: 3px;
+}
+
+.recipeWraps {
+    position: relative;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+}
+
+.recipeRank {
+    font-size: 70px;
+    font-weight: bolder;
+    position: absolute;
+    top: -5px;
+    left: -19px;
+    color: #3A3845;
+}
+
+.recipeNameWrap {
+    line-height: 70px;
+    position: relative;
+    left: 50px;
+}
+
+.recipeDescWraps {
+    display: inline-block;
+    position: absolute;
+    width: 400px;
+    right: 20px;
+    text-align: center;
+    top: -5px;
+    line-height: 2;
+}
+
+.recipe_name2 {
+    font-size: 38px;
+    font-weight: 600;
+    color: #3A3845;
+    display: inline-block;
+    width: 500px;
+    position: relative;
+    line-height: 40px;
+    vertical-align: center;
+    letter-spacing: -1px;
+}
+
+.recipe_name2:hover {
+    transition: 0.3s;
+    font-weight: bolder;
+    font-size: 39px;
+}
+
+
