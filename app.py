@@ -6,7 +6,8 @@ from flask import Flask, render_template, jsonify, request, session
 from pymongo import MongoClient
 
 # 클라이언트 정의 - MongoClient를 로컬호스트와 연결
-client = MongoClient('mongodb+srv://making:making@cluster0.ymxju.mongodb.net/Cluster0?retryWrites=true&w=majority')
+client = MongoClient(
+    'mongodb+srv://making:making@cluster0.ymxju.mongodb.net/Cluster0?retryWrites=true&w=majority')
 
 # 컬렉션 정의. mc12th라는 컬렉션이 생성됨
 db = client.mc12th
@@ -64,7 +65,14 @@ def render_mylike():
     return render_template('mylike.html')
 
 
+# 내가 쓴 후기 페이지
+@app.route('/myreview')
+def render_myreview():
+    return render_template('myreview.html')
+
 # 나만의 레시피 조회 페이지
+
+
 @app.route('/myrecipe')
 def render_myrecipe():
     return render_template('myrecipe.html')
@@ -82,7 +90,7 @@ def render_signup():
     return render_template('signup.html')
 
 
-## API 역할을 하는 부분
+# API 역할을 하는 부분
 
 # POST
 @app.route('/', methods=['POST'])
@@ -133,7 +141,6 @@ def review_list():
     return jsonify({'reviews': reviews})
 
 
-
 # 리뷰(댓글) update 기능 - test완료(session제외)
 @app.route('/detail/review-update', methods=['POST'])
 def review_update():
@@ -141,11 +148,11 @@ def review_update():
         user_name_receive = request.form['user_name_give']
         update_content_receive = request.form['review_content_give']
 
-        db.review.update_one({'user_name': user_name_receive}, {'$set': {'review_content': update_content_receive}})
+        db.review.update_one({'user_name': user_name_receive}, {
+                             '$set': {'review_content': update_content_receive}})
         return jsonify({'POST': '댓글 수정 완료'})
     else:
         return jsonify({'msg': '로그인해주세요'})
-
 
 
 # 리뷰(댓글) 삭제 기능 - test완료(session제외)
@@ -164,7 +171,8 @@ def review_delete():
 @app.route('/detail/recipe-detail', methods=['GET'])
 def recipe_detail():
     recipe_name_receive = request.args.get('recipe_name_give')
-    target_recipe = db.recipes_test.find_one({'recipe_name': recipe_name_receive},{'_id' : False})
+    target_recipe = db.recipes_test.find_one(
+        {'recipe_name': recipe_name_receive}, {'_id': False})
     print(target_recipe)
     return jsonify({'target_recipe': target_recipe})
 
@@ -172,4 +180,3 @@ def recipe_detail():
 # localhost:5000 으로 들어갈 수 있게 해주는 코드
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
-

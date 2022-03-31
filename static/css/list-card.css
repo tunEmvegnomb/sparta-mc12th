@@ -66,14 +66,18 @@
 }
 
 .card-like .like-icon {
-  transform: scale(1.1);
-  transition: all 0.1s ease-in-out;
+  font-size: 50px;
+  transition: all 0.05s ease-in-out;
 }
 
 .card-like .like-icon:hover {
-  transform: scale(1.15);
+  transform: scale(1.03);
 }
 
 .card-like .like-icon:active {
-  transform: rotateZ(5deg) scale(1.15);
+  transform: scale(1.01);
+}
+
+.card-body .liked {
+  color: var(--orange);
 }

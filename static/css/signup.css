@@ -75,5 +75,13 @@
   width: 403px;
   height: 53px;
   background-color: var(--bluegreen);
-  margin-bottom: 200px;
+  margin-bottom: 50px;
+}
+
+.login-link {
+  color: var(--default);
+  margin-bottom: 150px;
+}
+.login-link:hover {
+  color: var(--orange);
 }
