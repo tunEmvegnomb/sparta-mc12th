@@ -10,8 +10,8 @@ from flask_bcrypt import Bcrypt
 from pymongo import MongoClient
 
 # 클라이언트 정의 - MongoClient를 로컬호스트와 연결
-client = MongoClient('mongodb+srv://making:making@cluster0.ymxju.mongodb.net/Cluster0?retryWrites=true&w=majority')
-# client = MongoClient('localhost',27017)
+# client = MongoClient('mongodb+srv://making:making@cluster0.ymxju.mongodb.net/Cluster0?retryWrites=true&w=majority')
+client = MongoClient('localhost',27017)
 
 # 컬렉션 정의. mc12th라는 컬렉션이 생성됨
 db = client.mc12th
@@ -253,7 +253,7 @@ def signup_check():
     pwd_receive = request.form['user_pwd']
     pwd2_receive = request.form['user_pwd2']
     nickname_receive = request.form['user_nickname']
-
+    print(id_receive,pwd_receive,pwd2_receive,nickname_receive)
     # 2. 조건문1 - 입력확인
     # 데이터가 모두 입력되어 있지 않다면, fail msg return
     if (id_receive, pwd_receive, pwd2_receive, nickname_receive) is None:
@@ -262,7 +262,9 @@ def signup_check():
     else:
         # 3. 조건문2 - 동일 아이디 확인
         # 동일 아이디가 존재한다면, fail msg return
-        if list(db.users.find({'user_id':id_receive})) is not None:
+        chk_id = list(db.users.find({'user_id': id_receive}))
+        print(chk_id)
+        if chk_id != []:
             return jsonify({'msg': '동일한 아이디가 이미 존재합니다'})
         # 동일 아이디가 존재하지 않는다면, 조건문3 이동
         else:
@@ -274,7 +276,8 @@ def signup_check():
             else:
                 # 5. 조건문4 - 동일 닉네임 확인
                 # 동일 닉네임이 존재한다면, fail msg return
-                if list(db.users.find({'user_nickname': nickname_receive})) is not None:
+                chk_nickname = list(db.users.find({'user_nickname': nickname_receive}))
+                if chk_nickname != []:
                     return jsonify({'msg': '동일한 닉네임이 이미 존재합니다'})
                 # 동일 닉네임이 존재하지 않는다면, 처리작업 수행
                 else:
