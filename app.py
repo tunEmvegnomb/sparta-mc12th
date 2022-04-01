@@ -25,7 +25,7 @@ def render_main():
 
 # 메인페이지 API
 # 추천배너 데이터 출력 API
-@app.route('/reco', method=['GET'])
+@app.route('/reco', methods=['GET'])
 def main_reco():
     # 페이크 리턴 값
     reco_data = [{'recipe_name': '순두부계란탕'}]
@@ -33,7 +33,7 @@ def main_reco():
 
 # 메인페이지 API
 # 인기배너 데이터 출력 API
-@app.route('/top3', method=['GET'])
+@app.route('/top3', methods=['GET'])
 def main_top3():
     # 페이크 리턴 값
     top3_recipe = [
@@ -60,7 +60,7 @@ def render_list():
 
 # 리스트 페이지 API
 # 다큐먼트 시작 시 데이터를 출력하는 API
-@app.route('/list/data', method=['GET'])
+@app.route('/list/data', methods=['GET'])
 def list_data_append():
     # 페이크 값 리턴
     limited_data = list(db.recipes.find({}, {'_id': False}).limit(18))
@@ -68,7 +68,7 @@ def list_data_append():
 
 # 리스트 페이지 API
 # 추천순 정렬 API
-@app.route('/list/order_like', method=['GET'])
+@app.route('/list/order_like', methods=['GET'])
 def list_order_like():
     # 페이크 값 리턴
     order_like = list(db.recipes.find({}, {'_id': False}))
@@ -76,7 +76,7 @@ def list_order_like():
 
 # 리스트 페이지 API
 # 최신순 정렬 API
-@app.route('/list/order_date', method=['GET'])
+@app.route('/list/order_date', methods=['GET'])
 def list_order_date():
     # 페이크 값 리턴
     order_date = list(db.recipes.find({}, {'_id': False}))
@@ -84,7 +84,7 @@ def list_order_date():
 
 # 리스트 페이지 API
 # 리스트 필터 API
-@app.route('/list/filter', method=['GET'])
+@app.route('/list/filter', methods=['GET'])
 def list_filter():
     # 페이크 값 리턴
     filtered_data = list(db.recipes.find({}, {'_id': False}).limit(18))
@@ -92,7 +92,7 @@ def list_filter():
 
 # 리스트 페이지 API
 # 리스트 검색 API
-@app.route('/list/search', method=['GET'])
+@app.route('/list/search', methods=['GET'])
 def list_search():
     # 페이크 값 리턴
     searched_data = list(db.recipes.find({}, {'_id': False}).limit(18))
@@ -196,7 +196,7 @@ def render_signup():
 
 # 회원가입 페이지 API
 # 회원가입 체크
-@app.route('/signup', method=['POST'])
+@app.route('/signup', methods=['POST'])
 def signup_check():
     # 페이크 값 리턴
     return jsonify({'msg': '회원가입에 성공하였습니다!'})
@@ -205,7 +205,7 @@ def signup_check():
 ## API 역할을 하는 부분
 
 # POST
-@app.route('/', methods=['POST'])
+@app.route('/', methodss=['POST'])
 def name():
     sample_receive = request.form['sample_give']
     print(sample_receive)
@@ -305,6 +305,12 @@ def review_delete():
     else:
         return jsonify({'msg': '로그인해주세요'})
 
+# 레시피 페이지 API
+# 즐겨찾기 추가 API
+@app.route('/detail/bookmark', methods=['POST'])
+def detail_add_bookmark():
+    # 페이크 리턴 값
+    return jsonify({'msg': '즐겨찾기를 등록하였습니다.'})
 
 # 나만의 레시피 작성 페이지
 @app.route('/write')
