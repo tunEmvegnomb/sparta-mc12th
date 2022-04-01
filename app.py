@@ -22,15 +22,35 @@ def render_main():
     # index.html에 원하는 클라이언트 파일 입력
     return render_template('main.html')
 
+
 # 메인페이지 API
-# 추천페이지 데이터 출력 API
+# 추천배너 데이터 출력 API
 @app.route('/reco', method=['GET'])
 def main_reco():
-
     # 페이크 리턴 값
     reco_data = [{'recipe_name': '순두부계란탕'}]
     return jsonify({'reco_data': reco_data})
-    
+
+# 메인페이지 API
+# 인기배너 데이터 출력 API
+@app.route('/top3', method=['GET'])
+def main_top3():
+    # 페이크 리턴 값
+    top3_recipe = [
+        {
+            'recipe_img': 'https://recipe1.ezmember.co.kr/cache/recipe/2020/09/08/52110f292b905a27c30ea6bfed246a491.jpg'
+        },
+
+        {
+            'recipe_img': 'https://recipe1.ezmember.co.kr/cache/recipe/2019/01/12/b9343d314206275c1b6d0d0c4fcc2ce71.jpg'
+        },
+
+        {
+            'recipe_img': 'https://recipe1.ezmember.co.kr/cache/recipe/2016/09/01/484b1194a69d0b2da09014a25a9334de1.jpg'
+        }
+    ]
+
+    return jsonify({'filtered_data': top3_recipe})
 
 
 # 리스트 페이지
@@ -50,7 +70,8 @@ def render_theme():
 def render_rank():
     return render_template('rank.html')
 
-#리퀘스트 변수로 받기 #
+
+# 리퀘스트 변수로 받기 #
 @app.route('/rank/get', methods=['GET'])
 def rank():
     year_give = request.args.get('date_year')
@@ -142,7 +163,7 @@ def rank():
 @app.route('/mypage', methods=['GET'])
 def render_mypage():
     if session is not None:
-        user_id = "admin" #추후 로그인 세션값으로 변경
+        user_id = "admin"  # 추후 로그인 세션값으로 변경
         mypage = list(db.users.find({'user_id': user_id}, {'_id': False}))
         return jsonify({'mypage': mypage})
 
@@ -180,6 +201,7 @@ def name():
     print(sample_receive)
     return jsonify({'POST'})
 
+
 # 회원가입
 
 # 로그인
@@ -212,7 +234,7 @@ def render_detail():
 def recipe_detail():
     recipe_name_receive = request.args.get('name')
     print(recipe_name_receive)
-    target_recipe = db.recipes.find_one({'recipe_name': recipe_name_receive},{'_id':False})
+    target_recipe = db.recipes.find_one({'recipe_name': recipe_name_receive}, {'_id': False})
     print(target_recipe)
 
     return jsonify({'target_recipe': target_recipe})
@@ -230,7 +252,7 @@ def review_post():
         doc = {
             'user_nickname': user_nickname_receive,
             'review_content': review_content_receive,
-            'recipe_name' : recipe_name_receive
+            'recipe_name': recipe_name_receive
         }
         db.reviews.insert_one(doc)
         return jsonify({'msg': '댓글 작성 완료'})
@@ -243,7 +265,7 @@ def review_post():
 def review_list():
     recipe_name_receive = request.args.get('recipe_name_give')
     # print(recipe_name_receive)
-    reviews = list(db.reviews.find({'recipe_name' : recipe_name_receive}, {'_id': False}))
+    reviews = list(db.reviews.find({'recipe_name': recipe_name_receive}, {'_id': False}))
     return jsonify({'reviews': reviews})
 
 
@@ -251,11 +273,12 @@ def review_list():
 @app.route('/detail/review-update', methods=['POST'])
 def review_update():
     if 'user_id' in session:
-        user_nickname_receive = request.form['user_nickname_give'] # user식별하기위한값
-        recipe_name_receive = request.form['recipe_name_give'] # 해당 레시피를 식별하기위한값
-        update_content_receive = request.form['review_content_give'] # 수정된 리뷰값
+        user_nickname_receive = request.form['user_nickname_give']  # user식별하기위한값
+        recipe_name_receive = request.form['recipe_name_give']  # 해당 레시피를 식별하기위한값
+        update_content_receive = request.form['review_content_give']  # 수정된 리뷰값
 
-        db.reviews.update_one({'user_nickname': user_nickname_receive, 'recipe_name':recipe_name_receive}, {'$set': {'review_content': update_content_receive}})
+        db.reviews.update_one({'user_nickname': user_nickname_receive, 'recipe_name': recipe_name_receive},
+                              {'$set': {'review_content': update_content_receive}})
         return jsonify({'POST': '댓글 수정 완료'})
     else:
         return jsonify({'msg': '로그인해주세요'})
@@ -265,13 +288,12 @@ def review_update():
 @app.route('/detail/review-delete', methods=['POST'])
 def review_delete():
     if 'user_id' in session:
-        user_nickname_receive = request.form['user_nickname_give'] # user를 식별하기위한 값
-        recipe_name_receive = request.form['recipe_name_give'] # 해당 레시피를 식별하기위한 값
+        user_nickname_receive = request.form['user_nickname_give']  # user를 식별하기위한 값
+        recipe_name_receive = request.form['recipe_name_give']  # 해당 레시피를 식별하기위한 값
         db.reviews.delete_one({'user_nickname': user_nickname_receive, 'recipe_name': recipe_name_receive})
         return jsonify({'msg': '댓글이 삭제되었습니다'})
     else:
         return jsonify({'msg': '로그인해주세요'})
-
 
 
 # 나만의 레시피 작성 페이지
@@ -285,7 +307,7 @@ def render_write():
 def myrecipe_write():
     if 'user_id' in session:
         myrecipe_title_receive = request.form['myrecipe_title_give']
-        myrecipe_writter_receive = request.form['myrecipe_writter_give'] # 사용자 id를 받아와야할듯..
+        myrecipe_writter_receive = request.form['myrecipe_writter_give']  # 사용자 id를 받아와야할듯..
         myrecipe_diff_receive = request.form['myrecipe_diff_give']
         myrecipe_time_receive = request.form['myrecipe_time_give']
         myrecipe_ing_receive = request.form['myrecipe_ing_give']
@@ -294,7 +316,7 @@ def myrecipe_write():
         # print(myrecipe_title_receive, myrecipe_writter_receive,myrecipe_diff_receive, myrecipe_time_receive,myrecipe_ing_receive,myrecipe_detail_receive )
 
         # 이미지 파일 업로딩 관련부분 - 보완필요
-        myrecipe_img_receive = request.files['myrecipe_img_give'] # 이미지파일
+        myrecipe_img_receive = request.files['myrecipe_img_give']  # 이미지파일
         # print(myrecipe_img_receive)
         img_filename = myrecipe_img_receive.filename
         # filename = f'{today}---{_filename}'
@@ -307,11 +329,11 @@ def myrecipe_write():
         doc = {
             'myrecipe_title': myrecipe_title_receive,
             'myrecipe_img': img_filename,
-            'myrecipe_writter' : myrecipe_writter_receive,
-            'myrecipe_diff' : myrecipe_diff_receive,
-            'myrecipe_time' : myrecipe_time_receive,
-            'myrecipe_ing' : myrecipe_ing_receive,
-            'myrecipe_detail' : myrecipe_detail_receive
+            'myrecipe_writter': myrecipe_writter_receive,
+            'myrecipe_diff': myrecipe_diff_receive,
+            'myrecipe_time': myrecipe_time_receive,
+            'myrecipe_ing': myrecipe_ing_receive,
+            'myrecipe_detail': myrecipe_detail_receive
         }
         db.myrecipes.insert_one(doc)
         return jsonify({'msg': '나만의 레시피 작성 완료'})
@@ -319,18 +341,6 @@ def myrecipe_write():
         return jsonify({'msg': '로그인 해주세요'})
 
 
-
-
-
-
-
 # localhost:5000 으로 들어갈 수 있게 해주는 코드
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
-
-
-
-
-
-
-
