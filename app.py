@@ -58,6 +58,14 @@ def main_top3():
 def render_list():
     return render_template('list.html')
 
+# 리스트 페이지 API
+# 다큐먼트 시작 시 데이터를 출력하는 API
+@app.route('list/data', method=['GET'])
+def list_data_append():
+    # 페이크 값 리턴
+    limited_data = list(db.recipes.find({}, {'_id': False}).limit(18))
+    return jsonify({'append_data': limited_data})
+
 
 # 테마 페이지
 @app.route('/theme')
@@ -115,49 +123,6 @@ def rank():
                 db_daylist = db_recipe
                 print('일간 데이터 출력 완료!')
                 return jsonify({'filtered_data': db_daylist})
-
-    # # 조건문1
-    # # 업데이트 날짜 기준으로 연간체크
-    # for db_recipe in recipes:
-    #     #업데이트 날짜 기준
-    #     db_date = db_recipe['recipe_post_update']
-    #     #연도 스플릿
-    #     db_year = db_date.split('-')[0]
-    #     # 년도에 따라 데이터 출력
-    #     if db_year == "2022":
-    #         db_yearlist = db_recipe
-    #         print(db_yearlist)
-    #
-    # # 조건문2
-    # # 달별로 데이터 출력
-    # for db_recipe in recipes:
-    #     #업데이트 날짜 기준
-    #     db_date = db_recipe['recipe_post_update']
-    #     #월 스플릿
-    #     db_month = db_date.split('-')[1]
-    #     #연도 스필릿
-    #     db_year = db_date.split('-')[0]
-    #     # 같은년도에 해당하는 달에 따라 데이터 출력
-    #     if db_month == "05" and db_year == "2023":
-    #         db_monthlist = db_recipe
-    #         print(db_monthlist)
-    #
-    # # 조건문3
-    # # 일별로 데이터 출력
-    # for db_recipe in recipes:
-    #     #업데이트 날짜 기준
-    #     db_date = db_recipe['recipe_post_update']
-    #     #일 스플릿
-    #     db_day = db_date.split('-')[2]
-    #     #월 스필릿
-    #     db_month = db_date.split('-')[1]
-    #     #연도 스플릿
-    #     db_year = db_date.split('-')[0]
-    #     # 같은년도 같은월에 해당하는 일에 따라 데이터 출력
-    #     if db_day == "02" and db_month == "03" and db_year == "2023":
-    #         db_daylist = db_recipe
-    #         print(db_daylist)
-
 
 # 마이 페이지
 @app.route('/mypage', methods=['GET'])
