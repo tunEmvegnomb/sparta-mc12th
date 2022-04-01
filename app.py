@@ -22,6 +22,16 @@ def render_main():
     # index.html에 원하는 클라이언트 파일 입력
     return render_template('main.html')
 
+# 메인페이지 API
+# 추천페이지 데이터 출력 API
+@app.route('/reco', method=['GET'])
+def main_reco():
+
+    # 페이크 리턴 값
+    reco_data = [{'recipe_name': '순두부계란탕'}]
+    return jsonify({'reco_data': reco_data})
+    
+
 
 # 리스트 페이지
 @app.route('/list')
