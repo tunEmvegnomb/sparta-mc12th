@@ -59,9 +59,6 @@ def rank():
     # 데이터베이스에서 상위 10개 가져오기
     recipes = list(db.recipes_test.find({}, {'_id': False}).sort('recipe_like', -1).limit(10))
 
-
-
-
     # 반복문 사용(데이터 출력용도)
     for db_recipe in recipes:
         # 날짜값 스플릿
@@ -91,8 +88,6 @@ def rank():
                     db_daylist = db_recipe
                     return jsonify({'filtered_data': db_daylist})
 
-
-
     # 조건문1
     # 업데이트 날짜 기준으로 연간체크
     for db_recipe in recipes:
@@ -104,7 +99,6 @@ def rank():
         if db_year == "2022":
             db_yearlist = db_recipe
             print(db_yearlist)
-
 
     # 조건문2
     # 달별로 데이터 출력
@@ -119,7 +113,6 @@ def rank():
         if db_month == "05" and db_year == "2023":
             db_monthlist = db_recipe
             print(db_monthlist)
-
 
     # 조건문3
     # 일별로 데이터 출력
