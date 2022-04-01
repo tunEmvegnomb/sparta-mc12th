@@ -361,6 +361,13 @@ def write_update():
     # 페이크 리턴 값
     return jsonify({'msg': '나만의레시피가 수정되었습니다.'})
 
+# 나만의레시피 작성 페이지 API
+# 나만의레시피 이미지 업로드 API
+@app.route('/write/upload', methods=['POST'])
+def write_img_upload():
+    # 페이크 리턴 값
+    return jsonify({'msg': '이미지를 업로드했습니다.'})
+
 
 # localhost:5000 으로 들어갈 수 있게 해주는 코드
 if __name__ == '__main__':
