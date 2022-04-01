@@ -187,9 +187,16 @@ def render_login():
 
 
 # 회원가입 페이지
-@app.route('/signUp')
-def render_signUp():
+@app.route('/signup')
+def render_signup():
     return render_template('signup.html')
+
+# 회원가입 페이지 API
+# 회원가입 체크
+@app.route('/signup/check')
+def signup_check():
+    # 페이크 값 리턴
+    return jsonify({'msg': '회원가입에 성공하였습니다!'})
 
 
 ## API 역할을 하는 부분
