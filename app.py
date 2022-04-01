@@ -7,7 +7,7 @@ from pymongo import MongoClient
 
 # 클라이언트 정의 - MongoClient를 로컬호스트와 연결
 client = MongoClient('mongodb+srv://making:making@cluster0.ymxju.mongodb.net/Cluster0?retryWrites=true&w=majority')
-
+# client = MongoClient('localhost',27017)
 
 # 컬렉션 정의. mc12th라는 컬렉션이 생성됨
 db = client.mc12th
@@ -83,6 +83,9 @@ def name():
     print(sample_receive)
     return jsonify({'POST'})
 
+# 회원가입
+
+# 로그인
 
 # GET
 @app.route('/', methods=['GET'])
@@ -106,13 +109,15 @@ def render_detail():
     return render_template('detail.html')
 
 
-# 레시피 상세페이지 api- 상세 레시피 데이터 출력
+# 상세페이지 - 상세 레시피 데이터 출력 api
 # list페이지에서 해당card를 클릭하면 get요청으로 해당레시피이름이 url을 통해 넘어와
 @app.route('/detail/recipe-detail', methods=['GET'])
 def recipe_detail():
-    recipe_name_receive = request.args.get('recipe_name_give')
-    # print(recipe_name_receive)
-    target_recipe = db.recipes.find_one({'recipe_name': recipe_name_receive},{'_id' : False})
+    recipe_name_receive = request.args.get('name')
+    print(recipe_name_receive)
+    target_recipe = db.recipes.find_one({'recipe_name': recipe_name_receive},{'_id':False})
+    print(target_recipe)
+
     return jsonify({'target_recipe': target_recipe})
 
 
@@ -181,27 +186,30 @@ def render_write():
 # 나만의 레시피 api - 작성 기능
 @app.route('/write', methods=['POST'])
 def myrecipe_write():
-    # if 'user_id' in session:
+    if 'user_id' in session:
         myrecipe_title_receive = request.form['myrecipe_title_give']
-
-        myrecipe_img_receive = request.files['myrecipe_img_give']
-
         myrecipe_writter_receive = request.form['myrecipe_writter_give'] # 사용자 id를 받아와야할듯..
         myrecipe_diff_receive = request.form['myrecipe_diff_give']
         myrecipe_time_receive = request.form['myrecipe_time_give']
         myrecipe_ing_receive = request.form['myrecipe_ing_give']
         myrecipe_detail_receive = request.form['myrecipe_detail_give']
 
-        print(myrecipe_img_receive)
-        # num = 0
-        # myrecipe_img_id =
-        # myrecipe_img_receive.save('static/myrecipe_img/{}.png'.format(1))
-
         # print(myrecipe_title_receive, myrecipe_writter_receive,myrecipe_diff_receive, myrecipe_time_receive,myrecipe_ing_receive,myrecipe_detail_receive )
 
+        # 이미지 파일 업로딩 관련부분 - 보완필요
+        myrecipe_img_receive = request.files['myrecipe_img_give'] # 이미지파일
+        # print(myrecipe_img_receive)
+        img_filename = myrecipe_img_receive.filename
+        # filename = f'{today}---{_filename}'
+        # extension = myrecipe_img_receive.filename.split('.')[-1]
+        # print(filename, extension)
+        save_to = 'static/myrecipe_img/{}'.format(img_filename)
+        myrecipe_img_receive.save(save_to)
+
+        # db저장
         doc = {
             'myrecipe_title': myrecipe_title_receive,
-            # 'myrecipe_img': myrecipe_img_receive,
+            'myrecipe_img': img_filename,
             'myrecipe_writter' : myrecipe_writter_receive,
             'myrecipe_diff' : myrecipe_diff_receive,
             'myrecipe_time' : myrecipe_time_receive,
@@ -210,20 +218,9 @@ def myrecipe_write():
         }
         db.myrecipes.insert_one(doc)
         return jsonify({'msg': '나만의 레시피 작성 완료'})
-    # else:
-    #     return jsonify({'msg': '로그인 해주세요'})
+    else:
+        return jsonify({'msg': '로그인 해주세요'})
 
-# 상세페이지 - 상세 레시피 데이터 출력
-# list페이지에서 해당card를 클릭하면 get요청으로 해당레시피이름이 url을 통해 넘어와
-@app.route('/detail/recipe-detail', methods=['GET'])
-def recipe_detail():
-    recipe_name_receive = request.args.get('recipe_name_give')
-
-    print(recipe_name_receive)
-    target_recipe = db.recipes.find_one({'recipe_name': recipe_name_receive})
-    print(target_recipe)
-
-    return jsonify({'recipe': target_recipe})
 
 
 
