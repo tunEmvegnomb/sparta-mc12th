@@ -2,12 +2,16 @@
 # render_template(페이지 이동), jsonify(json값 리턴), request(클라이언트 값 받기), session(로그인) 라이브러리 임포트
 from flask import Flask, render_template, jsonify, request, session
 
+# 암호화 라이브러리 bcrypy import. 오류가 뜬다면 interpreter에서 bcrypy 패키지 install
+# 그래도 오류가 뜬다면 terminal에서 pip install flask-bcrypt 입력
+from flask_bcrypt import Bcrypt
+
 # MongoClient(몽고DB 관리 라이브러리) 임포트
 from pymongo import MongoClient
 
 # 클라이언트 정의 - MongoClient를 로컬호스트와 연결
-client = MongoClient('mongodb+srv://making:making@cluster0.ymxju.mongodb.net/Cluster0?retryWrites=true&w=majority')
-# client = MongoClient('localhost',27017)
+# client = MongoClient('mongodb+srv://making:making@cluster0.ymxju.mongodb.net/Cluster0?retryWrites=true&w=majority')
+client = MongoClient('localhost',27017)
 
 # 컬렉션 정의. mc12th라는 컬렉션이 생성됨
 db = client.mc12th
@@ -15,7 +19,22 @@ db = client.mc12th
 # app.route를 쓸 수 있게 해주는 코드
 app = Flask(__name__)
 
+app.config['SECRET_KEY'] = 'Blue Like Aquamarine'
+app.config['BCRYPT_LEVEL'] = 10
 
+bcrypt = Bcrypt(app)
+
+# pw_hash = bcrypt.hashpw("password".encode("utf-8"), bycrypt.gensalt())
+# pw_hash2 = bcrypt.hashpw("password".encode("utf-8"), bycrypt.gensalt())
+
+# pw_hash = bcrypt.generate_password_hash('password')
+# bcrypt.checkpw("password", pw_hash)  # True
+# 즉 password 라는 비밀번호를 암호화하고, 이후에 체크하는 작업을 할때 해당 메소드를 통해 일치여부 확인 가능
+
+# pw_hash == pw_hash2  # False
+
+
+# 그러나 같은 password를 넣어도 다른 암호화 값이 나온다.
 
 
 # 메인 페이지 - app.py 실행 후, localhost:5000으로 접속했을 때, 가장 먼저 출력
@@ -210,7 +229,7 @@ def render_login():
 
 # 로그인 페이지 API
 # 로그인 체크
-@app.route('/login', method=['POST'])
+@app.route('/login', methods=['POST'])
 def login_check():
     # 페이크 값 리턴
     return jsonify({'msg': '로그인에 성공하였습니다. 환영합니다!'})
@@ -227,8 +246,54 @@ def render_signup():
 # 회원가입 체크
 @app.route('/signup', methods=['POST'])
 def signup_check():
-    # 페이크 값 리턴
-    return jsonify({'msg': '회원가입에 성공하였습니다!'})
+    # API 설계
+    # 1. 사용자 요청 값을 받음(POST) - 아이디(이메일), 비밀번호, 비밀번호 확인, 닉네임
+    # 이메일의 형태 검사는 verify API를 추가할 예정
+    id_receive = request.form['user_id']
+    pwd_receive = request.form['user_pwd']
+    pwd2_receive = request.form['user_pwd2']
+    nickname_receive = request.form['user_nickname']
+    print(id_receive,pwd_receive,pwd2_receive,nickname_receive)
+    # 2. 조건문1 - 입력확인
+    # 데이터가 모두 입력되어 있지 않다면, fail msg return
+    if (id_receive, pwd_receive, pwd2_receive, nickname_receive) is None:
+        return jsonify({'msg': '입력되지 않은 정보가 존재합니다'})
+    # 데이터가 모두 입력되어 있다면, 조건문2 이동
+    else:
+        # 3. 조건문2 - 동일 아이디 확인
+        # 동일 아이디가 존재한다면, fail msg return
+        chk_id = list(db.users.find({'user_id': id_receive}))
+        print(chk_id)
+        if chk_id != []:
+            return jsonify({'msg': '동일한 아이디가 이미 존재합니다'})
+        # 동일 아이디가 존재하지 않는다면, 조건문3 이동
+        else:
+            # 4. 조건문3 - 비밀번호 일치 여부 확인
+            # 비밀번호와 비밀번호 확인이 일치하지 않는다면, fail msg return
+            if pwd_receive != pwd2_receive:
+                return jsonify({'msg': '비밀번호가 일치하지 않습니다'})
+            # 비밀번호와 비밀번호 확인이 일치한다면, 조건문4 이동
+            else:
+                # 5. 조건문4 - 동일 닉네임 확인
+                # 동일 닉네임이 존재한다면, fail msg return
+                chk_nickname = list(db.users.find({'user_nickname': nickname_receive}))
+                if chk_nickname != []:
+                    return jsonify({'msg': '동일한 닉네임이 이미 존재합니다'})
+                # 동일 닉네임이 존재하지 않는다면, 처리작업 수행
+                else:
+                    # 처리1 - 사용자 비밀번호 암호화(bcrypt)
+                    pw_hash = bcrypt.generate_password_hash(pwd_receive)
+                    # 처리2 - users 데이터베이스에 요청 정보 삽입
+                    insert_doc = [
+                        {
+                            'user_id': id_receive,
+                            'user_pwd': pw_hash,
+                            'user_nickname': nickname_receive
+                        }
+                    ]
+                    db.users.insert_many(insert_doc)
+                    # 처리3 - 리턴 jsonify
+                    return jsonify({'msg': '회원가입에 성공하였습니다!'})
 
 
 
