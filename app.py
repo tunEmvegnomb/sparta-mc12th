@@ -189,16 +189,18 @@ def render_mypage():
         return jsonify({'mypage': mypage})
 
 
-# 즐겨찾기 조회 페이지
-@app.route('/mylike')
-def render_mylike():
-    return render_template('mylike.html')
+# # 즐겨찾기 조회 페이지
+# @app.route('/mylike')
+# def render_mylike():
+#     return render_template('mylike.html')
+#
+#
+# # 나만의 레시피 조회 페이지
+# @app.route('/myrecipe')
+# def render_myrecipe():
+#     return render_template('myrecipe.html')
 
 
-# 나만의 레시피 조회 페이지
-@app.route('/myrecipe')
-def render_myrecipe():
-    return render_template('myrecipe.html')
 
 
 # 로그인 페이지
@@ -214,6 +216,8 @@ def login_check():
     return jsonify({'msg': '로그인에 성공하였습니다. 환영합니다!'})
 
 
+
+
 # 회원가입 페이지
 @app.route('/signup')
 def render_signup():
@@ -227,41 +231,12 @@ def signup_check():
     return jsonify({'msg': '회원가입에 성공하였습니다!'})
 
 
-## API 역할을 하는 부분
-
-# POST
-@app.route('/', methodss=['POST'])
-def name():
-    sample_receive = request.form['sample_give']
-    print(sample_receive)
-    return jsonify({'POST'})
-
-
-# 회원가입
-
-# 로그인
-
-# GET
-@app.route('/', methods=['GET'])
-def name_get():
-    sample_receive = request.args.get('sample_give')
-    print(sample_receive)
-    return jsonify({'msg': 'GET'})
-
-
-# GET 2
-@app.route('/', methods=['GET'])
-# list
-def listing():
-    Foodlist = list(db.mc12th.find({}, {'_id': False}))
-    return jsonify({'all_Foodlist': Foodlist})
 
 
 # 레시피 상세페이지
 @app.route('/detail')
 def render_detail():
     return render_template('detail.html')
-
 
 # 상세페이지 - 상세 레시피 데이터 출력 api
 # list페이지에서 해당card를 클릭하면 get요청으로 해당레시피이름이 url을 통해 넘어와
@@ -273,7 +248,6 @@ def recipe_detail():
     print(target_recipe)
 
     return jsonify({'target_recipe': target_recipe})
-
 
 # 리뷰(댓글) api - create 기능
 @app.route('/detail/review-post', methods=['POST'])
@@ -294,7 +268,6 @@ def review_post():
     else:
         return jsonify({'msg': '로그인해주세요'})
 
-
 # 리뷰(댓글) api - list기능
 @app.route('/detail/review-list', methods=['GET'])
 def review_list():
@@ -302,7 +275,6 @@ def review_list():
     # print(recipe_name_receive)
     reviews = list(db.reviews.find({'recipe_name': recipe_name_receive}, {'_id': False}))
     return jsonify({'reviews': reviews})
-
 
 # 리뷰(댓글) api - update 기능
 @app.route('/detail/review-update', methods=['POST'])
@@ -317,7 +289,6 @@ def review_update():
         return jsonify({'POST': '댓글 수정 완료'})
     else:
         return jsonify({'msg': '로그인해주세요'})
-
 
 # 리뷰(댓글) api - 삭제 기능
 @app.route('/detail/review-delete', methods=['POST'])
@@ -337,11 +308,13 @@ def detail_add_bookmark():
     # 페이크 리턴 값
     return jsonify({'msg': '즐겨찾기를 등록하였습니다.'})
 
+
+
+
 # 나만의 레시피 작성 페이지
 @app.route('/write')
 def render_write():
     return render_template('write.html')
-
 
 # 나만의 레시피 api - 작성 기능
 @app.route('/write', methods=['POST'])
@@ -380,6 +353,13 @@ def myrecipe_write():
         return jsonify({'msg': '나만의 레시피 작성 완료'})
     else:
         return jsonify({'msg': '로그인 해주세요'})
+
+# 나만의레시피 작성 페이지 API
+# 나만의레시피 수정 API
+@app.route('/write/update', methods=['UPDATE'])
+def write_update():
+    # 페이크 리턴 값
+    return jsonify({'msg': '나만의레시피가 수정되었습니다.'})
 
 
 # localhost:5000 으로 들어갈 수 있게 해주는 코드
