@@ -18,6 +18,7 @@
           rel="stylesheet">
     <!-- style.css 파일을 같은 폴더에 만들고, head 태그에서 불러오기 -->
     <link rel="stylesheet" type="text/css" href = "\static\css\main.css">
+    <script src="\static\js\main.js"></script>
 </head>
 
 <body>
@@ -63,9 +64,10 @@
                 </button>
             </div>
             <!--메인 추천 레시피-->
-            <div>
+            <div id="main-random">
+                <div>
                 <img src="\static\img\ONE-POP-1.png" alt="이미지" class="random-food"/>
-                <div class="random-food-recipe">
+                <div class="random-food-recipe" >
                     <img src="\static\img\recipe.png" alt="이미지"/>
                     <div>
                         <div>
@@ -106,6 +108,8 @@
                         </div>
                     </div>
                 </div>
+                </div>
+
             </div>
 
 
@@ -114,8 +118,8 @@
                 <div class="best-recipe-top">
                     <img src="\static\img\rank.png" alt="이미지" class="random-food"/>
                     <h5 style="font-weight: 600;">
-                        <span class="best-recipe-text" type="button">월간</span>
-                        <span class="best-recipe-text" type="button">주간</span>
+                        <span class="best-recipe-text" type="button" style="margin-right: 10px">월간</span>
+<!--                        <span class="best-recipe-text" type="button">주간</span>-->
                         <span class="best-recipe-text" type="button">일간</span></h5>
                 </div>
                 <div style="margin-bottom: -60px">

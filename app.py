@@ -22,6 +22,11 @@ def render_main():
     # index.html에 원하는 클라이언트 파일 입력
     return render_template('main.html')
 
+@app.route("/main", methods=["GET"])
+def main_get():
+    main_random = list(db.recipes.find({},{'_id:False'}))
+    return jsonify({'main_random' : main_random})
+
 
 # 리스트 페이지
 @app.route('/list')
@@ -277,6 +282,13 @@ def recipe_detail():
 # localhost:5000 으로 들어갈 수 있게 해주는 코드
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
+
+
+
+
+
+
+
 
 
 
