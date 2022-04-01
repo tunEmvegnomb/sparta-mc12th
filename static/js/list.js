@@ -1,23 +1,40 @@
-
-
-const likeBtn = document.querySelector(".like-icon")
 //좋아요 처음 누르면 +1, 다시 누르면 -1
+const likeIcon = document.querySelector(".like-icon")
 function onLike(event) {
     const parent = event.target.parentElement.parentElement;
     let likeNum = parent.querySelector(".like-num")
-    if (likeBtn.classList.contains("liked")) {
+    if (likeIcon.classList.contains("liked")) {
         likeNum.innerText = parseInt(likeNum.innerText) - 1
-        likeBtn.classList.remove("liked")
+        likeIcon.classList.remove("liked")
     } else {
         likeNum.innerText = parseInt(likeNum.innerText) + 1
-        likeBtn.classList.add("liked")
+        likeIcon.classList.add("liked")
     }
 }
-
-likeBtn.addEventListener("click", onLike);
-
+likeIcon.addEventListener("click", onLike);
 
 
+//최신순, 인기순 정렬??
+
+
+
+
+//검색창 입력값 불러오기
+$("form").on("submit", function(event){
+  event.preventDefault()
+  const inputVal = $("#searchInput").val()
+  console.log(inputVal)
+})
+
+
+//필터 선택값 불러오기
+function onFilterClick(event) {
+  const value = event.target.innerText
+  const key = event.target.parentElement.id
+  console.log(key, value)
+}
+
+Array.from($(".filter-value")).forEach(value => value.addEventListener("click", onFilterClick))
 
 
 
@@ -73,7 +90,7 @@ function showRecipes() {
     })
 }
 
-// 스크롤이 맨 밑까지 갈때 실행 되는 조건문
+// 스크롤이 맨 밑까지 가면 실행 되는 조건문
 function onScroll() {
     if ($(window).scrollTop() - ($(document).height()-$(window).height()) >= -1) {
         console.log("load more!")  //여기에 ajax 코드 작성

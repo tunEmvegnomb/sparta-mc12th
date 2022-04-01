@@ -47,10 +47,10 @@
 
 .card-info .card-bottom-row {
   display: flex;
-  justify-content: space-between;
 }
 
 .card-bottom-row .card-text {
+  width: 150px;
   color: #717171;
   font-size: 20px;
   font-weight: 700;
@@ -62,7 +62,6 @@
   font-size: 20px;
   font-weight: 700;
   margin-left: 10px;
-  width: 110px;
 }
 
 .card-like .like-icon {
