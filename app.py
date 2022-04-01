@@ -185,6 +185,13 @@ def render_myrecipe():
 def render_login():
     return render_template('login.html')
 
+# 로그인 페이지 API
+# 로그인 체크
+@app.route('/login', method=['POST'])
+def login_check():
+    # 페이크 값 리턴
+    return jsonify({'msg': '로그인에 성공하였습니다. 환영합니다!'})
+
 
 # 회원가입 페이지
 @app.route('/signup')
@@ -193,7 +200,7 @@ def render_signup():
 
 # 회원가입 페이지 API
 # 회원가입 체크
-@app.route('/signup/check')
+@app.route('/signup', method=['POST'])
 def signup_check():
     # 페이크 값 리턴
     return jsonify({'msg': '회원가입에 성공하였습니다!'})
