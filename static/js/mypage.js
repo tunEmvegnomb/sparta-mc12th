@@ -1,4 +1,3 @@
-console.log(true)
 function showMypage() {
     $.ajax({
         type: "GET",

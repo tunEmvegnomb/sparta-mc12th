@@ -14,9 +14,14 @@ function onLike(event) {
 likeIcon.addEventListener("click", onLike);
 
 
-//최신순, 인기순 정렬??
+//최신순, 인기순 클릭
+$(".sortByDate").on("click", function() {
+  console.log("최신순 클릭")
+})
 
-
+$(".sortByLike").on("click", function() {
+  console.log("인기순 클릭")
+})
 
 
 //검색창 입력값 불러오기
