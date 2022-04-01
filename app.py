@@ -46,7 +46,7 @@ def render_theme():
 def render_rank():
     return render_template('rank.html')
 
-#리퀘스트 변수로 받기
+#리퀘스트 변수로 받기 #
 @app.route('/rank/get', methods=['GET'])
 def rank():
     year_give = request.args.get('date_year')
