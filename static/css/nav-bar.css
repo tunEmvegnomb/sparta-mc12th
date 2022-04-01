@@ -55,6 +55,10 @@
   transition: all 0.2s ease-in-out;
 }
 
+.loginIcon .current {
+  fill: var(--default);
+}
+
 .loginIcon:hover {
   transform: scale(1.08);
   fill: var(--default);
