@@ -1,5 +1,7 @@
 # flask 프레임워크 임포트.
 # render_template(페이지 이동), jsonify(json값 리턴), request(클라이언트 값 받기), session(로그인) 라이브러리 임포트
+import os
+
 from flask import Flask, render_template, jsonify, request, session
 
 # MongoClient(몽고DB 관리 라이브러리) 임포트
@@ -142,7 +144,30 @@ def rank():
 # 나만의 레시피 작성 페이지
 @app.route('/write')
 def render_write():
-    return render_template('write.html')
+    return render_template('make_recipe.html')
+
+@app.route('/api/sub_create', methods=['POST'])
+def sub_create():
+    title_receive = request.form['title_give']
+    img_receive = request.form['img_give']
+    time_receive = request.form['time_give']
+    diff_receive = request.form['diff_give']
+    ing_receive = request.form['ing_give']
+    detail_receive = request.form['detail_give']
+    writter_receive = request.form['writter_give']
+
+    doc = {
+        'title': title_receive,
+        'img': img_receive,
+        'time': time_receive,
+        'diff': diff_receive,
+        'ing': ing_receive,
+        'detail': detail_receive,
+        'writter':writter_receive
+    }
+    db.myrecipes.insert_one(doc)
+
+    return jsonify({'msg': '저장완료되었습니다.'})
 
 
 # 마이 페이지
