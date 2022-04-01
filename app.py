@@ -16,6 +16,8 @@ db = client.mc12th
 app = Flask(__name__)
 
 
+
+
 # 메인 페이지 - app.py 실행 후, localhost:5000으로 접속했을 때, 가장 먼저 출력
 @app.route('/')
 def render_main():
@@ -51,6 +53,8 @@ def main_top3():
     ]
 
     return jsonify({'filtered_data': top3_recipe})
+
+
 
 
 # 리스트 페이지
@@ -98,6 +102,9 @@ def list_search():
     searched_data = list(db.recipes.find({}, {'_id': False}).limit(18))
     return jsonify({'filtered_data': searched_data})
 
+
+
+
 # 테마 페이지
 @app.route('/theme')
 def render_theme():
@@ -112,56 +119,66 @@ def theme_data():
     return jsonify({'append_data': append_data})
 
 
+
+
 # 인기 페이지
 @app.route('/rank')
 def render_rank():
     return render_template('rank.html')
 
-
+# 인기 페이지 API
+# 인기 데이터 10개 조회 API
 # 리퀘스트 변수로 받기 #
 @app.route('/rank/get', methods=['GET'])
-def rank():
-    year_give = request.args.get('date_year')
-    month_give = request.args.get('date_month')
-    day_give = request.args.get('date_day')
-    click_receive = request.args.get('click_data')
-    print(year_give, month_give, day_give, click_receive)
+def rank_get():
+    # year_give = request.args.get('date_year')
+    # month_give = request.args.get('date_month')
+    # day_give = request.args.get('date_day')
+    # click_receive = request.args.get('click_data')
+    # print(year_give, month_give, day_give, click_receive)
+    #
+    # # 레시피 데이터 베이스 가져오기
+    # # 데이터베이스에서 상위 10개 가져오기
+    # recipes = list(db.recipes.find({}, {'_id': False}).sort('recipe_like', -1).limit(10))
+    #
+    # # 반복문 사용(데이터 출력용도)
+    # for db_recipe in recipes:
+    #     # 날짜값 스플릿
+    #     db_date = db_recipe['recipe_post_update']
+    #     # 스플릿데이터 - 년도
+    #     db_year = db_date.split('-')[0]
+    #     # 스플릿데이터 - 월
+    #     db_month = db_date.split('-')[1]
+    #     # 스플릿데이터 - 일
+    #     db_day = db_date.split('-')[2]
+    #
+    #     # 조건문 - 클릭 리시브
+    #     if click_receive == '연간':
+    #         # 년도에 따라 데이터 출력
+    #         if db_year == "2022":
+    #             db_yearlist = db_recipe
+    #             print('연간 데이터 출력 완료!')
+    #             return jsonify({'filtered_data': db_yearlist})
+    #
+    #
+    #     elif click_receive == '월간':
+    #         if db_month == "03":
+    #             db_monthlist = db_recipe
+    #             print('월간 데이터 출력 완료!')
+    #             return jsonify({'filtered_data': db_monthlist})
+    #
+    #     elif click_receive == '일간':
+    #         if db_day == "01":
+    #             db_daylist = db_recipe
+    #             print('일간 데이터 출력 완료!')
+    #             return jsonify({'filtered_data': db_daylist})
 
-    # 레시피 데이터 베이스 가져오기
-    # 데이터베이스에서 상위 10개 가져오기
-    recipes = list(db.recipes.find({}, {'_id': False}).sort('recipe_like', -1).limit(10))
-
-    # 반복문 사용(데이터 출력용도)
-    for db_recipe in recipes:
-        # 날짜값 스플릿
-        db_date = db_recipe['recipe_post_update']
-        # 스플릿데이터 - 년도
-        db_year = db_date.split('-')[0]
-        # 스플릿데이터 - 월
-        db_month = db_date.split('-')[1]
-        # 스플릿데이터 - 일
-        db_day = db_date.split('-')[2]
-
-        # 조건문 - 클릭 리시브
-        if click_receive == '연간':
-            # 년도에 따라 데이터 출력
-            if db_year == "2022":
-                db_yearlist = db_recipe
-                print('연간 데이터 출력 완료!')
-                return jsonify({'filtered_data': db_yearlist})
+    #  페이크 값 리턴
+    filtered_data = list(db.recipes.find({}, {'_id': False}).limit(10))
+    return jsonify({'append_data': filtered_data})
 
 
-        elif click_receive == '월간':
-            if db_month == "03":
-                db_monthlist = db_recipe
-                print('월간 데이터 출력 완료!')
-                return jsonify({'filtered_data': db_monthlist})
 
-        elif click_receive == '일간':
-            if db_day == "01":
-                db_daylist = db_recipe
-                print('일간 데이터 출력 완료!')
-                return jsonify({'filtered_data': db_daylist})
 
 # 마이 페이지
 @app.route('/mypage', methods=['GET'])
