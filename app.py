@@ -60,7 +60,7 @@ def render_list():
 
 # 리스트 페이지 API
 # 다큐먼트 시작 시 데이터를 출력하는 API
-@app.route('list/data', method=['GET'])
+@app.route('/list/data', method=['GET'])
 def list_data_append():
     # 페이크 값 리턴
     limited_data = list(db.recipes.find({}, {'_id': False}).limit(18))
@@ -68,7 +68,7 @@ def list_data_append():
 
 # 리스트 페이지 API
 # 추천순 정렬 API
-@app.route('list/order_like', method=['GET'])
+@app.route('/list/order_like', method=['GET'])
 def list_order_like():
     # 페이크 값 리턴
     order_like = list(db.recipes.find({}, {'_id': False}))
@@ -76,11 +76,20 @@ def list_order_like():
 
 # 리스트 페이지 API
 # 최신순 정렬 API
-@app.route('list/order_date', method=['GET'])
+@app.route('/list/order_date', method=['GET'])
 def list_order_date():
     # 페이크 값 리턴
     order_date = list(db.recipes.find({}, {'_id': False}))
     return jsonify({'append_data': order_date})
+
+# 리스트 페이지 API
+# 리스트 필터 API
+@app.route('/list/filter', method=['GET'])
+def list_filter():
+    # 페이크 값 리턴
+    filtered_data = list(db.recipes.find({}, {'_id': False}).limit(18))
+    return jsonify({'filtered_data': filtered_data})
+
 
 # 테마 페이지
 @app.route('/theme')
