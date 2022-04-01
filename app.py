@@ -66,6 +66,14 @@ def list_data_append():
     limited_data = list(db.recipes.find({}, {'_id': False}).limit(18))
     return jsonify({'append_data': limited_data})
 
+# 리스트 페이지 API
+# 추천순 정렬 API
+@app.route('list/order_like', method=['GET'])
+def list_order_like():
+    # 페이크 값 리턴
+    order_like = list(db.recipes.find({}, {'_id': False}))
+    return jsonify({'append_data': order_like})
+
 
 # 테마 페이지
 @app.route('/theme')
