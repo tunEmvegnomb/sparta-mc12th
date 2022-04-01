@@ -90,6 +90,13 @@ def list_filter():
     filtered_data = list(db.recipes.find({}, {'_id': False}).limit(18))
     return jsonify({'filtered_data': filtered_data})
 
+# 리스트 페이지 API
+# 리스트 검색 API
+@app.route('/list/search', method=['GET'])
+def list_search():
+    # 페이크 값 리턴
+    searched_data = list(db.recipes.find({}, {'_id': False}).limit(18))
+    return jsonify({'filtered_data': searched_data})
 
 # 테마 페이지
 @app.route('/theme')
