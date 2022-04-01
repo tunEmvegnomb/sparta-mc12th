@@ -10,22 +10,6 @@ $(document).ready(function(){
     $("#"+tab_id).addClass('current');
     })
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const name = urlParams.get("recipe_name");
-    console.log(name)
-
-    $.ajax({
-        type: "GET",
-        url: `/detail/recipe-detail?name=${name}`,
-        data: {},
-        success: function (response) {
-            console.log(response)
-            console.log(response['recipe'])
-        }
-    })
-
-
-
-
-
 })
+
+

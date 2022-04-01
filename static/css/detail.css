@@ -90,6 +90,8 @@ body {
     display: inline-block;
     max-width: 730px;
     height: 420px;
+    object-position: center;
+
 }
 
 .detailTitleWrap {
@@ -142,29 +144,66 @@ body {
 .recipe_like {
     display: inline-block;
     float: right;
-    padding-top: 50px;
+    padding-top: 30px;
     position: relative;
     font-size: 18px;
     font-weight: 750;
     letter-spacing: -1px;
-    padding-right: 22px;
+    width: 40px;
+    margin: auto;
+    left: -7px;
 }
 
 .likeIcon {
     width: 35px;
-    position: absolute;
     top: 16px;
-    left: -2px;
+    margin: auto;
 }
 
 .recipe_add {
     display: inline-block;
     float: right;
-    padding-top: 30px;
+    padding-top: 42px;
+    position: relative;
 }
 
 .addIcon {
     width: 35px;
+    cursor: pointer;
+}
+
+.arrow_box {
+    visibility: hidden;
+    position: absolute;
+    width: 110px;
+    font-size: 13px;
+    padding: 5px;
+    left: -26px;
+    top: 87px;
+    border-radius: 10px;
+    background-color: rgba(9,9,9,0.8);
+    color: #fff;
+    z-index: 100;
+    text-align: center;
+
+}
+
+.arrow_box::after {
+  position: absolute;
+  bottom: 100%;
+  left: 40%;
+  width: 0;
+  height: 0;
+  margin-left: -8px;
+  border-width: 8px;
+    border-style: solid;
+    border-color: transparent transparent rgba(9,9,9,0.8) transparent;
+  pointer-events: none;
+  content: ' ';
+}
+
+.recipe_add:hover p.arrow_box {
+    visibility: visible;
 }
 
 .imforWrap {
@@ -345,6 +384,8 @@ body {
     background-color: white;
     border-radius: 20px;
     display: inline-block;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 .process {
@@ -355,7 +396,7 @@ body {
     color: #3a3845;
     display: inline-block;
     width: 100%;
-    padding: 20px 20px 10px 20px;
+    padding: 13px 20px 13px 20px;
     margin: 0;
     letter-spacing: -0.5px;
 }
