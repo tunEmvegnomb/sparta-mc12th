@@ -110,7 +110,7 @@ def rank():
         #연도 스필릿
         db_year = db_date.split('-')[0]
         # 같은년도에 해당하는 달에 따라 데이터 출력
-        if db_month == "05" and db_year == "2023":
+        if db_month == "03" and db_year == "2022":
             db_monthlist = db_recipe
             print(db_monthlist)
 
@@ -126,7 +126,7 @@ def rank():
         #연도 스플릿
         db_year = db_date.split('-')[0]
         # 같은년도 같은월에 해당하는 일에 따라 데이터 출력
-        if db_day == "02" and db_month == "03" and db_year == "2023":
+        if db_day == "01" and db_month == "03" and db_year == "2022":
             db_daylist = db_recipe
             print(db_daylist)
 
@@ -274,7 +274,6 @@ def recipe_detail():
 # localhost:5000 으로 들어갈 수 있게 해주는 코드
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
-
 
 
 
