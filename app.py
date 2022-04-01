@@ -103,6 +103,14 @@ def list_search():
 def render_theme():
     return render_template('theme.html')
 
+# 테마 페이지 API
+# 테마 레시피 데이터 출력 API
+@app.route('/theme', methods=['GET'])
+def theme_data():
+    # 페이크 값 리턴
+    append_data = list(db.recipes.find({}, {'_id': False}).limit(3))
+    return jsonify({'append_data': append_data})
+
 
 # 인기 페이지
 @app.route('/rank')
