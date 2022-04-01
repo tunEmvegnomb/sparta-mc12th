@@ -74,6 +74,13 @@ def list_order_like():
     order_like = list(db.recipes.find({}, {'_id': False}))
     return jsonify({'append_data': order_like})
 
+# 리스트 페이지 API
+# 최신순 정렬 API
+@app.route('list/order_date', method=['GET'])
+def list_order_date():
+    # 페이크 값 리턴
+    order_date = list(db.recipes.find({}, {'_id': False}))
+    return jsonify({'append_data': order_date})
 
 # 테마 페이지
 @app.route('/theme')
