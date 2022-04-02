@@ -9,6 +9,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="/static/css/styles.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
@@ -31,7 +32,7 @@
         </li>
         <li><a class="menuLink" href="#">전체 레시피</a></li>
         <li><a class="menuLink" href="#">랭킹 보기</a></li>
-        <li><a class="menuLink" href="#">마이페이지</a></li>
+        <li><a class="menuLink" href="#">레시피 등록</a></li>
         <li>
           <a class="myPageLink" href="#"
             ><svg
@@ -57,21 +58,26 @@
       <form class="login-form">
         <div class="login-id">
           <img src="/static/img/login_id.png" class="login-icon id-icon" />
-          <input type="text" class="" placeholder="아이디" required />
+          <input type="text" id="loginId" placeholder="아이디" required />
         </div>
         <div class="login-password">
           <img
             src="/static/img/login_password.png"
             class="login-icon password-icon"
           />
-          <input type="password" class="" placeholder="비밀번호" required />
+          <input
+            type="password"
+            id="loginPassword"
+            placeholder="비밀번호"
+            required
+          />
         </div>
         <button type="submit" class="login-btn">로그인</button>
-        <button type="button" class="signup_btn">
-          <a href="#"></a>회원가입
-        </button>
+        <a href="/signup"
+          ><button type="button" class="signup_btn">회원가입</button></a
+        >
       </form>
-      <!-- <a href="#" class="find_account-link">아이디 / 비밀번호 찾기 > </a> -->
     </main>
+    <script type="text/javascript" src="/static/js/login.js"></script>
   </body>
 </html>
