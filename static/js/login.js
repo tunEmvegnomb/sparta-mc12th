@@ -11,8 +11,9 @@ $(".login-form").on("submit", function(event){
         data: {id_give: user_id, pwd_give: user_pwd}, 
         success: function (response) {
             alert(response['msg']);
+            document.location.href = "/"    //메인페이지로 이동
         }
     })
 
-    document.location.href = "/"    //메인페이지로 이동
+   
 })
