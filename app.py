@@ -4,7 +4,7 @@ from flask import Flask, render_template, jsonify, request, session
 
 # 암호화 라이브러리 bcrypy import. 오류가 뜬다면 interpreter에서 bcrypy 패키지 install
 # 그래도 오류가 뜬다면 terminal에서 pip install flask-bcrypt 입력
-from flask_bcrypt import Bcrypt
+# from flask_bcrypt import Bcrypt
 
 # MongoClient(몽고DB 관리 라이브러리) 임포트
 from pymongo import MongoClient
@@ -23,7 +23,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'Blue Like Aquamarine'
 app.config['BCRYPT_LEVEL'] = 10
 
-bcrypt = Bcrypt(app)
+# bcrypt = Bcrypt(app)
 
 # pw_hash = bcrypt.hashpw("password".encode("utf-8"), bycrypt.gensalt())
 # pw_hash2 = bcrypt.hashpw("password".encode("utf-8"), bycrypt.gensalt())
