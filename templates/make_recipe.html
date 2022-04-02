@@ -26,7 +26,7 @@
 <nav class="navbar navbar-expand-lg navbar-#FF6219 bg-#FF6219">
     <div class="container-fluid">
         <div class="navbar navbar-collapse">
-            <a class="navbar-brand" href="#" type="text">자취생에 의한 자취생만을 위한 너만의 레시피</a>
+            <a class="navbar-brand" onclick="logo()" href="#" type="text">자취생에 의한 자취생만을 위한 너만의 레시피</a>
             <div class="navbar-nav me-auto mb-2 mb-lg-0">
                 <a href="/" class="nav-item">전체 레시피 보기</a>
                 <a href="/" class="nav-item">랭킹 보기</a>
@@ -51,14 +51,14 @@
                 <div class="input-title  mb-3">
                     <label class="col-sm-2 col-form-label">제목</label>
                     <input type="text" class="form-control" placeholder="내가 만드는 레시피의 타이틀을 입력해주세요."
-                           aria-describedby="button-addon2">
+                           aria-describedby="button-addon2" id="title">
                     <button class="btn btn-secondary btn-sm" type="button" id="button-addon2"><span>중복확인</span>
                     </button>
                 </div>
                 <!--이미지 첨부-->
                 <div class="input-img mb-3">
                     <label class="col-sm-2 col-form-label">이미지</label>
-                    <input class="form-control form-control-sm" id="formFileSm" type="file">
+                    <input class="form-control form-control-sm" id="file_upload" type="file">
                 </div>
             </div>
             <!--난이도 및 레시피-->
@@ -70,16 +70,16 @@
                 <div class="input-time input-group mb-3">
                     <label class="col-sm-2 col-form-label">제작 시간</label>
                     <div>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" id="time1">
                         <span class="input-group-text">시간</span>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" id="time2">
                         <span class="input-group-text">분</span>
                     </div>
                 </div>
                 <!--난이도-->
                 <div class="select-level">
                     <label class="col-sm-2 col-form-label">난이도</label>
-                    <select class="form-select" aria-label="Default select example">
+                    <select class="form-select" aria-label="Default select example" id="diff">
                         <option selected>난이도를 선택해주세요!</option>
                         <option value="1">상</option>
                         <option value="2">중</option>
@@ -92,10 +92,10 @@
                 <!--레시피 재료-->
                 <div class="recipe-ingredient">
                     <p class="ingredient-title">레시피 재료   <span class="ingredient-sub">요리에 들어가는 재료와 정량을 적어주세요!</span></p>
-                    <div class="row g-3">
-                        <div class="input-ingredient col col-row">
+                    <div class="row g-3" id="recipe-ing">
+                        <div class="input-ingredient col col-row" id="recipe-ing-input">
                             <label class="col-sm-2 col-form-label">1번</label>
-                            <input type="text" class="form-control col-md-2">
+                            <input type="text" class="form-control col-md-2" id="ing">
                         </div>
                         <div class="input-ingredient col col-row">
                             <label class="col-sm-2 col-form-label">2번</label>
@@ -112,15 +112,16 @@
                             <input type="text" class="form-control col-md-2">
                         </div>
                     </div>
-                    <p class="ingredient-third" type="button">추가</p>
+                    <div id="recipe-ing-add"></div>
+                    <p class="ingredient-third" type="button" id="ing-add" onclick="ing_add()">추가</p>
                 </div>
                 <hr style="width: 600px; border: 1px solid #8C8C8C;">
                 <!--조리 순서-->
-                <div class="recipe-order">
+                <div class="recipe-order" id="recipe-order">
                   <p class="order-title">조리 순서   <span class="order-sub">조리 순서를 정확하게 작성해주세요!</span></p>
-                  <div class="input-order mb-3 row">
+                  <div class="input-order mb-3 row" id="recipe-order-input">
                     <label class="col-sm-1 col-form-label">1번</label>
-                    <input type="text" class="form-control col-sm-10" >
+                    <input type="text" class="form-control col-sm-10" id="detail">
                   </div>
                   <div class="input-order mb-3 row">
                     <label class="col-sm-1 col-form-label">2번</label>
@@ -134,12 +135,13 @@
                     <label class="col-sm-1 col-form-label">4번</label>
                     <input type="text" class="form-control col-sm-10" >
                   </div>
-                  <p class="order-third" type="button">추가</p>
+                  <div id="recipe-order-add"></div>
+                  <p class="order-third" type="button" id="order-add" onclick="order_add()">추가</p>
                 </div>
 
             </div>
             <!--작성완료 버튼-->
-            <button class="fin-btn">작성완료</button>
+            <button class="fin-btn" onclick="recipe_create()">작성완료</button>
         </div>
 
     </div>
