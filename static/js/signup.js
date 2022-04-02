@@ -13,6 +13,7 @@ $('.signup-form').on('submit', function(event) {
         data: {id_give: user_id, pwd_give: user_pwd, pwd2_give: user_pwd2, nickname_give: user_nickname}, 
         success: function (response) {
             alert(response['msg']);
+            document.location.href = "/login" //로그인페이지로 이동
         }
     })
 });

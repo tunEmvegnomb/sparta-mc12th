@@ -1,20 +1,4 @@
-// //좋아요 처음 누르면 +1, 다시 누르면 -1
-// const likeIcon = document.querySelector(".like-icon")
-// function onLike(event) {
-//     const parent = event.target.parentElement.parentElement;
-//     let likeNum = parent.querySelector(".like-num")
-//     if (likeIcon.classList.contains("liked")) {
-//         likeNum.innerText = parseInt(likeNum.innerText) - 1
-//         likeIcon.classList.remove("liked")
-//     } else {
-//         likeNum.innerText = parseInt(likeNum.innerText) + 1
-//         likeIcon.classList.add("liked")
-//     }
-// }
-// likeIcon.addEventListener("click", onLike);
-
-
-//최신순 정렬
+//최신순 정렬 -> 문제는 검색값, 필터값과 중복 안됨. 현재는 있는 내용을 지우고 다시 불러오는 형태
 $(".sortByDate").on("click", function() {
   $.ajax({
     type: "GET",
@@ -65,7 +49,7 @@ $(".sortByDate").on("click", function() {
 })
 })
 
-//인기순 정렬
+//인기순 정렬 -> 문제는 검색값, 필터값과 중복 안됨. 현재는 있는 내용을 지우고 다시 불러오는 형태
 $(".sortByLike").on("click", function() {
   $.ajax({
     type: "GET",
@@ -117,7 +101,7 @@ $(".sortByLike").on("click", function() {
 })
 
 
-//검색창 입력
+//검색창 입력(자바스크립트에서 페이크값 내에서 검색되도록 구현함)
 $("form").on("submit", function(event){
   event.preventDefault()
   const inputVal = $("#searchInput").val()
@@ -179,11 +163,11 @@ $("form").on("submit", function(event){
 })
 
 
-//필터 선택값 불러오기
+//필터 선택값 불러오기 
 function onFilterClick(event) {
   const value = event.target.innerText
   const key = event.target.parentElement.id
-  console.log(key, value)
+  console.log(key, value)   //recipe_taste, 달달 이런식으로 값 가져옴
   $.ajax({
     type: "GET",
     url: "/list/filter",
@@ -239,6 +223,7 @@ Array.from($(".filter-value")).forEach(value => value.addEventListener("click", 
 $(document).ready(function() {
   showRecipes();
 })
+
 //처음 데이터 출력
 function showRecipes() {
     $.ajax({
@@ -283,13 +268,10 @@ function showRecipes() {
                 </div>
               </div>`
                 $('.card-group').append(temp_html)
-  
-            }
-            
+            }          
         }  
     })
 }
-
 
 
 //레시피 이름으로 출력
@@ -308,12 +290,32 @@ function moveDetail() {
   }
 }
 
-
-// 스크롤이 맨 밑까지 가면 실행 되는 조건문
-function onScroll() {
-  if ($(window).scrollTop() - ($(document).height()-$(window).height()) >= -1) {
-      console.log("load more!")  //여기에 ajax 코드 작성
+ // 스크롤이 맨 밑까지 가면 실행 되는 조건문
+const target = document.querySelector(".spinner-border")
+const option = {
+  rootMargin: '100px'
+}
+const callback = (entry, observer) => {
+  if(entry[0].isIntersecting) { 
+    console.log("load more!")  //여기에 다음 데이터 추가하는 함수 쓰기
   } 
 }
+const observer = new IntersectionObserver(callback, option);
+observer.observe(target) //여기까지 스크롤 그거
 
-window.addEventListener("scroll",onScroll)
+
+
+// //좋아요 처음 누르면 +1, 다시 누르면 -1
+// const likeIcon = document.querySelector(".like-icon")
+// function onLike(event) {
+//     const parent = event.target.parentElement.parentElement;
+//     let likeNum = parent.querySelector(".like-num")
+//     if (likeIcon.classList.contains("liked")) {
+//         likeNum.innerText = parseInt(likeNum.innerText) - 1
+//         likeIcon.classList.remove("liked")
+//     } else {
+//         likeNum.innerText = parseInt(likeNum.innerText) + 1
+//         likeIcon.classList.add("liked")
+//     }
+// }
+// likeIcon.addEventListener("click", onLike);
