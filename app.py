@@ -24,10 +24,25 @@ def render_main():
     # index.html에 원하는 클라이언트 파일 입력
     return render_template('main.html')
 
-@app.route("/main", methods=["GET"])
-def main_get():
-    main_random = list(db.recipes.find({},{'_id:False'}))
-    return jsonify({'main_random' : main_random})
+@app.route("/reco", methods=["GET"])
+#난수활용 추천 페이지 출력
+def main_get(random=None):
+    # 추천순 내림차순 정렬
+    top_recipes = list(db.recipes.find({}, {'_id': False}).sort('recipe_like', -1))
+    # 10위부터 1위까지 새로 리스트 생성
+    top10 = top_recipes[0:10]
+
+    num = random.randrange(1, 11)  # 1부터 10 사이의 난수 생성
+    for top10_recipes in top10:
+        like = top10_recipes['recipe_like']
+
+        def random():
+            if num == like is not None:
+                return top10_recipes
+
+        print(random())
+
+    return jsonify({'top10': top10})
 
 
 # 리스트 페이지
@@ -146,29 +161,43 @@ def rank():
 def render_write():
     return render_template('make_recipe.html')
 
-@app.route('/api/sub_create', methods=['POST'])
-def sub_create():
-    title_receive = request.form['title_give']
-    img_receive = request.form['img_give']
-    time_receive = request.form['time_give']
-    diff_receive = request.form['diff_give']
-    ing_receive = request.form['ing_give']
-    detail_receive = request.form['detail_give']
-    writter_receive = request.form['writter_give']
+# 나만의 레시피 api - 작성 기능
+@app.route('/write', methods=['POST'])
+def myrecipe_write():
+    if 'user_id' in session:
+        myrecipe_title_receive = request.form['myrecipe_title_give']
+        myrecipe_writter_receive = request.form['myrecipe_writter_give'] # 사용자 id를 받아와야할듯..
+        myrecipe_diff_receive = request.form['myrecipe_diff_give']
+        myrecipe_time_receive = request.form['myrecipe_time_give']
+        myrecipe_ing_receive = request.form['myrecipe_ing_give']
+        myrecipe_detail_receive = request.form['myrecipe_detail_give']
 
-    doc = {
-        'title': title_receive,
-        'img': img_receive,
-        'time': time_receive,
-        'diff': diff_receive,
-        'ing': ing_receive,
-        'detail': detail_receive,
-        'writter':writter_receive
-    }
-    db.myrecipes.insert_one(doc)
+        # print(myrecipe_title_receive, myrecipe_writter_receive,myrecipe_diff_receive, myrecipe_time_receive,myrecipe_ing_receive,myrecipe_detail_receive )
 
-    return jsonify({'msg': '저장완료되었습니다.'})
+        # 이미지 파일 업로딩 관련부분 - 보완필요
+        myrecipe_img_receive = request.files['myrecipe_img_give'] # 이미지파일
+        # print(myrecipe_img_receive)
+        img_filename = myrecipe_img_receive.filename
+        # filename = f'{today}---{_filename}'
+        # extension = myrecipe_img_receive.filename.split('.')[-1]
+        # print(filename, extension)
+        save_to = 'static/myrecipe_img/{}'.format(img_filename)
+        myrecipe_img_receive.save(save_to)
 
+        # db저장
+        doc = {
+            'myrecipe_title': myrecipe_title_receive,
+            'myrecipe_img': img_filename,
+            'myrecipe_writter' : myrecipe_writter_receive,
+            'myrecipe_diff' : myrecipe_diff_receive,
+            'myrecipe_time' : myrecipe_time_receive,
+            'myrecipe_ing' : myrecipe_ing_receive,
+            'myrecipe_detail' : myrecipe_detail_receive
+        }
+        db.myrecipes.insert_one(doc)
+        return jsonify({'msg': '나만의 레시피 작성 완료'})
+    else:
+        return jsonify({'msg': '로그인 해주세요'})
 
 # 마이 페이지
 @app.route('/mypage', methods=['GET'])
@@ -299,6 +328,13 @@ def recipe_detail():
     print(target_recipe)
 
     return jsonify({'target_recipe': target_recipe})
+
+
+
+
+
+
+
 
 
 
