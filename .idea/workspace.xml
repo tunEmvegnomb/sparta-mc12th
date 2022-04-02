@@ -7,10 +7,9 @@
     <list default="true" id="7ee9b6d7-d1ae-43e4-8f99-4e7563433977" name="변경" comment="ranggu">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/detail.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/detail.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/detail.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/detail.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/rank.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/rank.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/rank.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/rank.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -192,7 +191,7 @@
       <workItem from="1648809908679" duration="337000" />
       <workItem from="1648810332406" duration="109000" />
       <workItem from="1648810467841" duration="549000" />
-      <workItem from="1648811158333" duration="9833000" />
+      <workItem from="1648811158333" duration="24940000" />
     </task>
     <task id="LOCAL-00001" summary="랑구 업로드 완료">
       <created>1647939048566</created>
@@ -262,7 +261,7 @@
     <option name="LAST_COMMIT_MESSAGE" value="ranggu" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Github$Github.coverage" NAME="Github 커버리지 결과" MODIFIED="1648811279898" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/Github$Github.coverage" NAME="Github 커버리지 결과" MODIFIED="1648870254486" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/Github$app.coverage" NAME="app 커버리지 결과" MODIFIED="1648810218925" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Github$data.coverage" NAME="data 커버리지 결과" MODIFIED="1648532886956" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>

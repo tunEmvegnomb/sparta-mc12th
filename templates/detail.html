@@ -116,7 +116,7 @@
 
                 $.ajax({
                     type: "POST",
-                    url: "/order",
+                    url: "/detail/review-post",
                     data: {user_nickname_give:nickName, review_content_give:content, recipe_name_give_:name},
                     success: function (response) { // 성공하면
                         alert(response["msg"]);

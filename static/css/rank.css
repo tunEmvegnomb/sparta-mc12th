@@ -101,6 +101,20 @@
     text-align: right;
     margin: 80px 0 10px 0;
     height: 25pt;
+    position: relative;
+}
+
+.text {
+    display: inline-block;
+    text-align: left;
+    position: absolute;
+    width: 500px;
+    left: 175px;
+    top: 16px;
+    letter-spacing: -0.7px;
+    font-size: 14px;
+    color: grey;
+    font-weight: 400;
 }
 /*이 부분 논의 필요*/
 /*오른쪽 정렬을 위한 속성인 float:right를 사용하고 싶었으나*/
@@ -169,6 +183,46 @@
     background-color: white;
 }
 
+.nameWrap {
+    display: inline-block;
+    float: right;
+    padding-top: 42px;
+    position: relative;
+}
+
+.arrow_box {
+    visibility: hidden;
+    position: absolute;
+    width: 110px;
+    font-size: 13px;
+    padding: 5px;
+    left: -26px;
+    top: 87px;
+    border-radius: 10px;
+    background-color: rgba(9,9,9,0.8);
+    color: #fff;
+    z-index: 100;
+    text-align: center;
+}
+
+.arrow_box::after {
+  position: absolute;
+  bottom: 100%;
+  left: 40%;
+  width: 0;
+  height: 0;
+  margin-left: -8px;
+  border-width: 8px;
+    border-style: solid;
+    border-color: transparent transparent rgba(9,9,9,0.8) transparent;
+  pointer-events: none;
+  content: ' ';
+}
+
+.recipe_add:hover p.arrow_box {
+    visibility: visible;
+}
+
 .medalIcon {
     width: 150px;
     position: absolute;
@@ -186,6 +240,7 @@
 
 .recipe_img {
     width: 380px;
+    height: 280px;
     border-radius: 10pt;
     vertical-align: middle;
     background-size: contain;
@@ -195,19 +250,21 @@
     display: inline-block;
     position: absolute;
     padding: 40pt 0 0 0;
-    right: -15px;
+    right: 10px;
     top: 15px;
     color: #3A3845;
     text-align: center;
+    width: 400px;
 }
 
 .recipeDesc2Wrap {
     display: inline-block;
     position: absolute;
-    right: 120px;
+    right: 10px;
     top: 130px;
     color: #3A3845;
     text-align: center;
+    width: 400px;
 }
 
 .recipe_link, .recipe_link:hover {
@@ -219,10 +276,11 @@
     font-weight: 600;
     color: #3A3845;
     display: inline-block;
-    width: 450px;
+    width: 400px;
     position: relative;
     line-height: 30px;
     letter-spacing: -1px;
+    cursor: pointer;
 }
 
 .recipe_name:hover {
@@ -267,11 +325,19 @@
     position: relative;
     top: 3px;
 }
+.recipeWrapss {
+    border: solid 3.5pt #FF6219;
+    border-radius: 15pt;
+    padding: 10px 20px 0 20px;
+    margin: 5px 20px 25px 20px;
+    position: relative;
+    background-color: white;
+}
 
 .recipeWraps {
     position: relative;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 3px;
+    padding-bottom: 15px;
 
 }
 
@@ -280,24 +346,24 @@
     font-weight: bolder;
     position: absolute;
     top: -5px;
-    left: -19px;
+    left: -10px;
     color: #3A3845;
+    letter-spacing: -12px;
+    line-height: 77px;
 }
 
 .recipeNameWrap {
-    line-height: 70px;
+    line-height: 77px;
     position: relative;
-    left: 50px;
+    left: 80px;
 }
 
 .recipeDescWraps {
     display: inline-block;
     position: absolute;
-    width: 400px;
-    right: 20px;
+    width: 280px;
     text-align: center;
-    top: -5px;
-    line-height: 2;
+    top: -7px;
 }
 
 .recipe_name2 {
@@ -305,7 +371,7 @@
     font-weight: 600;
     color: #3A3845;
     display: inline-block;
-    width: 500px;
+    width: 390px;
     position: relative;
     line-height: 40px;
     vertical-align: center;
@@ -317,5 +383,33 @@
     font-weight: bolder;
     font-size: 39px;
 }
+
+.recipe_time2 {
+    display: inline-block;
+    font-size: 20px;
+    font-weight: bold;
+    color: #3A3845;
+    line-height: 70px;
+    padding-right: 35px;
+    padding-left: 5px;
+}
+
+.recipe_diff2 {
+    display: inline-block;
+    font-size: 20px;
+    font-weight: bold;
+    color: #3A3845;
+    line-height: 70px;
+}
+
+.diffIcon2, .timeIcon2{
+    position: relative;
+    top: -3px;
+}
+
+
+
+
+
 
 
