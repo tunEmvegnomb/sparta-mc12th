@@ -12,7 +12,7 @@
             let  myrecipe_ing = $('#ing').val();
             let myrecipe_img = $('#file_upload')[0].files[0];
 
-            let myrecipe_time = myrecipe_time1 + myrecipe_time2
+            let myrecipe_time = myrecipe_time1 + "시간" + myrecipe_time2 + "분"
 
             let form_data = new FormData()
             form_data.append("myrecipe_title_give", myrecipe_title)
