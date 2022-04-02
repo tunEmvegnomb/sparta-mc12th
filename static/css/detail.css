@@ -355,6 +355,7 @@ body {
     background-color: white;
     border-radius: 20px;
     display: inline-block;
+    width: 618px;
 }
 
 .ingList li {
@@ -364,7 +365,7 @@ body {
     font-weight: 600;
     color: #3a3845;
     display: inline-block;
-    width: 45%;
+    width: 50%;
     padding-top: 7px;
     padding-bottom: 7px;
     position: relative;
