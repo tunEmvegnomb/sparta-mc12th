@@ -4,15 +4,15 @@ from flask import Flask, render_template, jsonify, request, session
 
 # 암호화 라이브러리 bcrypy import. 오류가 뜬다면 interpreter에서 bcrypy 패키지 install
 # 그래도 오류가 뜬다면 terminal에서 pip install flask-bcrypt 입력
-# from flask_bcrypt import Bcrypt
+from flask_bcrypt import Bcrypt
 
 # MongoClient(몽고DB 관리 라이브러리) 임포트
 from pymongo import MongoClient
 
 # 클라이언트 정의 - MongoClient를 로컬호스트와 연결
-client = MongoClient(
-    'mongodb+srv://making:making@cluster0.ymxju.mongodb.net/Cluster0?retryWrites=true&w=majority')
-# client = MongoClient('localhost',27017)
+# client = MongoClient(
+#     'mongodb+srv://making:making@cluster0.ymxju.mongodb.net/Cluster0?retryWrites=true&w=majority')
+client = MongoClient('localhost',27017)
 
 # 컬렉션 정의. mc12th라는 컬렉션이 생성됨
 db = client.mc12th
@@ -20,10 +20,11 @@ db = client.mc12th
 # app.route를 쓸 수 있게 해주는 코드
 app = Flask(__name__)
 
+# 암호화를 위한 bcrypt 시크릿 키
 app.config['SECRET_KEY'] = 'Blue Like Aquamarine'
 app.config['BCRYPT_LEVEL'] = 10
 
-# bcrypt = Bcrypt(app)
+bcrypt = Bcrypt(app)
 
 # pw_hash = bcrypt.hashpw("password".encode("utf-8"), bycrypt.gensalt())
 # pw_hash2 = bcrypt.hashpw("password".encode("utf-8"), bycrypt.gensalt())
@@ -268,9 +269,10 @@ def rank_get():
     filtered_data = list(db.recipes.find({}, {'_id': False}).limit(10))
     return jsonify({'append_data': filtered_data})
 
+
+
+
 # 마이 페이지
-
-
 @app.route('/mypage', methods=['GET'])
 def render_mypage():
     if session is not None:
@@ -297,8 +299,6 @@ def render_myreview():
     return render_template('myreview.html')
 
 # 나만의 레시피 조회 페이지
-
-
 @app.route('/myrecipe')
 def render_myrecipe():
     return render_template('myrecipe.html')
@@ -309,14 +309,58 @@ def render_myrecipe():
 def render_login():
     return render_template('login.html')
 
+
+
 # 로그인 페이지 API
 # 로그인 체크
-
-
 @app.route('/login', methods=['POST'])
 def login_check():
     # 페이크 값 리턴
-    return jsonify({'msg': '로그인에 성공하였습니다. 환영합니다!'})
+    # return jsonify({'msg': '로그인에 성공하였습니다. 환영합니다!'})
+
+    # 설계
+    # 1. 사용자 요청값 POST
+    # 아이디 리시브
+    id_receive = request.form['user_id']
+    # 비밀번호 리시브
+    pwd_receive = request.form['user_pwd']
+
+    # 2. 조건문1 - 입력확인
+    # 인풋의 모든 데이터가 없다면 실패 메시지 리턴
+    if (id_receive, pwd_receive) is None :
+        return jsonify({'msg' : '정보를 빠짐없이 입력해주세요'})
+    else:
+        # 3. 아이디, 비밀번호 조회
+        # 데이터베이스에서 아이디에 일치하는 데이터 찾기
+        find_db = list(db.users.find({'user_id': id_receive},{'_id':False}))
+
+        # 4. 조건문2 - 아이디 일치
+        # 조회 데이터가 존재하지 않는다면 실패 메시지 리턴
+        if find_db is None:
+            return jsonify({'msg': '아이디 및 비밀번호가 일치하지 않습니다'})
+        else:
+            # 5. 조건문3 - 비밀번호 체크
+
+            # 데이터베이스에 저장된 사용자 비밀번호 가져오기
+            # 리스트를 자를 수 없기 때문에 반복문으로 나누기
+            for find in find_db:
+                pw_hash = find['user_pwd']
+
+                # 데이터가 둘다 문자열일 경우 테스트용 해시 작업 코드
+                # pw_hash = bcrypt.generate_password_hash(pw_hash)
+
+            # 비밀번호 체크 알고리즘(사용자 요청값 암호화 하지 않아도 됨. 괄호() 안에 데이터 두개를 넣기
+                pwd_check = bcrypt.check_password_hash(pw_hash, pwd_receive)    # True, False 리턴
+                # 비밀번호가 일치하지 않는다면 실패 메시지 리턴
+                if pwd_check == False:
+                    return jsonify({'msg': '비밀번호가 일치하지 않습니다'})
+                # 비밀번호가 일치한다면 처리
+                else:
+                    # 사용자 아이디로 세션 삽입
+                    session['user_id'] = id_receive
+                    # 조회 성공 메시지 리턴
+                    return jsonify({'msg': '로그인에 성공하였습니다. 환영합니다!'})
+
 
 
 # 회원가입 페이지
