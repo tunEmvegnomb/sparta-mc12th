@@ -10,6 +10,7 @@ $(document).ready(function(){
     $("#"+tab_id).addClass('current');
     })
 
+
 })
 
 

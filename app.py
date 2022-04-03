@@ -1,13 +1,11 @@
 # flask 프레임워크 임포트.
 # render_template(페이지 이동), jsonify(json값 리턴), request(클라이언트 값 받기), session(로그인) 라이브러리 임포트
 from flask import Flask, render_template, jsonify, request, session
+from pymongo import MongoClient
 
 # 암호화 라이브러리 bcrypy import. 오류가 뜬다면 interpreter에서 bcrypy 패키지 install
 # 그래도 오류가 뜬다면 terminal에서 pip install flask-bcrypt 입력
 from flask_bcrypt import Bcrypt
-
-# MongoClient(몽고DB 관리 라이브러리) 임포트
-from pymongo import MongoClient
 
 # 클라이언트 정의 - MongoClient를 로컬호스트와 연결
 # client = MongoClient('mongodb+srv://making:making@cluster0.ymxju.mongodb.net/Cluster0?retryWrites=true&w=majority')
@@ -308,9 +306,9 @@ def render_detail():
 @app.route('/detail/recipe-detail', methods=['GET'])
 def recipe_detail():
     recipe_name_receive = request.args.get('name')
-    print(recipe_name_receive)
+    # print(recipe_name_receive)
     target_recipe = db.recipes.find_one({'recipe_name': recipe_name_receive}, {'_id': False})
-    print(target_recipe)
+    # print(target_recipe)
 
     return jsonify({'target_recipe': target_recipe})
 
@@ -336,9 +334,11 @@ def review_post():
 # 리뷰(댓글) api - list기능
 @app.route('/detail/review-list', methods=['GET'])
 def review_list():
-    recipe_name_receive = request.args.get('recipe_name_give')
+    recipe_name_receive = request.args.get('name')
     # print(recipe_name_receive)
     reviews = list(db.reviews.find({'recipe_name': recipe_name_receive}, {'_id': False}))
+    print(recipe_name_receive)
+    print(reviews)
     return jsonify({'reviews': reviews})
 
 # 리뷰(댓글) api - update 기능
@@ -372,6 +372,7 @@ def review_delete():
 def detail_add_bookmark():
     # 페이크 리턴 값
     return jsonify({'msg': '즐겨찾기를 등록하였습니다.'})
+
 
 
 

@@ -135,6 +135,7 @@
                                           </div>
                                       </div>`
 
+                        // 레시피 이름 클릭하면 해당 레시피의 상세 페이지로 이동
                         $('#thirdRecipe').append(temp_html3)
 
                         let name = "";
@@ -146,6 +147,7 @@
                             }
                         })
 
+                        // 4~10위 레시피 append
                         for (let i = 3; i < recipes.length; i++) {
                             let recipe = recipes[i]
                             // console.log(recipe)
@@ -194,12 +196,12 @@
 <body>
     <nav class="naviBar">
         <ul>
-            <li><a class="logoLink" href="#">로고 미정</a></li>
+            <li><a class="logoLink" href="/"><img class="logoIcon" src="/static/img/cook-hat.svg"></a></li>
             <li><a class="menuLink" href="/list">전체 레시피 보기</a></li>
             <li><a class="menuLink" href="/rank">랭킹 보기</a></li>
             <li><a class="menuLink" href="/make_recipe">나만의 레시피</a></li>
             <li><a class="menuLink" href="#">마이페이지</a></li>
-            <li><a class="myPageLink" href="#"><img src="/static/img/myPageIcon.png" class="loginIcon"></a></li>
+            <li><a class="myPageLink" href="/login"><img src="/static/img/myPageIcon.png" class="loginIcon"></a></li>
         </ul>
     </nav>
 
