@@ -1,8 +1,21 @@
 # -*- coding: utf-8 -*-
+
 from pymongo import MongoClient
 
-client = MongoClient('localhost', 27017)
+# client = MongoClient(
+#     'mongodb+srv://making:making@cluster0.ymxju.mongodb.net/Cluster0?retryWrites=true&w=majority')
+client = MongoClient('localhost',27017)
 db = client.mc12th
+
+doc = [
+    {
+        'user_id' : 'admin@gmail.com',
+        'user_pwd': 'admin123',
+        'user_nickname': '관리자'
+    }
+]
+db.users.insert_many(doc)
+print('success insert!')
 
 doc = [
     {

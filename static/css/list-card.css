@@ -47,10 +47,10 @@
 
 .card-info .card-bottom-row {
   display: flex;
-  justify-content: space-between;
 }
 
 .card-bottom-row .card-text {
+  width: 150px;
   color: #717171;
   font-size: 20px;
   font-weight: 700;
@@ -62,18 +62,21 @@
   font-size: 20px;
   font-weight: 700;
   margin-left: 10px;
-  width: 110px;
 }
 
 .card-like .like-icon {
-  transform: scale(1.1);
-  transition: all 0.1s ease-in-out;
+  font-size: 50px;
+  transition: all 0.05s ease-in-out;
 }
 
 .card-like .like-icon:hover {
-  transform: scale(1.15);
+  transform: scale(1.03);
 }
 
 .card-like .like-icon:active {
-  transform: rotateZ(5deg) scale(1.15);
+  transform: scale(1.01);
+}
+
+.card-body .liked {
+  color: var(--orange);
 }

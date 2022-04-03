@@ -1,14 +1,17 @@
 # flask 프레임워크 임포트.
 # render_template(페이지 이동), jsonify(json값 리턴), request(클라이언트 값 받기), session(로그인) 라이브러리 임포트
 from flask import Flask, render_template, jsonify, request, session
-from pymongo import MongoClient
 
 # 암호화 라이브러리 bcrypy import. 오류가 뜬다면 interpreter에서 bcrypy 패키지 install
 # 그래도 오류가 뜬다면 terminal에서 pip install flask-bcrypt 입력
 from flask_bcrypt import Bcrypt
 
+# MongoClient(몽고DB 관리 라이브러리) 임포트
+from pymongo import MongoClient
+
 # 클라이언트 정의 - MongoClient를 로컬호스트와 연결
-# client = MongoClient('mongodb+srv://making:making@cluster0.ymxju.mongodb.net/Cluster0?retryWrites=true&w=majority')
+# client = MongoClient(
+#     'mongodb+srv://making:making@cluster0.ymxju.mongodb.net/Cluster0?retryWrites=true&w=majority')
 client = MongoClient('localhost',27017)
 
 # 컬렉션 정의. mc12th라는 컬렉션이 생성됨
@@ -17,6 +20,7 @@ db = client.mc12th
 # app.route를 쓸 수 있게 해주는 코드
 app = Flask(__name__)
 
+# 암호화를 위한 bcrypt 시크릿 키
 app.config['SECRET_KEY'] = 'Blue Like Aquamarine'
 app.config['BCRYPT_LEVEL'] = 10
 
@@ -52,6 +56,8 @@ def main_reco():
 
 # 메인페이지 API
 # 인기배너 데이터 출력 API
+
+
 @app.route('/top3', methods=['GET'])
 def main_top3():
     # 페이크 리턴 값
@@ -72,8 +78,6 @@ def main_top3():
     return jsonify({'filtered_data': top3_recipe})
 
 
-
-
 # 리스트 페이지
 @app.route('/list')
 def render_list():
@@ -81,6 +85,8 @@ def render_list():
 
 # 리스트 페이지 API
 # 다큐먼트 시작 시 데이터를 출력하는 API
+
+
 @app.route('/list/data', methods=['GET'])
 def list_data_append():
     # 페이크 값 리턴
@@ -89,6 +95,8 @@ def list_data_append():
 
 # 리스트 페이지 API
 # 추천순 정렬 API
+
+
 @app.route('/list/order_like', methods=['GET'])
 def list_order_like():
     # 페이크 값 리턴
@@ -97,6 +105,8 @@ def list_order_like():
 
 # 리스트 페이지 API
 # 최신순 정렬 API
+
+
 @app.route('/list/order_date', methods=['GET'])
 def list_order_date():
     # 페이크 값 리턴
@@ -105,6 +115,8 @@ def list_order_date():
 
 # 리스트 페이지 API
 # 리스트 필터 API
+
+
 @app.route('/list/filter', methods=['GET'])
 def list_filter():
     # 페이크 값 리턴
@@ -113,13 +125,13 @@ def list_filter():
 
 # 리스트 페이지 API
 # 리스트 검색 API
+
+
 @app.route('/list/search', methods=['GET'])
 def list_search():
     # 페이크 값 리턴
     searched_data = list(db.recipes.find({}, {'_id': False}).limit(18))
     return jsonify({'filtered_data': searched_data})
-
-
 
 
 # 테마 페이지
@@ -129,6 +141,8 @@ def render_theme():
 
 # 테마 페이지 API
 # 테마 레시피 데이터 출력 API
+
+
 @app.route('/theme', methods=['GET'])
 def theme_data():
     # 페이크 값 리턴
@@ -136,23 +150,84 @@ def theme_data():
     return jsonify({'append_data': append_data})
 
 
-
-
 # 인기 페이지
 @app.route('/rank')
 def render_rank():
     return render_template('rank.html')
 
+#리퀘스트 변수로 받기 #
+
+
+@app.route('/rank/get', methods=['GET'])
+def rank():
+    year_give = request.args.get('date_year')
+    month_give = request.args.get('date_month')
+    day_give = request.args.get('date_day')
+    click_receive = request.args.get('click_data')
+    print(year_give, month_give, day_give, click_receive)
+
+    # 레시피 데이터 베이스 가져오기
+    # 데이터베이스에서 상위 10개 가져오기
+    recipes = list(db.recipes.find({}, {'_id': False}
+                                   ).sort('recipe_like', -1).limit(10))
+
+    # 반복문 사용(데이터 출력용도)
+    for db_recipe in recipes:
+        # 날짜값 스플릿
+        db_date = db_recipe['recipe_post_update']
+        # 스플릿데이터 - 년도
+        db_year = db_date.split('-')[0]
+        # 스플릿데이터 - 월
+        db_month = db_date.split('-')[1]
+        # 스플릿데이터 - 일
+        db_day = db_date.split('-')[2]
+
+        # 조건문 - 클릭 리시브
+        if click_receive == '연간':
+            # 년도에 따라 데이터 출력
+            if db_year == "2022":
+                db_yearlist = db_recipe
+                print('연간 데이터 출력 완료!')
+                return jsonify({'filtered_data': db_yearlist})
+
+        elif click_receive == '월간':
+            if db_month == "03":
+                db_monthlist = db_recipe
+                print('월간 데이터 출력 완료!')
+                return jsonify({'filtered_data': db_monthlist})
+
+        elif click_receive == '일간':
+            if db_day == "01":
+                db_daylist = db_recipe
+                print('일간 데이터 출력 완료!')
+                return jsonify({'filtered_data': db_daylist})
+
+    # # 조건문1
+    # # 업데이트 날짜 기준으로 연간체크
+    # for db_recipe in recipes:
+    #     #업데이트 날짜 기준
+    #     db_date = db_recipe['recipe_post_update']
+    #     #연도 스플릿
+    #     db_year = db_date.split('-')[0]
+    #     # 년도에 따라 데이터 출력
+    #     if db_year == "2022":
+    #         db_yearlist = db_recipe
+    #         print(db_yearlist)
+
 # 인기 페이지 API
 # 인기 데이터 10개 조회 API
 # 리퀘스트 변수로 받기 #
+
+
 @app.route('/rank/get', methods=['GET'])
 def rank_get():
+
     # year_give = request.args.get('date_year')
     # month_give = request.args.get('date_month')
     # day_give = request.args.get('date_day')
     # click_receive = request.args.get('click_data')
     # print(year_give, month_give, day_give, click_receive)
+
     #
     # # 레시피 데이터 베이스 가져오기
     # # 데이터베이스에서 상위 10개 가져오기
@@ -206,10 +281,10 @@ def render_mypage():
         return jsonify({'mypage': mypage})
 
 
-# # 즐겨찾기 조회 페이지
-# @app.route('/mylike')
-# def render_mylike():
-#     return render_template('mylike.html')
+# 즐겨찾기 조회 페이지
+@app.route('/mylike')
+def render_mylike():
+    return render_template('mylike.html')
 #
 #
 # # 나만의 레시피 조회 페이지
@@ -218,6 +293,15 @@ def render_mypage():
 #     return render_template('myrecipe.html')
 
 
+# 내가 쓴 후기 페이지
+@app.route('/myreview')
+def render_myreview():
+    return render_template('myreview.html')
+
+# 나만의 레시피 조회 페이지
+@app.route('/myrecipe')
+def render_myrecipe():
+    return render_template('myrecipe.html')
 
 
 # 로그인 페이지
@@ -225,13 +309,57 @@ def render_mypage():
 def render_login():
     return render_template('login.html')
 
+
+
 # 로그인 페이지 API
 # 로그인 체크
 @app.route('/login', methods=['POST'])
 def login_check():
     # 페이크 값 리턴
-    return jsonify({'msg': '로그인에 성공하였습니다. 환영합니다!'})
+    # return jsonify({'msg': '로그인에 성공하였습니다. 환영합니다!'})
 
+    # 설계
+    # 1. 사용자 요청값 POST
+    # 아이디 리시브
+    id_receive = request.form['user_id']
+    # 비밀번호 리시브
+    pwd_receive = request.form['user_pwd']
+
+    # 2. 조건문1 - 입력확인
+    # 인풋의 모든 데이터가 없다면 실패 메시지 리턴
+    if (id_receive, pwd_receive) is None :
+        return jsonify({'msg' : '정보를 빠짐없이 입력해주세요'})
+    else:
+        # 3. 아이디, 비밀번호 조회
+        # 데이터베이스에서 아이디에 일치하는 데이터 찾기
+        find_db = list(db.users.find({'user_id': id_receive},{'_id':False}))
+
+        # 4. 조건문2 - 아이디 일치
+        # 조회 데이터가 존재하지 않는다면 실패 메시지 리턴
+        if find_db is None:
+            return jsonify({'msg': '아이디 및 비밀번호가 일치하지 않습니다'})
+        else:
+            # 5. 조건문3 - 비밀번호 체크
+
+            # 데이터베이스에 저장된 사용자 비밀번호 가져오기
+            # 리스트를 자를 수 없기 때문에 반복문으로 나누기
+            for find in find_db:
+                pw_hash = find['user_pwd']
+
+                # 데이터가 둘다 문자열일 경우 테스트용 해시 작업 코드
+                # pw_hash = bcrypt.generate_password_hash(pw_hash)
+
+            # 비밀번호 체크 알고리즘(사용자 요청값 암호화 하지 않아도 됨. 괄호() 안에 데이터 두개를 넣기
+                pwd_check = bcrypt.check_password_hash(pw_hash, pwd_receive)    # True, False 리턴
+                # 비밀번호가 일치하지 않는다면 실패 메시지 리턴
+                if pwd_check == False:
+                    return jsonify({'msg': '비밀번호가 일치하지 않습니다'})
+                # 비밀번호가 일치한다면 처리
+                else:
+                    # 사용자 아이디로 세션 삽입
+                    session['user_id'] = id_receive
+                    # 조회 성공 메시지 리턴
+                    return jsonify({'msg': '로그인에 성공하였습니다. 환영합니다!'})
 
 
 
@@ -242,6 +370,8 @@ def render_signup():
 
 # 회원가입 페이지 API
 # 회원가입 체크
+
+
 @app.route('/signup', methods=['POST'])
 def signup_check():
     # API 설계
@@ -251,7 +381,7 @@ def signup_check():
     pwd_receive = request.form['user_pwd']
     pwd2_receive = request.form['user_pwd2']
     nickname_receive = request.form['user_nickname']
-    print(id_receive,pwd_receive,pwd2_receive,nickname_receive)
+    print(id_receive, pwd_receive, pwd2_receive, nickname_receive)
     # 2. 조건문1 - 입력확인
     # 데이터가 모두 입력되어 있지 않다면, fail msg return
     if (id_receive, pwd_receive, pwd2_receive, nickname_receive) is None:
@@ -274,7 +404,8 @@ def signup_check():
             else:
                 # 5. 조건문4 - 동일 닉네임 확인
                 # 동일 닉네임이 존재한다면, fail msg return
-                chk_nickname = list(db.users.find({'user_nickname': nickname_receive}))
+                chk_nickname = list(db.users.find(
+                    {'user_nickname': nickname_receive}))
                 if chk_nickname != []:
                     return jsonify({'msg': '동일한 닉네임이 이미 존재합니다'})
                 # 동일 닉네임이 존재하지 않는다면, 처리작업 수행
@@ -294,8 +425,6 @@ def signup_check():
                     return jsonify({'msg': '회원가입에 성공하였습니다!'})
 
 
-
-
 # 레시피 상세페이지
 @app.route('/detail')
 def render_detail():
@@ -303,16 +432,21 @@ def render_detail():
 
 # 상세페이지 - 상세 레시피 데이터 출력 api
 # list페이지에서 해당card를 클릭하면 get요청으로 해당레시피이름이 url을 통해 넘어와
+
+
 @app.route('/detail/recipe-detail', methods=['GET'])
 def recipe_detail():
     recipe_name_receive = request.args.get('name')
-    # print(recipe_name_receive)
-    target_recipe = db.recipes.find_one({'recipe_name': recipe_name_receive}, {'_id': False})
-    # print(target_recipe)
+    print(recipe_name_receive)
+    target_recipe = db.recipes.find_one(
+        {'recipe_name': recipe_name_receive}, {'_id': False})
+    print(target_recipe)
 
     return jsonify({'target_recipe': target_recipe})
 
 # 리뷰(댓글) api - create 기능
+
+
 @app.route('/detail/review-post', methods=['POST'])
 def review_post():
     if 'user_id' in session:
@@ -332,21 +466,26 @@ def review_post():
         return jsonify({'msg': '로그인해주세요'})
 
 # 리뷰(댓글) api - list기능
+
+
 @app.route('/detail/review-list', methods=['GET'])
 def review_list():
-    recipe_name_receive = request.args.get('name')
+    recipe_name_receive = request.args.get('recipe_name_give')
     # print(recipe_name_receive)
-    reviews = list(db.reviews.find({'recipe_name': recipe_name_receive}, {'_id': False}))
-    print(recipe_name_receive)
-    print(reviews)
+    reviews = list(db.reviews.find(
+        {'recipe_name': recipe_name_receive}, {'_id': False}))
     return jsonify({'reviews': reviews})
 
 # 리뷰(댓글) api - update 기능
+
+
 @app.route('/detail/review-update', methods=['POST'])
 def review_update():
     if 'user_id' in session:
-        user_nickname_receive = request.form['user_nickname_give']  # user식별하기위한값
-        recipe_name_receive = request.form['recipe_name_give']  # 해당 레시피를 식별하기위한값
+        # user식별하기위한값
+        user_nickname_receive = request.form['user_nickname_give']
+        # 해당 레시피를 식별하기위한값
+        recipe_name_receive = request.form['recipe_name_give']
         update_content_receive = request.form['review_content_give']  # 수정된 리뷰값
 
         db.reviews.update_one({'user_nickname': user_nickname_receive, 'recipe_name': recipe_name_receive},
@@ -356,25 +495,41 @@ def review_update():
         return jsonify({'msg': '로그인해주세요'})
 
 # 리뷰(댓글) api - 삭제 기능
+
+
 @app.route('/detail/review-delete', methods=['POST'])
 def review_delete():
     if 'user_id' in session:
-        user_nickname_receive = request.form['user_nickname_give']  # user를 식별하기위한 값
-        recipe_name_receive = request.form['recipe_name_give']  # 해당 레시피를 식별하기위한 값
-        db.reviews.delete_one({'user_nickname': user_nickname_receive, 'recipe_name': recipe_name_receive})
+        # user를 식별하기위한 값
+        user_nickname_receive = request.form['user_nickname_give']
+        # 해당 레시피를 식별하기위한 값
+        recipe_name_receive = request.form['recipe_name_give']
+        db.reviews.delete_one(
+            {'user_nickname': user_nickname_receive, 'recipe_name': recipe_name_receive})
         return jsonify({'msg': '댓글이 삭제되었습니다'})
     else:
         return jsonify({'msg': '로그인해주세요'})
 
 # 레시피 페이지 API
 # 즐겨찾기 추가 API
+
+
 @app.route('/detail/bookmark', methods=['POST'])
 def detail_add_bookmark():
     # 페이크 리턴 값
     return jsonify({'msg': '즐겨찾기를 등록하였습니다.'})
 
+# 상세페이지 - 상세 레시피 데이터 출력
+# list페이지에서 해당card를 클릭하면 get요청으로 해당레시피이름이 url을 통해 넘어와
 
 
+# @app.route('/detail/recipe-detail', methods=['GET'])
+# def recipe_detail():
+#     recipe_name_receive = request.args.get('name')
+#     print(recipe_name_receive)
+#     target_recipe = db.recipes.find_one(
+#         {'recipe_name': recipe_name_receive}, {'_id': False})
+#     print(target_recipe)
 
 
 # 나만의 레시피 작성 페이지
@@ -383,11 +538,14 @@ def render_write():
     return render_template('write.html')
 
 # 나만의 레시피 api - 작성 기능
+
+
 @app.route('/write', methods=['POST'])
 def myrecipe_write():
     if 'user_id' in session:
         myrecipe_title_receive = request.form['myrecipe_title_give']
-        myrecipe_writter_receive = request.form['myrecipe_writter_give']  # 사용자 id를 받아와야할듯..
+        # 사용자 id를 받아와야할듯..
+        myrecipe_writter_receive = request.form['myrecipe_writter_give']
         myrecipe_diff_receive = request.form['myrecipe_diff_give']
         myrecipe_time_receive = request.form['myrecipe_time_give']
         myrecipe_ing_receive = request.form['myrecipe_ing_give']
@@ -422,6 +580,8 @@ def myrecipe_write():
 
 # 나만의레시피 작성 페이지 API
 # 나만의레시피 수정 API
+
+
 @app.route('/write/update', methods=['UPDATE'])
 def write_update():
     # 페이크 리턴 값
@@ -429,6 +589,8 @@ def write_update():
 
 # 나만의레시피 작성 페이지 API
 # 나만의레시피 이미지 업로드 API
+
+
 @app.route('/write/upload', methods=['POST'])
 def write_img_upload():
     # 페이크 리턴 값
