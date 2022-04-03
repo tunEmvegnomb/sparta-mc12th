@@ -2,6 +2,9 @@
 # render_template(페이지 이동), jsonify(json값 리턴), request(클라이언트 값 받기), session(로그인) 라이브러리 임포트
 from flask import Flask, render_template, jsonify, request, session
 
+# 현재 날짜를 받아오기위한 import
+from datetime import datetime
+
 # 암호화 라이브러리 bcrypy import. 오류가 뜬다면 interpreter에서 bcrypy 패키지 install
 # 그래도 오류가 뜬다면 terminal에서 pip install flask-bcrypt 입력
 from flask_bcrypt import Bcrypt
@@ -9,9 +12,13 @@ from flask_bcrypt import Bcrypt
 # MongoClient(몽고DB 관리 라이브러리) 임포트
 from pymongo import MongoClient
 
+# _id값을 받아오기 위해 import
+from bson.objectid import ObjectId
+
 # 클라이언트 정의 - MongoClient를 로컬호스트와 연결
 client = MongoClient('mongodb+srv://making:making@cluster0.ymxju.mongodb.net/Cluster0?retryWrites=true&w=majority')
 # client = MongoClient('localhost',27017)
+
 
 
 
@@ -57,8 +64,6 @@ def main_reco():
 
 # 메인페이지 API
 # 인기배너 데이터 출력 API
-
-
 @app.route('/top3', methods=['GET'])
 def main_top3():
     # 페이크 리턴 값
@@ -118,13 +123,12 @@ def render_list():
 
 # 리스트 페이지 API
 # 다큐먼트 시작 시 데이터를 출력하는 API
-
-
 @app.route('/list/data', methods=['GET'])
 def list_data_append():
     # 페이크 값 리턴
     limited_data = list(db.recipes.find({}, {'_id': False}).limit(18))
     return jsonify({'append_data': limited_data})
+
 
 
 
@@ -149,6 +153,7 @@ def list_order():
         ordered_data = list(db.recipes.find({},{'_id':False}).sort('recipe_post_update', -1))
 
     return jsonify({'filtered_data': ordered_data})
+
 
 
 
@@ -310,23 +315,9 @@ def render_mypage():
 @app.route('/mylike')
 def render_mylike():
     return render_template('mylike.html')
-#
-#
-# # 나만의 레시피 조회 페이지
-# @app.route('/myrecipe')
-# def render_myrecipe():
-#     return render_template('myrecipe.html')
 
 
-# 내가 쓴 후기 페이지
-@app.route('/myreview')
-def render_myreview():
-    return render_template('myreview.html')
 
-# 나만의 레시피 조회 페이지
-@app.route('/myrecipe')
-def render_myrecipe():
-    return render_template('myrecipe.html')
 
 
 # 로그인 페이지
@@ -455,106 +446,128 @@ def signup_check():
 def render_detail():
     return render_template('detail.html')
 
+
 # 상세페이지 - 상세 레시피 데이터 출력 api
 # list페이지에서 해당card를 클릭하면 get요청으로 해당레시피이름이 url을 통해 넘어와
-
-
 @app.route('/detail/recipe-detail', methods=['GET'])
 def recipe_detail():
-    recipe_name_receive = request.args.get('name')
-    print(recipe_name_receive)
-    target_recipe = db.recipes.find_one(
-        {'recipe_name': recipe_name_receive}, {'_id': False})
+    recipe_name_receive = request.args.get('name_give')
+    # print(recipe_name_receive)
+    target_recipe = db.recipes.find_one({'recipe_name': recipe_name_receive})
+    target_recipe['_id'] = str(target_recipe['_id'])
     print(target_recipe)
-
     return jsonify({'target_recipe': target_recipe})
 
-# 리뷰(댓글) api - create 기능
+
+# 상세페이지 리뷰(댓글) 조회 api - 해당 상세레시피에 달린 리뷰(댓글)
+@app.route('/detail/review-list', methods=['GET'])
+def review_list():
+    recipe_name_receive = request.args.get('recipe_name_give')
+    # print(recipe_name_receive)
+    reviews = objectIdDecoder(list(db.reviews.find({'recipe_name': recipe_name_receive})))
+    # print(reviews)
+    return jsonify({'reviews': reviews})
+
+# object값을 str로 바꾸는 함수
+def objectIdDecoder(list):
+    results = []
+    for document in list:
+        document['_id'] = str(document['_id'])
+        results.append(document)
+    return results
 
 
+# 리뷰(댓글) 작성 api
 @app.route('/detail/review-post', methods=['POST'])
 def review_post():
     if 'user_id' in session:
         user_nickname_receive = request.form['user_nickname_give']
+        user_id_receive = session.get('user_id')
+        # print(user_id_receive)
+
         review_content_receive = request.form['review_content_give']
         recipe_name_receive = request.form['recipe_name_give']
-        print(user_nickname_receive, review_content_receive, recipe_name_receive)
+
+        today = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
+        recipe_review_update = today # 작성날짜
+
+        # print(user_nickname_receive, review_content_receive, recipe_name_receive)
+        # print(recipe_review_update)
 
         doc = {
             'user_nickname': user_nickname_receive,
+            'user_id' : user_id_receive,
             'review_content': review_content_receive,
-            'recipe_name': recipe_name_receive
+            'recipe_name': recipe_name_receive,
+            'review_update':recipe_review_update
         }
         db.reviews.insert_one(doc)
         return jsonify({'msg': '댓글 작성 완료'})
     else:
         return jsonify({'msg': '로그인해주세요'})
 
-# 리뷰(댓글) api - list기능
+
+# 내가 쓴 후기 페이지
+@app.route('/myreview')
+def render_myreview():
+    return render_template('myreview.html')
 
 
-@app.route('/detail/review-list', methods=['GET'])
-def review_list():
-    recipe_name_receive = request.args.get('recipe_name_give')
-    # print(recipe_name_receive)
-    reviews = list(db.reviews.find(
-        {'recipe_name': recipe_name_receive}, {'_id': False}))
-    return jsonify({'reviews': reviews})
-
-# 리뷰(댓글) api - update 기능
-
-
-@app.route('/detail/review-update', methods=['POST'])
-def review_update():
+# 내가쓴 리뷰(댓글) 조회 api
+@app.route('/myreview/list', methods=['GET'])
+def myreview_list():
     if 'user_id' in session:
-        # user식별하기위한값
-        user_nickname_receive = request.form['user_nickname_give']
-        # 해당 레시피를 식별하기위한값
-        recipe_name_receive = request.form['recipe_name_give']
+            get_user_id = session.get('user_id')
+            reviews = objectIdDecoder(list(db.reviews.find({'user_id': get_user_id})))
+            return jsonify({'reviews': reviews})
+    else:
+        return jsonify({'msg': '로그인해주세요'})
+
+
+# 리뷰(댓글) 수정 api
+@app.route('/myreview/review-update', methods=['POST'])
+def myreview_update():
+    if 'user_id' in session:
+        idx_receive = request.form['idx_give']
+        data = db.reviews.find_one({"_id" : ObjectId(idx_receive)})
+        print(data)
+
         update_content_receive = request.form['review_content_give']  # 수정된 리뷰값
+        # print(update_content_receive)
 
-        db.reviews.update_one({'user_nickname': user_nickname_receive, 'recipe_name': recipe_name_receive},
-                              {'$set': {'review_content': update_content_receive}})
-        return jsonify({'POST': '댓글 수정 완료'})
+        # 댓글작성한아이디랑 세션에있는 아이디가 일치하는지 검증 - 로그인 기능 완성후 검증
+        if session.get("user_id") == data.get('user_id'):
+            db.reviews.update_one({"_id": ObjectId(idx_receive)},{'$set': {'review_content': update_content_receive}})
+            return jsonify({'msg': '댓글 수정 완료'})
+        else:
+            return jsonify({'msg' : '댓글 수정 권한이 없습니다.'})
     else:
         return jsonify({'msg': '로그인해주세요'})
 
-# 리뷰(댓글) api - 삭제 기능
 
-
-@app.route('/detail/review-delete', methods=['POST'])
-def review_delete():
+# 리뷰(댓글) 삭제 api
+@app.route('/myreview/review-delete', methods=['POST'])
+def myreview_delete():
     if 'user_id' in session:
-        # user를 식별하기위한 값
-        user_nickname_receive = request.form['user_nickname_give']
-        # 해당 레시피를 식별하기위한 값
-        recipe_name_receive = request.form['recipe_name_give']
-        db.reviews.delete_one(
-            {'user_nickname': user_nickname_receive, 'recipe_name': recipe_name_receive})
-        return jsonify({'msg': '댓글이 삭제되었습니다'})
+        idx_receive = request.form['idx_give']
+        data = db.reviews.find_one({"_id" : ObjectId(idx_receive)})
+        # print(data)
+
+        if session.get("user_id") == data.get('user_id'):
+            db.reviews.delete_one({"_id": ObjectId(idx_receive)})
+            return jsonify({'msg': '댓글이 삭제되었습니다'})
+        else:
+            return jsonify({'msg' : '댓글 삭제 권한이 없습니다.'})
     else:
         return jsonify({'msg': '로그인해주세요'})
+
 
 # 레시피 페이지 API
 # 즐겨찾기 추가 API
-
-
 @app.route('/detail/bookmark', methods=['POST'])
 def detail_add_bookmark():
     # 페이크 리턴 값
     return jsonify({'msg': '즐겨찾기를 등록하였습니다.'})
-
-# 상세페이지 - 상세 레시피 데이터 출력
-# list페이지에서 해당card를 클릭하면 get요청으로 해당레시피이름이 url을 통해 넘어와
-
-
-# @app.route('/detail/recipe-detail', methods=['GET'])
-# def recipe_detail():
-#     recipe_name_receive = request.args.get('name')
-#     print(recipe_name_receive)
-#     target_recipe = db.recipes.find_one(
-#         {'recipe_name': recipe_name_receive}, {'_id': False})
-#     print(target_recipe)
 
 
 # 나만의 레시피 작성 페이지
@@ -562,37 +575,38 @@ def detail_add_bookmark():
 def render_write():
     return render_template('write.html')
 
-# 나만의 레시피 api - 작성 기능
-
-
+# 나만의 레시피 작성 api
 @app.route('/write', methods=['POST'])
 def myrecipe_write():
     if 'user_id' in session:
         myrecipe_title_receive = request.form['myrecipe_title_give']
-        # 사용자 id를 받아와야할듯..
-        myrecipe_writter_receive = request.form['myrecipe_writter_give']
         myrecipe_diff_receive = request.form['myrecipe_diff_give']
         myrecipe_time_receive = request.form['myrecipe_time_give']
         myrecipe_ing_receive = request.form['myrecipe_ing_give']
         myrecipe_detail_receive = request.form['myrecipe_detail_give']
-
         # print(myrecipe_title_receive, myrecipe_writter_receive,myrecipe_diff_receive, myrecipe_time_receive,myrecipe_ing_receive,myrecipe_detail_receive )
 
-        # 이미지 파일 업로딩 관련부분 - 보완필요
+        myrecipe_user_id_receive = session.get('user_id') # 세션에서 가져와
+        # print(myrecipe_writter_receive)
+
+        # 이미지 업로드 기능
         myrecipe_img_receive = request.files['myrecipe_img_give']  # 이미지파일
         # print(myrecipe_img_receive)
+
+        today = datetime.now()
+        mytime = today.strftime('%Y-%m-%d-%H-%M-%S')  # 날짜- 파일이름이 중복일경우를 위해
         img_filename = myrecipe_img_receive.filename
-        # filename = f'{today}---{_filename}'
-        # extension = myrecipe_img_receive.filename.split('.')[-1]
-        # print(filename, extension)
-        save_to = 'static/myrecipe_img/{}'.format(img_filename)
+        # print(img_filename, mytime)
+
+        # 배포시 경로 변경예정
+        save_to = 'static/myrecipe_img/{}-{}'.format(mytime, img_filename)
         myrecipe_img_receive.save(save_to)
 
         # db저장
         doc = {
             'myrecipe_title': myrecipe_title_receive,
             'myrecipe_img': img_filename,
-            'myrecipe_writter': myrecipe_writter_receive,
+            'user_id': myrecipe_user_id_receive,
             'myrecipe_diff': myrecipe_diff_receive,
             'myrecipe_time': myrecipe_time_receive,
             'myrecipe_ing': myrecipe_ing_receive,
@@ -603,23 +617,84 @@ def myrecipe_write():
     else:
         return jsonify({'msg': '로그인 해주세요'})
 
-# 나만의레시피 작성 페이지 API
+# 나만의 레시피 조회 페이지
+@app.route('/myrecipe')
+def render_myrecipe():
+    return render_template('myrecipe.html')
+
 # 나만의레시피 수정 API
+@app.route('/myrecipe/update', methods=['POST'])
+def myrecipe_update():
+    if 'user_id' in session:
+        idx = request.form['idx']
+        data = db.myrecipes.find_one({"_id" : ObjectId(idx)})
+        # print(data)
+
+        if session.get("user_id") == data.get('user_id'):
+            update_title_receive = request.form['myrecipe_title_give']
+            update_diff_receive = request.form['myrecipe_diff_give']
+            update_time_receive = request.form['myrecipe_time_give']
+            update_ing_receive = request.form['myrecipe_ing_give']
+            update_detail_receive = request.form['myrecipe_detail_give']
+
+            #이미지파일 추가업데이트
+            update_img_receive = request.files['myrecipe_img_give']  # 이미지파일
+            today = datetime.now()
+            mytime = today.strftime('%Y-%m-%d-%H-%M-%S')  # 날짜- 파일이름이 중복일경우를 위해
+            img_filename = update_img_receive.filename
+            # print(img_filename, mytime)
+
+            # 이전 이미지데이터 삭제 부분 - 미완성
+            # delete_img =
+            # data.get('myrecipe_img')
+            # delete_to =
 
 
-@app.route('/write/update', methods=['UPDATE'])
-def write_update():
-    # 페이크 리턴 값
-    return jsonify({'msg': '나만의레시피가 수정되었습니다.'})
+            save_to = 'static/myrecipe_img/{}-{}'.format(mytime, img_filename)
+            update_img_receive.save(save_to)
 
-# 나만의레시피 작성 페이지 API
-# 나만의레시피 이미지 업로드 API
+            db.myrecipes.update_one({"_id": ObjectId(idx)}, {
+                                      '$set': {
+                                            'myrecipe_title': update_title_receive,
+                                            'myrecipe_img': img_filename,
+                                            'myrecipe_diff': update_diff_receive,
+                                            'myrecipe_time': update_time_receive,
+                                            'myrecipe_ing': update_ing_receive,
+                                            'myrecipe_detail': update_detail_receive
+                                        }
+                                    })
+            return jsonify({'msg': '나만의 레시피가 수정되었습니다.'})
+        else:
+            return jsonify({'msg' : '수정 권한이 없습니다.'})
+    else:
+        return jsonify({'msg': '로그인해주세요'})
 
 
-@app.route('/write/upload', methods=['POST'])
-def write_img_upload():
-    # 페이크 리턴 값
-    return jsonify({'msg': '이미지를 업로드했습니다.'})
+# 나만의 레시피 삭제 API
+@app.route('/myrecipe/delete', methods=['POST'])
+def myrecipe_delete():
+    if 'user_id' in session:
+        idx_receive = request.form['idx_give']
+        data = db.myrecipes.find_one({"_id" : ObjectId(idx_receive)})
+
+        if session.get("user_id") == data.get('user_id'):
+            db.myrecipes.delete_one({"_id": ObjectId(idx_receive)})
+            return jsonify({'msg': '나만의 레시피가 삭제되었습니다'})
+        else:
+            return jsonify({'msg' : ' 수정 권한이 없습니다.'})
+    else:
+        return jsonify({'msg': '로그인해주세요'})
+
+# 나만의 레시피 조회 리스트 API
+@app.route('/myrecipe/list', methods=['GET'])
+def myrecipe_list():
+    if 'user_id' in session:
+        get_user_id = session.get('user_id')
+        # print(get_user_id)
+        myrecipes = objectIdDecoder(list(db.myrecipes.find({'user_id': get_user_id})))
+        return jsonify({'myrecipes': myrecipes})
+    else:
+        return jsonify({'msg': '로그인해주세요'})
 
 
 # localhost:5000 으로 들어갈 수 있게 해주는 코드
