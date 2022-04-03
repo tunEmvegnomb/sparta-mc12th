@@ -62,21 +62,53 @@ def main_reco():
 @app.route('/top3', methods=['GET'])
 def main_top3():
     # 페이크 리턴 값
-    top3_recipe = [
-        {
-            'recipe_img': 'https://recipe1.ezmember.co.kr/cache/recipe/2020/09/08/52110f292b905a27c30ea6bfed246a491.jpg'
-        },
+    # top3_recipe = [
+    #     {
+    #         'recipe_img': 'https://recipe1.ezmember.co.kr/cache/recipe/2020/09/08/52110f292b905a27c30ea6bfed246a491.jpg'
+    #     },
+    #
+    #     {
+    #         'recipe_img': 'https://recipe1.ezmember.co.kr/cache/recipe/2019/01/12/b9343d314206275c1b6d0d0c4fcc2ce71.jpg'
+    #     },
+    #
+    #     {
+    #         'recipe_img': 'https://recipe1.ezmember.co.kr/cache/recipe/2016/09/01/484b1194a69d0b2da09014a25a9334de1.jpg'
+    #     }
+    # ]
+    #
+    # return jsonify({'filtered_data': top3_recipe})
 
-        {
-            'recipe_img': 'https://recipe1.ezmember.co.kr/cache/recipe/2019/01/12/b9343d314206275c1b6d0d0c4fcc2ce71.jpg'
-        },
+    # 설계
+    # 1. 사용자 요청 값 받기
+    # 클릭 요청 값 - 연간/월간/일간 으로 구분
+    click_receive = request.args.get('click_give')
+    # 날짜 요청 값 - 사용자의 현재 시각을 문자열로 "yyyy-mm-dd" 받아옴
+    date_receive = request.args.get('date_give')
+    # 2. 날짜 리시브를 스플릿하여 년 월 일 조건 변수 생성
+    year_receive = date_receive.split('-')[0]
+    month_receive = year_receive + "-" + date_receive.split('-')[1]
+    day_receive = date_receive
 
-        {
-            'recipe_img': 'https://recipe1.ezmember.co.kr/cache/recipe/2016/09/01/484b1194a69d0b2da09014a25a9334de1.jpg'
-        }
-    ]
+    print(year_receive, month_receive, day_receive)
 
-    return jsonify({'filtered_data': top3_recipe})
+    # 3. 조건문1 - 클릭 리시브 확인
+    # 값이 만약 연간이라면
+    if click_receive == "연간":
+        # 날짜 리시브와 부분 일치하는 데이터베이스 찾아오기, (1)작성 업데이트 날짜-(2)추천 수를 기준으로 정렬, 10개 제한
+        top3_db = db.recipes.find({'recipe_post_update': {'$regex': year_receive}}, {'_id': False})
+        top3_db = list(top3_db.sort('recipe_post_update', -1).sort('recipe_like', -1).limit(3))
+    # 값이 만약 월간이라면
+    elif click_receive == "월간":
+        # 날짜 리시브와 부분 일치하는 데이터베이스 찾아오기, (1)작성 업데이트 날짜-(2)추천 수를 기준으로 정렬, 10개 제한
+        top3_db = db.recipes.find({'recipe_post_update': {'$regex': month_receive}}, {'_id': False})
+        top3_db = list(top3_db.sort('recipe_post_update', -1).sort('recipe_like', -1).limit(3))
+    # 값이 만약 일간이라면
+    elif click_receive == "일간":
+        # 날짜 리시브와 부분 일치하는 데이터베이스 찾아오기, (1)작성 업데이트 날짜-(2)추천 수를 기준으로 정렬
+        top3_db = db.recipes.find({'recipe_post_update': {'$regex': day_receive}}, {'_id': False})
+        top3_db = list(top3_db.sort('recipe_post_update', -1).sort('recipe_like', -1).limit(3))
+
+    return jsonify({'filtered_data': top3_db})
 
 
 # 리스트 페이지
@@ -229,14 +261,14 @@ def rank_get():
     click_receive = request.args.get('click_give')
     # 날짜 요청 값 - 사용자의 현재 시각을 문자열로 "yyyy-mm-dd" 받아옴
     date_receive = request.args.get('date_give')
-    # 날짜 리시브를 스플릿하여 년 월 일 조건 변수 생성
+    # 2. 날짜 리시브를 스플릿하여 년 월 일 조건 변수 생성
     year_receive = date_receive.split('-')[0]
     month_receive = year_receive + "-" + date_receive.split('-')[1]
     day_receive = date_receive
 
     print(year_receive,month_receive,day_receive)
 
-    # 2. 조건문1 - 클릭 리시브 확인
+    # 3. 조건문1 - 클릭 리시브 확인
     # 값이 만약 연간이라면
     if click_receive == "연간" :
         # 날짜 리시브와 부분 일치하는 데이터베이스 찾아오기, (1)작성 업데이트 날짜-(2)추천 수를 기준으로 정렬, 10개 제한
