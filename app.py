@@ -305,15 +305,7 @@ def rank_get():
 # 마이 페이지
 @app.route('/mypage')
 def render_mypage():
-<<<<<<< HEAD
     return render_template('mypage.html')
-=======
-    if session is not None:
-        user_id = "admin"  # 추후 로그인 세션값으로 변경
-        mypage = list(db.users.find({'user_id': user_id}, {'_id': False}))
-        return jsonify({'mypage': mypage})
->>>>>>> e6f32d79941f931734feb06317237da5b862cf72
-
 
 # 즐겨찾기 조회 페이지
 @app.route('/mylike')
