@@ -24,7 +24,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'Blue Like Aquamarine'
 app.config['BCRYPT_LEVEL'] = 10
 
-# bcrypt = Bcrypt(app)
+bcrypt = Bcrypt(app)
 
 # pw_hash = bcrypt.hashpw("password".encode("utf-8"), bycrypt.gensalt())
 # pw_hash2 = bcrypt.hashpw("password".encode("utf-8"), bycrypt.gensalt())
@@ -330,18 +330,31 @@ def login_check():
     if (id_receive, pwd_receive) is None :
         return jsonify({'msg' : '정보를 빠짐없이 입력해주세요'})
     else:
-        # 3. 조건문2 - 아이디, 비밀번호 조회
-        # 데이터베이스에서 아이디, 비밀번호에 일치하는 데이터 찾기
-        find_db = list(db.users.find({'user_id': id_receive},{'user_pwd': pwd_receive}))
-        # 조회 데이터가 존재하지 않는다면 실패 메시지 정의
+        # 3. 아이디, 비밀번호 조회
+        # 데이터베이스에서 아이디에 일치하는 데이터 찾기
+        find_db = list(db.users.find({'user_id': id_receive}))
+
+        # 4. 조건문2 - 아이디 일치
+        # 조회 데이터가 존재하지 않는다면 실패 메시지 리턴
         if find_db is None:
             return jsonify({'msg': '아이디 및 비밀번호가 일치하지 않습니다'})
         else:
-            # 조회 데이터가 존재한다면 처리
-            # 사용자 아이디로 세션 삽입
-            session['user_id'] = id_receive
-            # 조회 성공 메시지 리턴
-            return jsonify({'msg': '로그인에 성공하였습니다. 환영합니다!'})
+            # 5. 조건문3 - 비밀번호 체크
+
+            # 데이터베이스에 저장된 사용자 비밀번호 가져오기
+            pw_hash = find_db['user_pwd']
+            # 비밀번호 체크 알고리즘(사용자 요청값 암호화 하지 않아도 됨. 괄호() 안에 데이터 두개를 넣기
+            pwd_check = bcrypt.checkpw(pwd_receive, pw_hash)    # True, False 리턴
+
+            # 비밀번호가 일치하지 않는다면 실패 메시지 리턴
+            if pwd_check == False:
+                return jsonify({'msg': '비밀번호가 일치하지 않습니다'})
+            # 비밀번호가 일치한다면 처리
+            else:
+                # 사용자 아이디로 세션 삽입
+                session['user_id'] = id_receive
+                # 조회 성공 메시지 리턴
+                return jsonify({'msg': '로그인에 성공하였습니다. 환영합니다!'})
 
 
 
@@ -393,7 +406,7 @@ def signup_check():
                 # 동일 닉네임이 존재하지 않는다면, 처리작업 수행
                 else:
                     # 처리1 - 사용자 비밀번호 암호화(bcrypt)
-                    pw_hash = Bcrypt.generate_password_hash(pwd_receive)
+                    pw_hash = bcrypt.generate_password_hash(pwd_receive)
                     # 처리2 - users 데이터베이스에 요청 정보 삽입
                     insert_doc = [
                         {
