@@ -126,25 +126,32 @@ def list_data_append():
     limited_data = list(db.recipes.find({}, {'_id': False}).limit(18))
     return jsonify({'append_data': limited_data})
 
-# 리스트 페이지 API
-# 추천순 정렬 API
 
 
-@app.route('/list/order_like', methods=['GET'])
-def list_order_like():
-    # 페이크 값 리턴
-    order_like = list(db.recipes.find({}, {'_id': False}))
-    return jsonify({'append_data': order_like})
 
 # 리스트 페이지 API
-# 최신순 정렬 API
+# 추천순, 최신순 정렬 API
+@app.route('/list/order', methods=['GET'])
+def list_order():
+    # 설계
+    # 1. 사용자 요청 값 받기
+    # 클릭 요청 값 - 추천순/최신순 으로 구분
+    click_receive = request.args.get('click_give')
+    
+    # 3. 조건문1 - 클릭 리시브 확인
+    # 값이 만약 추천순이라면
+    if click_receive == "추천순":
+        # 추천수를 기준으로 데이터 sort
+        ordered_data = list(db.recipes.find({},{'_id':False}).sort('recipe_like', -1))
+    # 값이 만약 최신순이라면
+    elif click_receive == "최신순":
+        # 작성 날짜를 기준으로 데이터 sort
+        ordered_data = list(db.recipes.find({},{'_id':False}).sort('recipe_post_update', -1))
+
+    return jsonify({'filtered_data': ordered_data})
 
 
-@app.route('/list/order_date', methods=['GET'])
-def list_order_date():
-    # 페이크 값 리턴
-    order_date = list(db.recipes.find({}, {'_id': False}))
-    return jsonify({'append_data': order_date})
+
 
 # 리스트 페이지 API
 # 리스트 필터 API
