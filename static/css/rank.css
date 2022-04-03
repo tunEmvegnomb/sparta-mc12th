@@ -5,7 +5,7 @@
 .naviBar {
     background-color: #FF6219;
     width: 100%;
-    height: 50px;
+    height: 70px;
     position: fixed;
     z-index: 100;
 }
@@ -15,30 +15,33 @@
     color: #3A3845;
     background-color: #FF6219;
     float: left;
-    line-height: 50px;
+    line-height: 70px;
     vertical-align: middle;
     text-align: center;
 }
 
-.logoLink {
-    width: 112px;
-    display: block;
-    color: #3A3845;
-    margin-right: 80px;
+.naviBar .logoIcon {
+    height: 60px;
+    transition: all 0.3s ease-in-out;
+    width: 180px;
+}
+
+.naviBar .logoIcon:hover {
+  transform: rotateY(180deg) scale(1.2);
 }
 
 .menuLink {
     text-decoration: none;
     color: #3A3845;
     display: block;
-    width: 150px;
-    font-size: 16px;
+    width: 170px;
+    font-size: 18px;
     font-weight: bolder;
 }
 
 .menuLink:hover {
     transition: 0.5s;
-    font-size: 17px;
+    font-size: 19px;
     text-decoration: none;
     color: #3A3845;
     background: #FFF3ED;
@@ -46,29 +49,20 @@
 
 .myPageLink {
     position: absolute;
-    right: 17%;
-}
-
-.link {
-    position: absolute;
-    right: 12%;
+    right: 19%;
 }
 
 .loginIcon {
-    height: 30px;
+    height: 38px;
 }
 
-.menuIcon {
-    height: 30px;
-}
-
-.loginIcon:hover, .menuIcon:hover {
+.loginIcon:hover {
     transition: 0.5s;
     transform: scale(1.08)
 }
 
 .wrap {
-    width: 800px;
+    width: 1080px;
     height: auto;
     margin: 0px auto 0 auto;
     padding: 40px 20px 40px 20px;
@@ -79,6 +73,7 @@
     text-align: center;
     position: relative;
     left: -25px;
+    top: 50px;
 }
 
 .rankTitle {
@@ -105,11 +100,29 @@
     letter-spacing: -10px;
 }
 
+.contentWrap {
+    padding-top: 70px;
+}
+
 .sortBar {
-    width: 680px;
+    width: 927px;
     text-align: right;
     margin: 80px 0 10px 0;
     height: 25pt;
+    position: relative;
+}
+
+.text {
+    display: inline-block;
+    text-align: left;
+    position: absolute;
+    width: 500px;
+    left: 175px;
+    top: 16px;
+    letter-spacing: -0.7px;
+    font-size: 14px;
+    color: grey;
+    font-weight: 400;
 }
 /*이 부분 논의 필요*/
 /*오른쪽 정렬을 위한 속성인 float:right를 사용하고 싶었으나*/
@@ -125,7 +138,7 @@
     text-decoration: none;
     color: #3A3845;
     display: inline-block;
-    font-size: 17px;
+    font-size: 20px;
     margin: 0 0 0 5px;
     padding-left: 10px;
     padding-right: 10px;
@@ -139,7 +152,7 @@
     color: #3A3845;
     font-weight: bolder;
     transition: 0.3s;
-    font-size: 17.5px;
+    font-size: 21px;
     text-decoration: none;
 }
 
@@ -147,7 +160,7 @@
     color: white;
     font-weight: 550;
     transition: 0.3s;
-    font-size: 17.5px;
+    font-size: 20px;
     text-decoration: none;
     display: inline-block;
     margin: 0 0 0 5px;
@@ -160,7 +173,7 @@
 
 .listWrap {
     display: none;
-    width: 650px;
+    width: 880px;
     margin: auto;
     position: relative;
 }
@@ -170,7 +183,7 @@
 }
 
 .recipeWrap {
-    border: solid 2pt #FF6219;
+    border: solid 3.5pt #FF6219;
     border-radius: 15pt;
     padding: 5px 20px 15px 20px;
     margin: 5px 20px 25px 20px;
@@ -178,23 +191,64 @@
     background-color: white;
 }
 
-.medalIcon {
-    width: 120px;
+.nameWrap {
+    display: inline-block;
+    float: right;
+    padding-top: 42px;
+    position: relative;
+}
+
+.arrow_box {
+    visibility: hidden;
     position: absolute;
-    left: -35px;
+    width: 110px;
+    font-size: 13px;
+    padding: 5px;
+    left: -26px;
+    top: 87px;
+    border-radius: 10px;
+    background-color: rgba(9,9,9,0.8);
+    color: #fff;
+    z-index: 100;
+    text-align: center;
+}
+
+.arrow_box::after {
+  position: absolute;
+  bottom: 100%;
+  left: 40%;
+  width: 0;
+  height: 0;
+  margin-left: -8px;
+  border-width: 8px;
+    border-style: solid;
+    border-color: transparent transparent rgba(9,9,9,0.8) transparent;
+  pointer-events: none;
+  content: ' ';
+}
+
+.recipe_add:hover p.arrow_box {
+    visibility: visible;
+}
+
+.medalIcon {
+    width: 150px;
+    position: absolute;
+    left: -40px;
     top: -27pt;
 }
 
 .recipeImgWrap {
-    width: 290px;
-    height: 220px;
-    line-height : 220px;
+    width: 400px;
+    height: 300px;
+    line-height : 300px;
     text-align: center;
     display: inline-block;
 }
 
 .recipe_img {
-    width: 250px;
+    width: 380px;
+    height: 280px;
     border-radius: 10pt;
     vertical-align: middle;
     background-size: contain;
@@ -203,20 +257,22 @@
 .recipeDescWrap {
     display: inline-block;
     position: absolute;
-    padding: 15pt 0 0 0;
-    right: 27px;
+    padding: 40pt 0 0 0;
+    right: 10px;
     top: 15px;
     color: #3A3845;
     text-align: center;
+    width: 400px;
 }
 
 .recipeDesc2Wrap {
     display: inline-block;
     position: absolute;
-    right: 80px;
-    top: 78px;
+    right: 10px;
+    top: 130px;
     color: #3A3845;
     text-align: center;
+    width: 400px;
 }
 
 .recipe_link, .recipe_link:hover {
@@ -224,20 +280,21 @@
 }
 
 .recipe_name {
-    font-size: 30px;
+    font-size: 43px;
     font-weight: 600;
     color: #3A3845;
     display: inline-block;
-    width: 265px;
+    width: 400px;
     position: relative;
     line-height: 30px;
     letter-spacing: -1px;
+    cursor: pointer;
 }
 
 .recipe_name:hover {
     transition: 0.3s;
     font-weight: bolder;
-    font-size: 30.3px;
+    font-size: 44px;
 }
 
 .recipeTimeWrap {
@@ -246,14 +303,17 @@
 }
 
 .timeIcon {
-    width: 28px;
+    width: 32px;
 }
 
 .recipe_time {
+    display: inline-block;
     padding-left: 10px;
-    font-size: 17px;
+    font-size: 23px;
     font-weight: bold;
     color: #3A3845;
+    position: relative;
+    top: 3px;
 }
 
 .recipeDiffWrap {
@@ -262,56 +322,66 @@
 }
 
 .diffIcon {
-    width: 35px;
+    width: 38px;
 }
 
 .recipe_diff {
     padding-left: 3px;
-    font-size: 17px;
+    font-size: 23px;
     font-weight: bold;
     color: #3A3845;
+    position: relative;
+    top: 3px;
+}
+.recipeWrapss {
+    border: solid 3.5pt #FF6219;
+    border-radius: 15pt;
+    padding: 10px 20px 0 20px;
+    margin: 5px 20px 25px 20px;
+    position: relative;
+    background-color: white;
 }
 
 .recipeWraps {
     position: relative;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 3px;
+    padding-bottom: 15px;
 
 }
 
 .recipeRank {
-    font-size: 65px;
+    font-size: 70px;
     font-weight: bolder;
     position: absolute;
     top: -5px;
-    left: -19px;
+    left: -10px;
     color: #3A3845;
+    letter-spacing: -12px;
+    line-height: 77px;
 }
 
 .recipeNameWrap {
-    line-height: 65px;
+    line-height: 77px;
     position: relative;
-    left: 33px;
+    left: 80px;
 }
 
 .recipeDescWraps {
     display: inline-block;
     position: absolute;
-    width: 300px;
-    right: 2px;
+    width: 280px;
     text-align: center;
-    top: -1px;
-    line-height: 2;
+    top: -7px;
 }
 
 .recipe_name2 {
-    font-size: 30px;
+    font-size: 38px;
     font-weight: 600;
     color: #3A3845;
     display: inline-block;
-    width: 300px;
+    width: 390px;
     position: relative;
-    line-height: 30px;
+    line-height: 40px;
     vertical-align: center;
     letter-spacing: -1px;
 }
@@ -319,8 +389,33 @@
 .recipe_name2:hover {
     transition: 0.3s;
     font-weight: bolder;
-    font-size: 30.3px;
+    font-size: 39px;
 }
+
+.recipe_time2 {
+    display: inline-block;
+    font-size: 20px;
+    font-weight: bold;
+    color: #3A3845;
+    line-height: 70px;
+    padding-right: 35px;
+    padding-left: 5px;
+}
+
+.recipe_diff2 {
+    display: inline-block;
+    font-size: 20px;
+    font-weight: bold;
+    color: #3A3845;
+    line-height: 70px;
+}
+
+.diffIcon2, .timeIcon2{
+    position: relative;
+    top: -3px;
+}
+
+
 
 
 

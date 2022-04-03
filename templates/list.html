@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="kr">
+<html lang="ko">
   <head>
     <!-- Bootstrap CSS, JS -->
     <link
@@ -9,6 +9,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="/static/css/styles.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
@@ -25,13 +26,13 @@
     <nav class="naviBar">
       <ul>
         <li>
-          <a class="logoLink" href="#"
+          <a class="logoLink" href="/"
             ><img src="/static/img/cook-hat.svg" class="logoIcon"
           /></a>
         </li>
         <li><a class="menuLink current" href="#">전체 레시피</a></li>
-        <li><a class="menuLink" href="#">랭킹 보기</a></li>
-        <li><a class="menuLink" href="#">마이페이지</a></li>
+        <li><a class="menuLink" href="/rank">랭킹 보기</a></li>
+        <li><a class="menuLink" href="#">레시피 등록</a></li>
         <li>
           <a class="myPageLink" href="#"
             ><svg
@@ -73,81 +74,74 @@
         <div class="filter-row">
           <div class="filter-one">
             <span class="filter-key">맛</span>
-            <div class="filter-values">
+            <div class="filter-values" id="recipe_taste">
+              <a href="#" class="filter-value">달달</a>
+              <a href="#" class="filter-value">짭짤</a>
               <a href="#" class="filter-value">단짠</a>
-              <a href="#" class="filter-value">약간 매움</a>
-              <a href="#" class="filter-value">매움</a>
-              <a href="#" class="filter-value">불맛</a>
-              <a href="#" class="filter-value">고소함</a>
+              <a href="#" class="filter-value">신라면 매운맛</a>
             </div>
           </div>
           <div class="filter-one">
             <span class="filter-key">재료</span>
-            <div class="filter-values">
-              <a href="#" class="filter-value">소고기</a>
-              <a href="#" class="filter-value">트러플</a>
-              <a href="#" class="filter-value">캐비어</a>
-              <a href="#" class="filter-value">두부</a>
-              <a href="#" class="filter-value">아보카도</a>
+            <div class="filter-values" id="recipe_ing">
+              <a href="#" class="filter-value">계란</a>
+              <a href="#" class="filter-value">식빵</a>
+              <a href="#" class="filter-value">김치</a>
+              <a href="#" class="filter-value">크림치즈</a>
+              <a href="#" class="filter-value">초콜릿</a>
             </div>
           </div>
         </div>
         <div class="filter-row">
           <div class="filter-one">
             <span class="filter-key">난이도</span>
-            <div class="filter-values">
-              <a href="#" class="filter-value">초간단</a>
-              <a href="#" class="filter-value">쉬움</a>
-              <a href="#" class="filter-value">중간</a>
-              <a href="#" class="filter-value">어려움</a>
-              <a href="#" class="filter-value">신의 경지</a>
+            <div class="filter-values" id="recipe_diff">
+              <a href="#" class="filter-value">상</a>
+              <a href="#" class="filter-value">중</a>
+              <a href="#" class="filter-value">하</a>
             </div>
           </div>
           <div class="filter-one">
             <span class="filter-key">조리시간</span>
-            <div class="filter-values">
-              <a href="#" class="filter-value">15분</a>
+            <div class="filter-values" id="recipe_time">
+              <a href="#" class="filter-value">10분</a>
+              <a href="#" class="filter-value">20분</a>
               <a href="#" class="filter-value">30분</a>
-              <a href="#" class="filter-value">45분</a>
               <a href="#" class="filter-value">60분</a>
             </div>
           </div>
         </div>
       </div>
       <div class="list-sort">
-        <a href="#">최신순</a>
-        <a href="#">인기순</a>
+        <a href="#" class="sortByDate">최신순</a>
+        <a href="#" class="sortByLike">인기순</a>
       </div>
 
-      <div class="row row-cols-1 row-cols-md-3 g-4">
-        <div class="col">
+      <div class="row row-cols-1 row-cols-md-3 g-4 card-group">
+        <!-- <div class="col">
           <div class="card">
             <div class="card-img-div">
-              <a href="#">
-                <img
-                  src="http://cdn.cnn.com/cnnnext/dam/assets/181114130138-korean-food-2620014201204004k-jeonju-bibimbap.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
-              </a>
+              <img
+                src="https://recipe1.ezmember.co.kr/cache/recipe/2021/07/29/34b267df8d75f994b49b3300e5d440d11_m.jpg"
+                class="card-img-top"
+                alt="..."
+              />
             </div>
             <div class="card-body">
               <div class="card-info">
                 <a href="#" class="recipe-link"
-                  ><span class="card-title"
-                    >일이삼사오육칠팔구십십일십이</span
-                  ></a
+                  ><span class="card-title">얼그레이 마들렌</span></a
                 >
                 <div class="card-bottom-row">
-                  <span class="card-text">일이삼사오육칠팔구십</span>
+                  <span class="card-text">황영상</span>
                   <div class="like-div">
                     <span class="like-text">추천</span>
-                    <span class="like-num">76</span>
+                    <span class="like-num">12</span>
                   </div>
                 </div>
               </div>
               <div class="card-like">
-                <img src="/static/img/good.png" class="like-icon" />
+                <i class="fa-regular fa-thumbs-up like-icon"></i>
               </div>
             </div>
           </div>
@@ -157,7 +151,7 @@
             <div class="card-img-div">
               <a href="#">
                 <img
-                  src="http://cdn.cnn.com/cnnnext/dam/assets/181114130138-korean-food-2620014201204004k-jeonju-bibimbap.jpg"
+                  src="https://recipe1.ezmember.co.kr/cache/recipe/2021/07/29/34b267df8d75f994b49b3300e5d440d11_m.jpg"
                   class="card-img-top"
                   alt="..."
                 />
@@ -166,120 +160,22 @@
             <div class="card-body">
               <div class="card-info">
                 <a href="#" class="recipe-link"
-                  ><span class="card-title"
-                    >일이삼사오육칠팔구십십일십이</span
-                  ></a
+                  ><span class="card-title">얼그레이 마들렌</span></a
                 >
                 <div class="card-bottom-row">
-                  <span class="card-text">일이삼사오육칠팔구십</span>
+                  <span class="card-text">황영상</span>
                   <div class="like-div">
                     <span class="like-text">추천</span>
-                    <span class="like-num">76</span>
+                    <span class="like-num">12</span>
                   </div>
                 </div>
               </div>
               <div class="card-like">
-                <img src="/static/img/good.png" class="like-icon" />
+                <i class="fa-regular fa-thumbs-up like-icon"></i>
               </div>
             </div>
           </div>
-        </div>
-        <div class="col">
-          <div class="card">
-            <div class="card-img-div">
-              <a href="#">
-                <img
-                  src="http://cdn.cnn.com/cnnnext/dam/assets/181114130138-korean-food-2620014201204004k-jeonju-bibimbap.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
-              </a>
-            </div>
-            <div class="card-body">
-              <div class="card-info">
-                <a href="#" class="recipe-link"
-                  ><span class="card-title"
-                    >일이삼사오육칠팔구십십일십이</span
-                  ></a
-                >
-                <div class="card-bottom-row">
-                  <span class="card-text">일이삼사오육칠팔구십</span>
-                  <div class="like-div">
-                    <span class="like-text">추천</span>
-                    <span class="like-num">76</span>
-                  </div>
-                </div>
-              </div>
-              <div class="card-like">
-                <img src="/static/img/good.png" class="like-icon" />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card">
-            <div class="card-img-div">
-              <a href="#">
-                <img
-                  src="http://cdn.cnn.com/cnnnext/dam/assets/181114130138-korean-food-2620014201204004k-jeonju-bibimbap.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
-              </a>
-            </div>
-            <div class="card-body">
-              <div class="card-info">
-                <a href="#" class="recipe-link"
-                  ><span class="card-title"
-                    >일이삼사오육칠팔구십십일십이</span
-                  ></a
-                >
-                <div class="card-bottom-row">
-                  <span class="card-text">일이삼사오육칠팔구십</span>
-                  <div class="like-div">
-                    <span class="like-text">추천</span>
-                    <span class="like-num">76</span>
-                  </div>
-                </div>
-              </div>
-              <div class="card-like">
-                <img src="/static/img/good.png" class="like-icon" />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card">
-            <div class="card-img-div">
-              <a href="#">
-                <img
-                  src="http://cdn.cnn.com/cnnnext/dam/assets/181114130138-korean-food-2620014201204004k-jeonju-bibimbap.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
-              </a>
-            </div>
-            <div class="card-body">
-              <div class="card-info">
-                <a href="#" class="recipe-link"
-                  ><span class="card-title"
-                    >일이삼사오육칠팔구십십일십이</span
-                  ></a
-                >
-                <div class="card-bottom-row">
-                  <span class="card-text">일이삼사오육칠팔구십</span>
-                  <div class="like-div">
-                    <span class="like-text">추천</span>
-                    <span class="like-num">76</span>
-                  </div>
-                </div>
-              </div>
-              <div class="card-like">
-                <img src="/static/img/good.png" class="like-icon" />
-              </div>
-            </div>
-          </div>
-        </div>
+        </div> -->
       </div>
       <div class="d-flex justify-content-center">
         <div class="spinner-border" role="status">
@@ -287,5 +183,10 @@
         </div>
       </div>
     </main>
+    <script
+      src="https://kit.fontawesome.com/e04b9acc8d.js"
+      crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript" src="/static/js/list.js"></script>
   </body>
 </html>

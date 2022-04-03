@@ -24,31 +24,162 @@
     <link rel="stylesheet" href="/static/css/detail.css/">
 
     <title>상세 레시피 페이지</title>
+    <script>
+
+        $(document).ready(function () {
+        // 레시피 이름 url에서 가져오기
+            const urlParams = new URLSearchParams(window.location.search);
+            const name = urlParams.get("recipe_name");
+            // console.log(name)
+
+            $.ajax({
+                type: "GET",
+                url: `/detail/recipe-detail?name=${name}`,
+                data: {},
+                success: function (response) {
+
+                    let targetRecipe = response['target_recipe']
+                    // console.log(targetRecipe)
+
+                    let recipeName = targetRecipe['recipe_name']
+                    let recipeImg = targetRecipe['recipe_img']
+                    let recipeIngs = targetRecipe['recipe_ing']
+                    let recipeDiff = targetRecipe['recipe_diff']
+                    let recipeTime = targetRecipe['recipe_time']
+                    let recipeDetails = targetRecipe['recipe_detail']
+                    let recipeLike = targetRecipe['recipe_like']
+                    let recipeWritter = targetRecipe['recipe_writter']
+                    // console.log(recipeName, recipeImg, recipeIngs, recipeDiff, recipeTime, recipeDetails, recipeLike, recipeWritter)
+
+            // 레시피 이미지, 레시피 타이틀 박스, 레시피 탭의 아이콘 박스 append
+                    temp_html = `<img class="recipe_img" src="${recipeImg}">`
+                    temp_html2 = `<span class="recipe_name" id="name">${recipeName}</span><br>
+                                  <span class="recipe_writter" id="writter">${recipeWritter}</span><br>
+                                  <span class="recipe_diff"><img src="/static/img/diffIcon.png" class="diffIcon">${recipeDiff}</span><br>
+                                  <div class="recipe_add">
+                                      <button type="button" id="bookmarkBtn"><img src="/static/img/addIcon.png" class="addIcon"></button>
+                                      <p class="arrow_box">즐겨찾기에 추가!</p>
+                                  </div>
+                                  <span class="recipe_like"><img src="/static/img/likeIcon.png" class="likeIcon">${recipeLike}</span>`
+
+                    temp_html3 = `<div class="timeIconWrap">
+                                      <img src="/static/img/timeIcon.png" class="timeIcon">
+                                      <span class="timeBox">${recipeTime}</span>
+                                  </div>
+                                  <div class="diff2IconWrap">
+                                      <img src="/static/img/3starsIcon.png" class="diff2Icon">
+                                      <span class="diff2Box">${recipeDiff}</span>
+                                  </div>`
+
+                    $('#imgWrap').append(temp_html)
+                    $('#titleWrap').append(temp_html2)
+                    $('#iconWrap').append(temp_html3)
+
+            // 레시피 조리과정 append
+                    let recipeDetail = recipeDetails.split("\n");
+                    // console.log(recipeDetail)
+
+                    for(let i = 0; i < recipeDetail.length; i++) {
+                        let detail = recipeDetail[i];
+                        // console.log(detail)
+
+                        temp_html4 = `<li class="process">${detail}</li>`
+
+                        $('#processList').append(temp_html4)
+
+                    }
+            // 레시피 재료 append
+                    let recipeIng = recipeIngs.split("\n");
+                    // console.log(recipeIng)
+
+                    for(let i = 0; i < recipeIng.length; i++) {
+                        let Ing = recipeIng[i];
+                        // console.log(detail)
+
+                        temp_html5 = `<li class="ingredient">${Ing}</li>`
+
+                        $('#ingList').append(temp_html5)
+                    }
+                    }
+
+            })
+
+        // 리뷰 등록하기(create 기능) ajax
+            $(document).on('click', '#reviewPostBtn', function () {
+                    let nickName = '관리자'
+                    let content = $('#reviewInput').val()
+
+                    $.ajax({
+                        type: "POST",
+                        url: `/detail/review-post`,
+                        data: {user_nickname_give:nickName, review_content_give:content, recipe_name_give:name},
+                        success: function (response) { // 성공하면
+                            alert(response["msg"]);
+                            window.location.reload();
+                        }
+                    })
+            })
+
+            $.ajax({
+                type: "GET",
+                url: `/detail/review-list?name=${name}`,
+                data: {},
+                success: function (response) {
+                    let reviews = response['reviews']
+
+                    for (let i = 0; i < reviews.length; i++) {
+                        let reviewContent = reviews[i]['review_content']
+                        let nickName = reviews[i]['user_nickname']
+                        let reviewUpdate = reviews[i]['review_update']
+
+                        console.log(reviewContent, nickName, reviewUpdate)
+                    }
+
+
+
+                }
+            })
+        })
+
+    // 즐겨찾기 추가 기능 ajax
+        $(document).on('click','#bookmarkBtn', function() {
+                $.ajax({
+                    type: "POST",
+                    url: "/detail/bookmark",
+                    data: {},
+                    success: function (response) { // 성공하면
+                        alert(response["msg"]);
+                        window.location.reload();
+                    }
+                 })
+            } )
+
+
+
+
+
+
+    </script>
 </head>
 <body>
     <nav class="naviBar">
         <ul>
-            <li><a class="logoLink" href="#">로고 미정</a></li>
-            <li><a class="menuLink" href="#">전체 레시피 보기</a></li>
-            <li><a class="menuLink" href="#">랭킹 보기</a></li>
-            <li><a class="menuLink" href="#">나만의 레시피</a></li>
+            <li><a class="logoLink" href="/"><img class="logoIcon" src="/static/img/cook-hat.svg"></a></li>
+            <li><a class="menuLink" href="/list">전체 레시피 보기</a></li>
+            <li><a class="menuLink" href="/rank">랭킹 보기</a></li>
+            <li><a class="menuLink" href="/make_recipe">나만의 레시피</a></li>
             <li><a class="menuLink" href="#">마이페이지</a></li>
-            <li><a class="myPageLink" href="#"><img src="/static/img/myPageIcon.png" class="loginIcon"></a></li>
-            <li><a class="link" href="#"><img src="/static/img/menuIcon.png" class="menuIcon"></a></li>
+            <li><a class="myPageLink" href="/login"><img src="/static/img/myPageIcon.png" class="loginIcon"></a></li>
         </ul>
     </nav>
 
     <div class="wrap">
         <div class="detailWrap">
-            <div class="detailImgWrap">
-                <img class="recipe_img" src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMTEyMDZfMjcw%2FMDAxNjM4NzY4OTg4NzA5.UdPCOWRxfcqs0g-3I7eTp6UzgeOnvk9dtSV0S2nqtugg.Ea81k1ieqCBxoIZrKHqJ95zRtvaPrkisR6rfBg4ELkQg.JPEG.yoondasol2%2FKakaoTalk_20211206_141054263_10.jpg&type=sc960_832">
+            <div class="detailImgWrap" id="imgWrap">
+<!--                레시피 이미지 들어가는 부분-->
             </div>
-            <div class="detailTitleWrap">
-                <span class="recipe_name">풍미가 가득한 간장버터계란밥</span><br>
-                <span class="recipe_writter">홍길동</span><br>
-                <span class="recipe_diff"><img src="/static/img/diffIcon.png" class="diffIcon">똥손 아니면 가능</span><br>
-                <span class="recipe_add"><img src="/static/img/addIcon.png" class="addIcon"></span>
-                <span class="recipe_like"><img src="/static/img/likeIcon.png" class="likeIcon">100</span>
+            <div class="detailTitleWrap" id="titleWrap">
+<!--                레시피 타이틀 박스 들어가는 부분-->
             </div>
             <div class="imforWrap">
                 <div class="container">
@@ -58,22 +189,68 @@
                             <li class="recipeSort" data-tab="tab-2">조리과정</li>
                             <li class="recipeSort" data-tab="tab-3">리뷰</li>
                         </ul>
+                    </div>
+                    <div class="contentWrap">
                         <div id="tab-1" class="tabContent current">
-                            <div class="iconWrap">
-                                <div class="timeIconWrap">
-                                    <img src="/static/img/timeIcon.png" class="timeIcon">
-                                    <span class="timeBox">5분 이내</span>
-                                </div>
-                                <div class="diff2IconWrap">
-                                    <img src="/static/img/3starsIcon.png" class="diff2Icon">
-                                    <span class="diff2Box">똥손 아니면 가능</span>
-                                </div>
-<!--                                주의) timeBox 및 diff2Box 둘다 두줄이거나, 둘다 한줄이어야 디자인이 맞아떨어짐-->
-<!--                                하나는 너무 길어서 두줄이고, 하나는 한줄이면 둘 위치가 맞지 않음 -->
+                            <div class="iconWrap" id="iconWrap">
+<!--                                조리시간, 난이도 아이콘 들어가는 정보 박스 부분-->
+                            </div>
+                            <div class="ingredientWrap">
+                                <span class="ingTitle">📌 최소한 이건 준비하자!</span>
+                                <ul class="ingList" id="ingList">
+<!--                                    레시피 재료 들어가는 부분-->
+                                </ul>
                             </div>
                         </div>
-                        <div id="tab-2" class="tabContent">tab content2</div>
-                        <div id="tab-3" class="tabContent">tab content3</div>
+                        <div id="tab-2" class="tabContent">
+                            <div class="processWrap">
+                                <span class="processTitle">📌 이정돈 만들 수 있다!</span>
+                                <ul class="processList" id="processList">
+<!--                                    레시피 조리과정 들어가는 부분-->
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="tab-3" class="tabContent">
+                            <div class="reviewWrap">
+                                <span class="reviewTitle">📌 나도 만들었다! 내가 만든 요리 후기</span>
+                                <div class="reviewWrite">
+                                    <input type="text" placeholder="후기를 작성해주세요!" class="reviewInput" id="reviewInput">
+                                    <button type="button" class="reviewBtn" id="reviewPostBtn">등록</button>
+                                </div>
+                                <hr class="line">
+                                <div class="reviewListWrap">
+                                    <div class="reviewList">
+                                        <span class="userName">작성자: 김댕댕</span>
+                                        <span class="reviewDate">2022-03-01</span>
+                                        <span class="review">너무 맛있어요!</span>
+                                        <button type="button" class="deleteBtn">삭제</button>
+                                        <button type="button" class="updateBtn">수정</button>
+                                    </div>
+                                    <div class="reviewList">
+                                        <span class="userName">작성자: 김댕댕</span>
+                                        <span class="reviewDate">2022-03-01</span>
+                                        <span class="review">실제로 해먹어 봤는데 엄청 쉬워요</span>
+                                        <button type="button" class="deleteBtn">삭제</button>
+                                        <button type="button" class="updateBtn">수정</button>
+                                    </div>
+                                    <div class="reviewList">
+                                        <span class="userName">작성자: 김댕댕</span>
+                                        <span class="reviewDate">2022-03-01</span>
+                                        <span class="review">또 해먹을거에요</span>
+                                        <button type="button" class="deleteBtn">삭제</button>
+                                        <button type="button" class="updateBtn">수정</button>
+                                    </div>
+                                    <div class="reviewList">
+                                        <span class="userName">작성자: 김댕댕</span>
+                                        <span class="reviewDate">2022-03-01</span>
+                                        <span class="review">다른 친구한테도 추천했어요!</span>
+                                        <button type="button" class="deleteBtn">삭제</button>
+                                        <button type="button" class="updateBtn">수정</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -85,5 +262,3 @@
     </div>
     <script type="text/javascript" src="/static/js/detail.js/"></script>
 </body>
-
-</html>
