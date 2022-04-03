@@ -445,8 +445,6 @@ def recipe_detail():
     return jsonify({'target_recipe': target_recipe})
 
 # 리뷰(댓글) api - create 기능
-
-
 @app.route('/detail/review-post', methods=['POST'])
 def review_post():
     if 'user_id' in session:
