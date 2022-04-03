@@ -9,7 +9,7 @@ body {
 .naviBar {
     background-color: #FF6219;
     width: 100%;
-    height: 50px;
+    height: 70px;
     position: fixed;
     z-index: 100;
 }
@@ -19,30 +19,33 @@ body {
     color: #3A3845;
     background-color: #FF6219;
     float: left;
-    line-height: 50px;
+    line-height: 70px;
     vertical-align: middle;
     text-align: center;
 }
 
-.logoLink {
-    width: 112px;
-    display: block;
-    color: #3A3845;
-    margin-right: 80px;
+.naviBar .logoIcon {
+    height: 60px;
+    transition: all 0.3s ease-in-out;
+    width: 180px;
+}
+
+.naviBar .logoIcon:hover {
+  transform: rotateY(180deg) scale(1.2);
 }
 
 .menuLink {
     text-decoration: none;
     color: #3A3845;
     display: block;
-    width: 150px;
-    font-size: 16px;
+    width: 170px;
+    font-size: 18px;
     font-weight: bolder;
 }
 
 .menuLink:hover {
     transition: 0.5s;
-    font-size: 17px;
+    font-size: 19px;
     text-decoration: none;
     color: #3A3845;
     background: #FFF3ED;
@@ -54,7 +57,7 @@ body {
 }
 
 .loginIcon {
-    height: 32px;
+    height: 38px;
 }
 
 .loginIcon:hover {
@@ -66,7 +69,7 @@ body {
     width: 1080px;
     height: auto;
     margin: 0 auto 0 auto;
-    padding: 4px;
+    padding: 30px 4px 4px 4px;
     border-radius: 30px;
 }
 
@@ -75,7 +78,7 @@ body {
     border: 4pt solid #ff6219;
     border-radius: 25px;
     width: 927px;
-    margin: 70px auto 0 auto;
+    margin: 70px auto 20px auto;
 }
 
 .detailImgWrap {
@@ -90,6 +93,8 @@ body {
     display: inline-block;
     max-width: 730px;
     height: 420px;
+    object-position: center;
+
 }
 
 .detailTitleWrap {
@@ -142,35 +147,83 @@ body {
 .recipe_like {
     display: inline-block;
     float: right;
-    padding-top: 50px;
+    padding-top: 30px;
     position: relative;
     font-size: 18px;
     font-weight: 750;
     letter-spacing: -1px;
-    padding-right: 22px;
+    width: 40px;
+    margin: auto;
+    left: -7px;
 }
 
 .likeIcon {
     width: 35px;
-    position: absolute;
     top: 16px;
-    left: -2px;
+    margin: auto;
 }
 
 .recipe_add {
     display: inline-block;
     float: right;
-    padding-top: 30px;
+    padding-top: 42px;
+    position: relative;
+}
+
+.recipe_add button {
+    background-color: transparent;
+    outline: 0;
+    border: 0;
+}
+
+.recipe_add button {
+    outline: 0;
+    border: 0;
 }
 
 .addIcon {
     width: 35px;
+    cursor: pointer;
+}
+
+.arrow_box {
+    visibility: hidden;
+    position: absolute;
+    width: 110px;
+    font-size: 13px;
+    padding: 5px;
+    left: -26px;
+    top: 87px;
+    border-radius: 10px;
+    background-color: rgba(9,9,9,0.8);
+    color: #fff;
+    z-index: 100;
+    text-align: center;
+
+}
+
+.arrow_box::after {
+  position: absolute;
+  bottom: 100%;
+  left: 40%;
+  width: 0;
+  height: 0;
+  margin-left: -8px;
+  border-width: 8px;
+    border-style: solid;
+    border-color: transparent transparent rgba(9,9,9,0.8) transparent;
+  pointer-events: none;
+  content: ' ';
+}
+
+.recipe_add:hover p.arrow_box {
+    visibility: visible;
 }
 
 .imforWrap {
     background-color: white;
     border-top: #EDEDED solid 1pt;
-    padding: 250px 30px 50px 30px;
+    padding: 250px 30px 30px 30px;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
 }
@@ -316,6 +369,7 @@ body {
     background-color: white;
     border-radius: 20px;
     display: inline-block;
+    width: 618px;
 }
 
 .ingList li {
@@ -325,7 +379,7 @@ body {
     font-weight: 600;
     color: #3a3845;
     display: inline-block;
-    width: 45%;
+    width: 50%;
     padding-top: 7px;
     padding-bottom: 7px;
     position: relative;
@@ -345,6 +399,8 @@ body {
     background-color: white;
     border-radius: 20px;
     display: inline-block;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 .process {
@@ -355,7 +411,7 @@ body {
     color: #3a3845;
     display: inline-block;
     width: 100%;
-    padding: 20px 20px 10px 20px;
+    padding: 13px 20px 13px 20px;
     margin: 0;
     letter-spacing: -0.5px;
 }
