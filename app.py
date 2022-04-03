@@ -492,7 +492,7 @@ def myreview_list():
 
 
 # 리뷰(댓글) 수정 api
-@app.route('/myreview/review-update', methods=['POST'])
+@app.route('/myreview/update', methods=['POST'])
 def myreview_update():
     if 'user_id' in session:
         idx_receive = request.form['idx_give']
@@ -513,7 +513,7 @@ def myreview_update():
 
 
 # 리뷰(댓글) 삭제 api
-@app.route('/myreview/review-delete', methods=['POST'])
+@app.route('/myreview/delete', methods=['POST'])
 def myreview_delete():
     if 'user_id' in session:
         idx_receive = request.form['idx_give']
