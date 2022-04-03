@@ -10,9 +10,10 @@ from flask_bcrypt import Bcrypt
 from pymongo import MongoClient
 
 # 클라이언트 정의 - MongoClient를 로컬호스트와 연결
-# client = MongoClient(
-#     'mongodb+srv://making:making@cluster0.ymxju.mongodb.net/Cluster0?retryWrites=true&w=majority')
-client = MongoClient('localhost',27017)
+client = MongoClient('mongodb+srv://making:making@cluster0.ymxju.mongodb.net/Cluster0?retryWrites=true&w=majority')
+# client = MongoClient('localhost',27017)
+
+
 
 # 컬렉션 정의. mc12th라는 컬렉션이 생성됨
 db = client.mc12th
@@ -158,49 +159,49 @@ def render_rank():
 #리퀘스트 변수로 받기 #
 
 
-@app.route('/rank/get', methods=['GET'])
-def rank():
-    year_give = request.args.get('date_year')
-    month_give = request.args.get('date_month')
-    day_give = request.args.get('date_day')
-    click_receive = request.args.get('click_data')
-    print(year_give, month_give, day_give, click_receive)
-
-    # 레시피 데이터 베이스 가져오기
-    # 데이터베이스에서 상위 10개 가져오기
-    recipes = list(db.recipes.find({}, {'_id': False}
-                                   ).sort('recipe_like', -1).limit(10))
-
-    # 반복문 사용(데이터 출력용도)
-    for db_recipe in recipes:
-        # 날짜값 스플릿
-        db_date = db_recipe['recipe_post_update']
-        # 스플릿데이터 - 년도
-        db_year = db_date.split('-')[0]
-        # 스플릿데이터 - 월
-        db_month = db_date.split('-')[1]
-        # 스플릿데이터 - 일
-        db_day = db_date.split('-')[2]
-
-        # 조건문 - 클릭 리시브
-        if click_receive == '연간':
-            # 년도에 따라 데이터 출력
-            if db_year == "2022":
-                db_yearlist = db_recipe
-                print('연간 데이터 출력 완료!')
-                return jsonify({'filtered_data': db_yearlist})
-
-        elif click_receive == '월간':
-            if db_month == "03":
-                db_monthlist = db_recipe
-                print('월간 데이터 출력 완료!')
-                return jsonify({'filtered_data': db_monthlist})
-
-        elif click_receive == '일간':
-            if db_day == "01":
-                db_daylist = db_recipe
-                print('일간 데이터 출력 완료!')
-                return jsonify({'filtered_data': db_daylist})
+# @app.route('/rank/get', methods=['GET'])
+# def rank_get():
+    # year_give = request.args.get('date_year')
+    # month_give = request.args.get('date_month')
+    # day_give = request.args.get('date_day')
+    # click_receive = request.args.get('click_data')
+    # print(year_give, month_give, day_give, click_receive)
+    #
+    # # 레시피 데이터 베이스 가져오기
+    # # 데이터베이스에서 상위 10개 가져오기
+    # recipes = list(db.recipes.find({}, {'_id': False}
+    #                                ).sort('recipe_like', -1).limit(10))
+    #
+    # # 반복문 사용(데이터 출력용도)
+    # for db_recipe in recipes:
+    #     # 날짜값 스플릿
+    #     db_date = db_recipe['recipe_post_update']
+    #     # 스플릿데이터 - 년도
+    #     db_year = db_date.split('-')[0]
+    #     # 스플릿데이터 - 월
+    #     db_month = db_date.split('-')[1]
+    #     # 스플릿데이터 - 일
+    #     db_day = db_date.split('-')[2]
+    #
+    #     # 조건문 - 클릭 리시브
+    #     if click_receive == '연간':
+    #         # 년도에 따라 데이터 출력
+    #         if db_year == "2022":
+    #             db_yearlist = db_recipe
+    #             print('연간 데이터 출력 완료!')
+    #             return jsonify({'filtered_data': db_yearlist})
+    #
+    #     elif click_receive == '월간':
+    #         if db_month == "03":
+    #             db_monthlist = db_recipe
+    #             print('월간 데이터 출력 완료!')
+    #             return jsonify({'filtered_data': db_monthlist})
+    #
+    #     elif click_receive == '일간':
+    #         if db_day == "01":
+    #             db_daylist = db_recipe
+    #             print('일간 데이터 출력 완료!')
+    #             return jsonify({'filtered_data': db_daylist})
 
     # # 조건문1
     # # 업데이트 날짜 기준으로 연간체크
@@ -222,52 +223,37 @@ def rank():
 @app.route('/rank/get', methods=['GET'])
 def rank_get():
 
-    # year_give = request.args.get('date_year')
-    # month_give = request.args.get('date_month')
-    # day_give = request.args.get('date_day')
-    # click_receive = request.args.get('click_data')
-    # print(year_give, month_give, day_give, click_receive)
+    # 설계
+    # 1. 사용자 요청 값 받기
+    # 클릭 요청 값 - 연간/월간/일간 으로 구분
+    click_receive = request.args.get('click_give')
+    # 날짜 요청 값 - 사용자의 현재 시각을 문자열로 "yyyy-mm-dd" 받아옴
+    date_receive = request.args.get('date_give')
+    # 날짜 리시브를 스플릿하여 년 월 일 조건 변수 생성
+    year_receive = date_receive.split('-')[0]
+    month_receive = year_receive + "-" + date_receive.split('-')[1]
+    day_receive = date_receive
 
-    #
-    # # 레시피 데이터 베이스 가져오기
-    # # 데이터베이스에서 상위 10개 가져오기
-    # recipes = list(db.recipes.find({}, {'_id': False}).sort('recipe_like', -1).limit(10))
-    #
-    # # 반복문 사용(데이터 출력용도)
-    # for db_recipe in recipes:
-    #     # 날짜값 스플릿
-    #     db_date = db_recipe['recipe_post_update']
-    #     # 스플릿데이터 - 년도
-    #     db_year = db_date.split('-')[0]
-    #     # 스플릿데이터 - 월
-    #     db_month = db_date.split('-')[1]
-    #     # 스플릿데이터 - 일
-    #     db_day = db_date.split('-')[2]
-    #
-    #     # 조건문 - 클릭 리시브
-    #     if click_receive == '연간':
-    #         # 년도에 따라 데이터 출력
-    #         if db_year == "2022":
-    #             db_yearlist = db_recipe
-    #             print('연간 데이터 출력 완료!')
-    #             return jsonify({'filtered_data': db_yearlist})
-    #
-    #
-    #     elif click_receive == '월간':
-    #         if db_month == "03":
-    #             db_monthlist = db_recipe
-    #             print('월간 데이터 출력 완료!')
-    #             return jsonify({'filtered_data': db_monthlist})
-    #
-    #     elif click_receive == '일간':
-    #         if db_day == "01":
-    #             db_daylist = db_recipe
-    #             print('일간 데이터 출력 완료!')
-    #             return jsonify({'filtered_data': db_daylist})
+    print(year_receive,month_receive,day_receive)
 
-    #  페이크 값 리턴
-    filtered_data = list(db.recipes.find({}, {'_id': False}).limit(10))
-    return jsonify({'append_data': filtered_data})
+    # 2. 조건문1 - 클릭 리시브 확인
+    # 값이 만약 연간이라면
+    if click_receive == "연간" :
+        # 날짜 리시브와 부분 일치하는 데이터베이스 찾아오기, (1)작성 업데이트 날짜-(2)추천 수를 기준으로 정렬, 10개 제한
+        find_db = db.recipes.find({'recipe_post_update':{'$regex': year_receive}},{'_id':False})
+        find_db = list(find_db.sort('recipe_post_update',-1).sort('recipe_like',-1).limit(10))
+    # 값이 만약 월간이라면
+    elif click_receive == "월간" :
+        # 날짜 리시브와 부분 일치하는 데이터베이스 찾아오기, (1)작성 업데이트 날짜-(2)추천 수를 기준으로 정렬, 10개 제한
+        find_db = db.recipes.find({'recipe_post_update': {'$regex': month_receive}},{'_id':False})
+        find_db = list(find_db.sort('recipe_post_update', -1).sort('recipe_like', -1).limit(10))
+    # 값이 만약 일간이라면
+    elif click_receive == "일간" :
+        # 날짜 리시브와 부분 일치하는 데이터베이스 찾아오기, (1)작성 업데이트 날짜-(2)추천 수를 기준으로 정렬
+        find_db = db.recipes.find({'recipe_post_update': {'$regex': day_receive}},{'_id':False})
+        find_db = list(find_db.sort('recipe_post_update', -1).sort('recipe_like', -1).limit(10))
+
+    return jsonify({'filtered_data': find_db})
 
 
 
