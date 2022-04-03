@@ -1,3 +1,5 @@
+
+
 //최신순 정렬 -> 문제는 검색값, 필터값과 중복 안됨. 현재는 있는 내용을 지우고 다시 불러오는 형태
 $(".sortByDate").on("click", function() {
   $.ajax({
@@ -24,7 +26,7 @@ $(".sortByDate").on("click", function() {
               <div class="card-body">
                 <div class="card-info">
                   <a href="#" class="recipe-link"
-                    ><span class="card-title"
+                    ><span class="card-title" 
                       >${name}</span
                     ></a
                   >
@@ -268,27 +270,31 @@ function showRecipes() {
                 </div>
               </div>`
                 $('.card-group').append(temp_html)
+
+                let recipe_name = "";
+                $('.card-title').on('click', function () {
+                    recipe_name = $(this).text()
+                    console.log(recipe_name)
+                })
+
+                $(document).on('click', '.card-title', function () {
+                    if (recipe_name != null) {
+                        document.location.href = `/detail?recipe_name=${recipe_name}`;
+                    }
+                })
+
             }          
         }  
     })
+
 }
 
 
 //레시피 이름으로 출력
 
-let recipe_name = "";
 
-$(document).ready(function () {
-  $(".card-title").click(function () {
-    recipe_name = $(this).text();
-  })
-})
 
-function moveDetail() {
-  if (recipe_name !== null) {
-    document.location.href = `/detail?recipe_name=${recipe_name}`;
-  }
-}
+
 
  // 스크롤이 맨 밑까지 가면 실행 되는 조건문
 const target = document.querySelector(".spinner-border")
