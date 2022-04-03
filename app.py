@@ -10,8 +10,8 @@ from flask_bcrypt import Bcrypt
 from pymongo import MongoClient
 
 # 클라이언트 정의 - MongoClient를 로컬호스트와 연결
-client = MongoClient('mongodb+srv://making:making@cluster0.ymxju.mongodb.net/Cluster0?retryWrites=true&w=majority')
-# client = MongoClient('localhost',27017)
+#client = MongoClient('mongodb+srv://making:making@cluster0.ymxju.mongodb.net/Cluster0?retryWrites=true&w=majority')
+client = MongoClient('localhost',27017)
 
 
 
@@ -229,6 +229,8 @@ def rank_get():
     click_receive = request.args.get('click_give')
     # 날짜 요청 값 - 사용자의 현재 시각을 문자열로 "yyyy-mm-dd" 받아옴
     date_receive = request.args.get('date_give')
+    print(click_receive)
+    print(date_receive)
     # 날짜 리시브를 스플릿하여 년 월 일 조건 변수 생성
     year_receive = date_receive.split('-')[0]
     month_receive = year_receive + "-" + date_receive.split('-')[1]
@@ -252,6 +254,7 @@ def rank_get():
         # 날짜 리시브와 부분 일치하는 데이터베이스 찾아오기, (1)작성 업데이트 날짜-(2)추천 수를 기준으로 정렬
         find_db = db.recipes.find({'recipe_post_update': {'$regex': day_receive}},{'_id':False})
         find_db = list(find_db.sort('recipe_post_update', -1).sort('recipe_like', -1).limit(10))
+    print(find_db)
 
     return jsonify({'filtered_data': find_db})
 

@@ -30,7 +30,7 @@ doc = [
         "recipe_taste": "달달",
         "recipe_writter": "검멍이",
         "recipe_like_update": "2022-03-01",
-        "recipe_post_update": "2022-03-01"
+        "recipe_post_update": "2022-04-03"
     },
     {
         "recipe_name": "또띠아 피자",
