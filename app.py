@@ -10,9 +10,9 @@ from flask_bcrypt import Bcrypt
 from pymongo import MongoClient
 
 # 클라이언트 정의 - MongoClient를 로컬호스트와 연결
-client = MongoClient(
-    'mongodb+srv://making:making@cluster0.ymxju.mongodb.net/Cluster0?retryWrites=true&w=majority')
-# client = MongoClient('localhost',27017)
+# client = MongoClient(
+#     'mongodb+srv://making:making@cluster0.ymxju.mongodb.net/Cluster0?retryWrites=true&w=majority')
+client = MongoClient('localhost',27017)
 
 # 컬렉션 정의. mc12th라는 컬렉션이 생성됨
 db = client.mc12th
@@ -332,7 +332,7 @@ def login_check():
     else:
         # 3. 아이디, 비밀번호 조회
         # 데이터베이스에서 아이디에 일치하는 데이터 찾기
-        find_db = list(db.users.find({'user_id': id_receive}))
+        find_db = list(db.users.find({'user_id': id_receive},{'_id':False}))
 
         # 4. 조건문2 - 아이디 일치
         # 조회 데이터가 존재하지 않는다면 실패 메시지 리턴
@@ -342,19 +342,24 @@ def login_check():
             # 5. 조건문3 - 비밀번호 체크
 
             # 데이터베이스에 저장된 사용자 비밀번호 가져오기
-            pw_hash = find_db['user_pwd']
-            # 비밀번호 체크 알고리즘(사용자 요청값 암호화 하지 않아도 됨. 괄호() 안에 데이터 두개를 넣기
-            pwd_check = bcrypt.checkpw(pwd_receive, pw_hash)    # True, False 리턴
+            # 리스트를 자를 수 없기 때문에 반복문으로 나누기
+            for find in find_db:
+                pw_hash = find['user_pwd']
 
-            # 비밀번호가 일치하지 않는다면 실패 메시지 리턴
-            if pwd_check == False:
-                return jsonify({'msg': '비밀번호가 일치하지 않습니다'})
-            # 비밀번호가 일치한다면 처리
-            else:
-                # 사용자 아이디로 세션 삽입
-                session['user_id'] = id_receive
-                # 조회 성공 메시지 리턴
-                return jsonify({'msg': '로그인에 성공하였습니다. 환영합니다!'})
+                # 데이터가 둘다 문자열일 경우 테스트용 해시 작업 코드
+                # pw_hash = bcrypt.generate_password_hash(pw_hash)
+
+            # 비밀번호 체크 알고리즘(사용자 요청값 암호화 하지 않아도 됨. 괄호() 안에 데이터 두개를 넣기
+                pwd_check = bcrypt.check_password_hash(pw_hash, pwd_receive)    # True, False 리턴
+                # 비밀번호가 일치하지 않는다면 실패 메시지 리턴
+                if pwd_check == False:
+                    return jsonify({'msg': '비밀번호가 일치하지 않습니다'})
+                # 비밀번호가 일치한다면 처리
+                else:
+                    # 사용자 아이디로 세션 삽입
+                    session['user_id'] = id_receive
+                    # 조회 성공 메시지 리턴
+                    return jsonify({'msg': '로그인에 성공하였습니다. 환영합니다!'})
 
 
 
