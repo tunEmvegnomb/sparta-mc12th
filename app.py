@@ -443,7 +443,7 @@ def render_login():
 
 # 로그인 페이지 API
 # 로그인 체크
-@app.route('/login', methods=['POST'])
+@app.route('/login/check', methods=['POST'])
 def login_check():
     # 페이크 값 리턴
     # return jsonify({'msg': '로그인에 성공하였습니다. 환영합니다!'})
@@ -565,7 +565,7 @@ def render_detail():
 # list페이지에서 해당card를 클릭하면 get요청으로 해당레시피이름이 url을 통해 넘어와
 @app.route('/detail/recipe-detail', methods=['GET'])
 def recipe_detail():
-    recipe_name_receive = request.args.get('name')
+    recipe_name_receive = request.args.get('recipe_name')
     # print(recipe_name_receive)
     target_recipe = db.recipes.find_one({'recipe_name': recipe_name_receive})
     target_recipe['_id'] = str(target_recipe['_id'])
@@ -576,7 +576,7 @@ def recipe_detail():
 # 상세페이지 리뷰(댓글) 조회 api - 해당 상세레시피에 달린 리뷰(댓글)
 @app.route('/detail/review-list', methods=['GET'])
 def review_list():
-    recipe_name_receive = request.args.get('name')
+    recipe_name_receive = request.args.get('recipe_name')
     # print(recipe_name_receive)
     reviews = objectIdDecoder(list(db.reviews.find({'recipe_name': recipe_name_receive})))
     # print(reviews)
@@ -619,7 +619,7 @@ def review_post():
         db.reviews.insert_one(doc)
         return jsonify({'msg': '댓글 작성 완료'})
     else:
-        return jsonify({'msg': '로그인해주세요'})
+        return jsonify({'msg': '로그인 해주세요'})
 
 
 # 내가 쓴 후기 페이지
@@ -670,7 +670,7 @@ def myreview_delete():
 
         if session.get("user_id") == data.get('user_id'):
             db.reviews.delete_one({"_id": ObjectId(idx_receive)})
-            return jsonify({'msg': '댓글이 삭제되었습니다'})
+            return jsonify({'msg': '댓글이 삭제되었습니다.'})
         else:
             return jsonify({'msg': '댓글 삭제 권한이 없습니다.'})
     else:
