@@ -118,14 +118,15 @@
                 <div class="best-recipe-top">
                     <img src="\static\img\rank.png" alt="이미지" class="random-food"/>
                     <h5 style="font-weight: 600;">
-                        <span class="best-recipe-text" type="button" style="margin-right: 10px" onclick="month()">월간</span>
-<!--                        <span class="best-recipe-text" type="button">주간</span>-->
-                        <span class="best-recipe-text" type="button" onclick="week()">일간</span></h5>
+                        <span class="best-recipe-text" type="button" style="margin-right: 10px" onclick="main_top3()">월간</span>
+                        <span class="best-recipe-text" type="button" onclick="main_top3()">주간</span>
+                        <span class="best-recipe-text" type="button" onclick="main_top3()">일간</span></h5>
                 </div>
                 <div style="margin-bottom: -60px">
                     <button type="button" class="btn">더보기</button>
                 </div>
-                <div style="display: flex; justify-content: space-around;">
+                <div id="image-card">
+                    <div style="display: flex; justify-content: space-around;">
                     <div>
                         <img src="\static\img\rank-1.png" alt="이미지" class="best-recipe-rank-top"/>
                         <img src="\static\img\recipe-small.png" alt="이미지"/>
@@ -138,6 +139,7 @@
                         <img src="\static\img\rank-3.png" alt="이미지" class="best-recipe-rank-third"/>
                         <img src="\static\img\recipe-small.png" alt="이미지"/>
                     </div>
+                </div>
                 </div>
             </div>
         </div>
