@@ -104,6 +104,7 @@
 
             })
 
+
         // 리뷰 등록하기(create 기능) ajax
             $(document).on('click', '#reviewPostBtn', function () {
                     let nickName = '관리자'
@@ -120,6 +121,7 @@
                     })
             })
 
+        // 리뷰 리스팅 기능 ajax
             $.ajax({
                 type: "GET",
                 url: `/detail/review-list?name=${name}`,
