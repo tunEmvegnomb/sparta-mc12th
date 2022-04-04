@@ -626,8 +626,8 @@ def render_myrecipe():
 @app.route('/myrecipe/update', methods=['POST'])
 def myrecipe_update():
     if 'user_id' in session:
-        idx = request.form['idx']
-        data = db.myrecipes.find_one({"_id" : ObjectId(idx)})
+        idx_receive = request.form['idx_give']
+        data = db.myrecipes.find_one({"_id" : ObjectId(idx_receive)})
         # print(data)
 
         if session.get("user_id") == data.get('user_id'):
