@@ -870,12 +870,12 @@ def myrecipe_list():
 def mypage_get():
     if 'user_id' in session:
         get_user_id = session.get('user_id')
-        print(get_user_id)
+        # print(get_user_id)
         mypage = list(db.users.find({'user_id': get_user_id}, {'_id': False, 'user_pwd': False}))
         myrecipes = list(db.myrecipes.find({'user_id': get_user_id}, {'_id': False}))
         return jsonify({'mypage': mypage}, {'myrecipes': myrecipes})
     else:
-        print(session)
+        # print(session)
         return jsonify({'msg': '로그인해주세요'})
 
 # 오늘의 레시피
@@ -900,6 +900,12 @@ def random_recipe():
             if num == rank is not None:
                 return reco_data
     return jsonify({'reco_data': reco_data})
+
+# 마이페이지 즐겨찾기 폴더 생성
+@app.route('/bookmark/folder', methods=['POST'])
+def bookmark_list():
+
+    return jsonify({'bookmark_folder': bookmark_folder})
 
 
 # localhost:5000 으로 들어갈 수 있게 해주는 코드
