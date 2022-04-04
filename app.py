@@ -2,10 +2,13 @@
 # render_template(페이지 이동), jsonify(json값 리턴), request(클라이언트 값 받기), session(로그인) 라이브러리 임포트
 import os
 
-from flask import Flask, render_template, jsonify, request, session
+from flask import Flask, render_template, jsonify, request, session, url_for
 
 # 현재 날짜를 받아오기위한 import
 from datetime import datetime
+import schedule
+import time
+
 
 # 암호화 라이브러리 bcrypy import. 오류가 뜬다면 interpreter에서 bcrypy 패키지 install
 # 그래도 오류가 뜬다면 terminal에서 pip install flask-bcrypt 입력
@@ -18,8 +21,8 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 
 # 클라이언트 정의 - MongoClient를 로컬호스트와 연결
-# client = MongoClient('mongodb+srv://making:making@cluster0.ymxju.mongodb.net/Cluster0?retryWrites=true&w=majority')
-client = MongoClient('localhost',27017)
+client = MongoClient('mongodb+srv://making:making@cluster0.ymxju.mongodb.net/Cluster0?retryWrites=true&w=majority')
+# client = MongoClient('localhost',27017)
 
 
 # 컬렉션 정의. mc12th라는 컬렉션이 생성됨
@@ -895,9 +898,16 @@ def random_recipe():
         def random():
             if num == rank is not None:
                 return reco_data
+
+
+
     return jsonify({'reco_data': reco_data})
+
 
 
 # localhost:5000 으로 들어갈 수 있게 해주는 코드
 if __name__ == '__main__':
+
+
+
     app.run('0.0.0.0', port=5000, debug=True)
