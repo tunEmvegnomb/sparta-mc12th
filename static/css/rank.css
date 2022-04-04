@@ -21,9 +21,10 @@
 }
 
 .naviBar .logoIcon {
-    height: 60px;
+    height: 65px;
     transition: all 0.3s ease-in-out;
-    width: 180px;
+    margin-left: 55px;
+    margin-right: 55px;
 }
 
 .naviBar .logoIcon:hover {
@@ -54,6 +55,7 @@
 
 .loginIcon {
     height: 38px;
+
 }
 
 .loginIcon:hover {
