@@ -34,7 +34,7 @@
 
             $.ajax({
                 type: "GET",
-                url: `/detail/recipe-detail?name=${name}`,
+                url: `/detail/recipe-detail?recipe_name=${name}`,
                 data: {},
                 success: function (response) {
 
@@ -106,39 +106,57 @@
 
         // 리뷰 등록하기(create 기능) ajax
             $(document).on('click', '#reviewPostBtn', function () {
-                    let nickName = '관리자'
+                    let nickName = sessionStorage.getItem("user_nickname")
                     let content = $('#reviewInput').val()
+                    console.log(nickName, content)
 
                     $.ajax({
                         type: "POST",
-                        url: `/detail/review-post`,
-                        data: {user_nickname_give:nickName, review_content_give:content, recipe_name_give:name},
+                        url: '/detail/review-post',
+                        data: {user_nickname_give: nickName, review_content_give:content, recipe_name_give: name},
                         success: function (response) { // 성공하면
-                            alert(response["msg"]);
-                            window.location.reload();
+                            let answer = response["msg"]
+                            alert(answer);
+                            location.reload();
                         }
+
                     })
+
             })
 
+        // 리뷰 리스팅 기능 ajax
             $.ajax({
                 type: "GET",
-                url: `/detail/review-list?name=${name}`,
+                url: `/detail/review-list?recipe_name=${name}`,
                 data: {},
                 success: function (response) {
                     let reviews = response['reviews']
+                    // console.log(reviews)
 
                     for (let i = 0; i < reviews.length; i++) {
                         let reviewContent = reviews[i]['review_content']
                         let nickName = reviews[i]['user_nickname']
                         let reviewUpdate = reviews[i]['review_update']
 
-                        console.log(reviewContent, nickName, reviewUpdate)
+                        // console.log(reviewContent, nickName, reviewUpdate)
+
+                        temp_html = `<div class="reviewList">
+                                        <span class="userName">작성자: ${nickName}</span>
+                                        <span class="reviewDate">${reviewUpdate}</span>
+                                        <span class="review">${reviewContent}</span>
+                                        <button type="button" class="deleteBtn" id="deleteBtn">삭제</button>
+                                        <button type="button" class="updateBtn" id="updateBtn">수정</button>
+                                    </div>`
+
+                        $('#reviewList').append(temp_html)
                     }
 
 
 
                 }
             })
+
+
         })
 
     // 즐겨찾기 추가 기능 ajax
@@ -164,12 +182,12 @@
 <body>
     <nav class="naviBar">
         <ul>
-            <li><a class="logoLink" href="/"><img class="logoIcon" src="/static/img/cook-hat.svg"></a></li>
+            <li><a class="logoLink" href="/"><img class="logoIcon" src="/static/img/logo.png"></a></li>
             <li><a class="menuLink" href="/list">전체 레시피 보기</a></li>
             <li><a class="menuLink" href="/rank">랭킹 보기</a></li>
             <li><a class="menuLink" href="/make_recipe">나만의 레시피</a></li>
             <li><a class="menuLink" href="#">마이페이지</a></li>
-            <li><a class="myPageLink" href="/login"><img src="/static/img/myPageIcon.png" class="loginIcon"></a></li>
+            <li><a class="myPageLink" href="/login/"><img src="/static/img/myPageIcon.png" class="loginIcon"></a></li>
         </ul>
     </nav>
 
@@ -218,35 +236,8 @@
                                     <button type="button" class="reviewBtn" id="reviewPostBtn">등록</button>
                                 </div>
                                 <hr class="line">
-                                <div class="reviewListWrap">
-                                    <div class="reviewList">
-                                        <span class="userName">작성자: 김댕댕</span>
-                                        <span class="reviewDate">2022-03-01</span>
-                                        <span class="review">너무 맛있어요!</span>
-                                        <button type="button" class="deleteBtn">삭제</button>
-                                        <button type="button" class="updateBtn">수정</button>
-                                    </div>
-                                    <div class="reviewList">
-                                        <span class="userName">작성자: 김댕댕</span>
-                                        <span class="reviewDate">2022-03-01</span>
-                                        <span class="review">실제로 해먹어 봤는데 엄청 쉬워요</span>
-                                        <button type="button" class="deleteBtn">삭제</button>
-                                        <button type="button" class="updateBtn">수정</button>
-                                    </div>
-                                    <div class="reviewList">
-                                        <span class="userName">작성자: 김댕댕</span>
-                                        <span class="reviewDate">2022-03-01</span>
-                                        <span class="review">또 해먹을거에요</span>
-                                        <button type="button" class="deleteBtn">삭제</button>
-                                        <button type="button" class="updateBtn">수정</button>
-                                    </div>
-                                    <div class="reviewList">
-                                        <span class="userName">작성자: 김댕댕</span>
-                                        <span class="reviewDate">2022-03-01</span>
-                                        <span class="review">다른 친구한테도 추천했어요!</span>
-                                        <button type="button" class="deleteBtn">삭제</button>
-                                        <button type="button" class="updateBtn">수정</button>
-                                    </div>
+                                <div class="reviewListWrap" id="reviewList">
+<!--                                    리뷰 List 들어가는 부분-->
                                 </div>
 
                             </div>
