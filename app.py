@@ -1,7 +1,8 @@
 # flask 프레임워크 임포트.
 # render_template(페이지 이동), jsonify(json값 리턴), request(클라이언트 값 받기), session(로그인) 라이브러리 임포트
+import requests
 from flask import Flask, render_template, jsonify, request, session
-
+from bs4 import BeautifulSoup
 # MongoClient(몽고DB 관리 라이브러리) 임포트
 from pymongo import MongoClient
 
@@ -21,6 +22,7 @@ app = Flask(__name__)
 def render_main():
     # index.html에 원하는 클라이언트 파일 입력
     return render_template('main.html')
+
 
 
 # 리스트 페이지
@@ -46,7 +48,8 @@ def render_theme():
 def render_rank():
     return render_template('rank.html')
 
-#리퀘스트 변수로 받기 #
+
+# 리퀘스트 변수로 받기 #
 @app.route('/rank/get', methods=['GET'])
 def rank():
     year_give = request.args.get('date_year')
@@ -144,7 +147,7 @@ def render_write():
 @app.route('/mypage', methods=['GET'])
 def render_mypage():
     if session is not None:
-        user_id = "admin" #추후 로그인 세션값으로 변경
+        user_id = "admin"  # 추후 로그인 세션값으로 변경
         mypage = list(db.users.find({'user_id': user_id}, {'_id': False}))
         return jsonify({'mypage': mypage})
 
@@ -182,6 +185,7 @@ def name():
     print(sample_receive)
     return jsonify({'POST'})
 
+
 # 회원가입
 
 # 로그인
@@ -214,7 +218,7 @@ def review_post():
         doc = {
             'user_nickname': user_nickname_receive,
             'review_content': review_content_receive,
-            'recipe_name' : recipe_name_receive
+            'recipe_name': recipe_name_receive
         }
         db.reviews.insert_one(doc)
         return jsonify({'msg': '댓글 작성 완료'})
@@ -227,32 +231,31 @@ def review_post():
 def review_list():
     recipe_name_receive = request.args.get('recipe_name_give')
     # print(recipe_name_receive)
-    reviews = list(db.reviews.find({'recipe_name' : recipe_name_receive}, {'_id': False}))
+    reviews = list(db.reviews.find({'recipe_name': recipe_name_receive}, {'_id': False}))
     return jsonify({'reviews': reviews})
-
 
 
 # 리뷰(댓글) update 기능
 @app.route('/detail/review-update', methods=['POST'])
 def review_update():
     if 'user_id' in session:
-        user_nickname_receive = request.form['user_nickname_give'] # user식별하기위한값
-        recipe_name_receive = request.form['recipe_name_give'] # 해당 레시피를 식별하기위한값
-        update_content_receive = request.form['review_content_give'] # 수정된 리뷰값
+        user_nickname_receive = request.form['user_nickname_give']  # user식별하기위한값
+        recipe_name_receive = request.form['recipe_name_give']  # 해당 레시피를 식별하기위한값
+        update_content_receive = request.form['review_content_give']  # 수정된 리뷰값
 
-        db.reviews.update_one({'user_nickname': user_nickname_receive, 'recipe_name':recipe_name_receive}, {'$set': {'review_content': update_content_receive}})
+        db.reviews.update_one({'user_nickname': user_nickname_receive, 'recipe_name': recipe_name_receive},
+                              {'$set': {'review_content': update_content_receive}})
         return jsonify({'POST': '댓글 수정 완료'})
     else:
         return jsonify({'msg': '로그인해주세요'})
-
 
 
 # 리뷰(댓글) 삭제 기능
 @app.route('/detail/review-delete', methods=['POST'])
 def review_delete():
     if 'user_id' in session:
-        user_nickname_receive = request.form['user_nickname_give'] # user를 식별하기위한 값
-        recipe_name_receive = request.form['recipe_name_give'] # 해당 레시피를 식별하기위한 값
+        user_nickname_receive = request.form['user_nickname_give']  # user를 식별하기위한 값
+        recipe_name_receive = request.form['recipe_name_give']  # 해당 레시피를 식별하기위한 값
         db.reviews.delete_one({'user_nickname': user_nickname_receive, 'recipe_name': recipe_name_receive})
         return jsonify({'msg': '댓글이 삭제되었습니다'})
     else:
@@ -265,22 +268,12 @@ def review_delete():
 def recipe_detail():
     recipe_name_receive = request.args.get('name')
     print(recipe_name_receive)
-    target_recipe = db.recipes.find_one({'recipe_name': recipe_name_receive},{'_id':False})
+    target_recipe = db.recipes.find_one({'recipe_name': recipe_name_receive}, {'_id': False})
     print(target_recipe)
 
     return jsonify({'target_recipe': target_recipe})
 
 
-
-
-
 # localhost:5000 으로 들어갈 수 있게 해주는 코드
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
-
-
-
-
-
-
-

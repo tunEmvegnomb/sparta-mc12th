@@ -16,3 +16,17 @@
             }
         })
     }
+    if(onclick(month)){
+            function month() {
+        $.ajax({
+            type: 'GET',
+            url: '/main',
+            data: {},
+            success: function (response) {
+
+
+            }
+        })
+    }
+
+    }
