@@ -442,7 +442,7 @@ def render_detail():
 # list페이지에서 해당card를 클릭하면 get요청으로 해당레시피이름이 url을 통해 넘어와
 @app.route('/detail/recipe-detail', methods=['GET'])
 def recipe_detail():
-    recipe_name_receive = request.args.get('name_give')
+    recipe_name_receive = request.args.get('name')
     # print(recipe_name_receive)
     target_recipe = db.recipes.find_one({'recipe_name': recipe_name_receive})
     target_recipe['_id'] = str(target_recipe['_id'])
@@ -453,7 +453,7 @@ def recipe_detail():
 # 상세페이지 리뷰(댓글) 조회 api - 해당 상세레시피에 달린 리뷰(댓글)
 @app.route('/detail/review-list', methods=['GET'])
 def review_list():
-    recipe_name_receive = request.args.get('recipe_name_give')
+    recipe_name_receive = request.args.get('name')
     # print(recipe_name_receive)
     reviews = objectIdDecoder(list(db.reviews.find({'recipe_name': recipe_name_receive})))
     # print(reviews)
@@ -475,7 +475,7 @@ def review_post():
     if 'user_id' in session:
         user_nickname_receive = request.form['user_nickname_give']
         user_id_receive = session.get('user_id')
-        # print(user_id_receive)
+        print(user_id_receive)
 
         review_content_receive = request.form['review_content_give']
         recipe_name_receive = request.form['recipe_name_give']
