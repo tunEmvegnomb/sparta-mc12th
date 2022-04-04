@@ -2,15 +2,12 @@
 # render_template(페이지 이동), jsonify(json값 리턴), request(클라이언트 값 받기), session(로그인) 라이브러리 임포트
 import os
 
-
 from flask import Flask, render_template, jsonify, request, session
 
 # 현재 날짜를 받아오기위한 import
 from datetime import datetime, timedelta
 
 import threading
-
-
 
 # 암호화 라이브러리 bcrypy import. 오류가 뜬다면 interpreter에서 bcrypy 패키지 install
 # 그래도 오류가 뜬다면 terminal에서 pip install flask-bcrypt 입력
@@ -23,8 +20,8 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 
 # 클라이언트 정의 - MongoClient를 로컬호스트와 연결
-# client = MongoClient('mongodb+srv://making:making@cluster0.ymxju.mongodb.net/Cluster0?retryWrites=true&w=majority')
-client = MongoClient('localhost',27017)
+client = MongoClient('mongodb+srv://making:making@cluster0.ymxju.mongodb.net/Cluster0?retryWrites=true&w=majority')
+# client = MongoClient('localhost',27017)
 
 
 # 컬렉션 정의. mc12th라는 컬렉션이 생성됨
@@ -167,7 +164,6 @@ def list_order():
 
 @app.route('/list/filter', methods=['GET'])
 def list_filter():
-
     # 설계
     # 1. 사용자 요청 값 받기
     # 맛태그 리시브
@@ -186,27 +182,27 @@ def list_filter():
 
     # 2. 조건1 - 단독 필터
     # 맛태그만 비어있지 않다면
-    if taste_receive is not None and (ing_receive,diff_receive,time_receive is None):
+    if taste_receive is not None and (ing_receive, diff_receive, time_receive is None):
         # 맛태그에 해당하는 데이터 어펜드
-        db_find = list(db.recipes.find({'recipe_taste':taste_receive},{'_id':False}))
+        db_find = list(db.recipes.find({'recipe_taste': taste_receive}, {'_id': False}))
         print('단독 필터 맛태그')
         filtered_data.append(db_find)
     # 재료만 비어있지 않다면
     elif ing_receive is not None and (taste_receive, diff_receive, time_receive is None):
         # 재료에 해당하는 데이터 어펜드
-        db_find = list(db.recipes.find({'recipe_ing':{'$regex':ing_receive}},{'_id':False}))
+        db_find = list(db.recipes.find({'recipe_ing': {'$regex': ing_receive}}, {'_id': False}))
         print('단독 재료 맛태그')
         filtered_data.append(db_find)
     # 난이도만 비어있지 않다면
     elif diff_receive is not None and (taste_receive, ing_receive, time_receive is None):
         # 난이도에 해당하는 데이터 어펜드
-        db_find = list(db.recipes.find({'recipe_diff': diff_receive},{'_id':False}))
+        db_find = list(db.recipes.find({'recipe_diff': diff_receive}, {'_id': False}))
         print('단독 난이도 맛태그')
         filtered_data.append(db_find)
     # 조리시간만 비어있지 않다면
     elif time_receive is not None and (taste_receive, ing_receive, diff_receive is None):
         # 조리시간에 해당하는 데이터 어펜드
-        db_find = list(db.recipes.find({'recipe_time': time_receive},{'_id': False}))
+        db_find = list(db.recipes.find({'recipe_time': time_receive}, {'_id': False}))
         print('단독 조리시간 맛태그')
         filtered_data.append(db_find)
 
@@ -214,42 +210,45 @@ def list_filter():
     # 맛태그와 재료 해당
     elif (taste_receive, ing_receive is not None) and (diff_receive, time_receive is None):
         # 맛태그와 재료에 해당하는 데이터 어펜드
-        db_find = list(db.recipes.find({'recipe_taste': taste_receive, 'recipe_ing': {'$regex':ing_receive}},{'_id': False}))
+        db_find = list(
+            db.recipes.find({'recipe_taste': taste_receive, 'recipe_ing': {'$regex': ing_receive}}, {'_id': False}))
         print('이중중첩 필터 맛태그 재료')
         filtered_data.append(db_find)
 
     # 맛태그와 난이도 해당
     elif (taste_receive, diff_receive is not None) and (ing_receive, time_receive is None):
         # 맛태그와 재료에 해당하는 데이터 어펜드
-        db_find = list(db.recipes.find({'recipe_taste': taste_receive, 'recipe_diff': diff_receive},{'_id': False}))
+        db_find = list(db.recipes.find({'recipe_taste': taste_receive, 'recipe_diff': diff_receive}, {'_id': False}))
         print('이중중첩 필터 맛태그 난이도')
         filtered_data.append(db_find)
 
     # 맛태그와 조리시간 해당
     elif (taste_receive, time_receive is not None) and (ing_receive, diff_receive is None):
         # 맛태그와 조리시간에 해당하는 데이터 어펜드
-        db_find = list(db.recipes.find({'recipe_taste': taste_receive, 'recipe_time': time_receive},{'_id': False}))
+        db_find = list(db.recipes.find({'recipe_taste': taste_receive, 'recipe_time': time_receive}, {'_id': False}))
         print('이중중첩 필터 맛태그 조리시간')
         filtered_data.append(db_find)
 
     # 재료와 난이도 해당
     elif (ing_receive, diff_receive is not None) and (taste_receive, time_receive is None):
         # 재료와 난이도에 해당하는 데이터 어펜드
-        db_find = list(db.recipes.find({'recipe_ing':{'$regex':ing_receive}, 'recipe_diff': diff_receive},{'_id':False}))
+        db_find = list(
+            db.recipes.find({'recipe_ing': {'$regex': ing_receive}, 'recipe_diff': diff_receive}, {'_id': False}))
         print('이중중첩 필터 재료 난이도')
         filtered_data.append(db_find)
 
     # 재료와 조리시간 해당
     elif (ing_receive, time_receive is not None) and (taste_receive, diff_receive is None):
         # 재료와 조리시간에 해당하는 데이터 어펜드
-        db_find = list(db.recipes.find({'recipe_ing': {'$regex':ing_receive}, 'recipe_time': time_receive},{'_id': False}))
+        db_find = list(
+            db.recipes.find({'recipe_ing': {'$regex': ing_receive}, 'recipe_time': time_receive}, {'_id': False}))
         print('이중중첩 필터 재료 조리시간')
         filtered_data.append(db_find)
 
     # 난이도와 조리시간 해당
     elif (diff_receive, time_receive is not None) and (taste_receive, ing_receive is None):
         # 난이도와 조리시간에 해당하는 데이터 어펜드
-        db_find = list(db.recipes.find({'recipe_diff': diff_receive, 'recipe_time':time_receive},{'_id':False}))
+        db_find = list(db.recipes.find({'recipe_diff': diff_receive, 'recipe_time': time_receive}, {'_id': False}))
         print('이중중첩 필터 난이도 조리시간')
         filtered_data.append(db_find)
 
@@ -257,41 +256,50 @@ def list_filter():
     # 맛태그와 재료와 난이도
     elif (taste_receive, ing_receive, diff_receive is not None) and time_receive is None:
         # 맛태그, 재료, 난이도 모두 일치하는 데이터 어펜드
-        db_find = list(db.recipes.find({'recipe_taste': taste_receive, 'recipe_ing': {'$regex':ing_receive}, 'recipe_diff': diff_receive},{'_id': False}))
+        db_find = list(db.recipes.find(
+            {'recipe_taste': taste_receive, 'recipe_ing': {'$regex': ing_receive}, 'recipe_diff': diff_receive},
+            {'_id': False}))
         print('삼중중첩 필터 맛태그 재료 난이도')
         filtered_data.append(db_find)
 
     # 맛태그와 재료와 조리시간
     elif (taste_receive, ing_receive, time_receive is not None) and diff_receive is None:
         # 맛태그, 재료, 조리시간 모두 일치하는 데이터 어펜드
-        db_find = list(db.recipes.find({'recipe_taste':taste_receive, 'recipe_ing': {'$regex':ing_receive}, 'recipe_time': time_receive},{'_id': False}))
+        db_find = list(db.recipes.find(
+            {'recipe_taste': taste_receive, 'recipe_ing': {'$regex': ing_receive}, 'recipe_time': time_receive},
+            {'_id': False}))
         print('삼중중첩 필터 맛태그 재료 조리시간')
         filtered_data.append(db_find)
     # 맛태그와 난이도와 조리시간
-    elif(taste_receive, diff_receive, time_receive is not None) and ing_receive is None:
+    elif (taste_receive, diff_receive, time_receive is not None) and ing_receive is None:
         # 맛태그, 난이도, 조리시간 모두 일치하는 데이터 어펜드
-        db_find = list(db.recipes.find({'recipe_taste': taste_receive, 'recipe_diff': diff_receive, 'recipe_time': time_receive},{'_id': False}))
+        db_find = list(
+            db.recipes.find({'recipe_taste': taste_receive, 'recipe_diff': diff_receive, 'recipe_time': time_receive},
+                            {'_id': False}))
         print('삼중중첩 필터 맛태그 난이도 조리시간', db_find)
 
         filtered_data.append(db_find)
     # 재료와 난이도 조리시간
     elif (ing_receive, diff_receive, time_receive is not None) and taste_receive is None:
         # 재료, 난이도, 조리시간 모두 일치하는 데이터 어펜드
-        db_find = list(db.recipes.find({'recipe_ing': {'$regex':ing_receive}, 'recipe_diff': diff_receive, 'recipe_time': time_receive},{'_id': False}))
+        db_find = list(db.recipes.find(
+            {'recipe_ing': {'$regex': ing_receive}, 'recipe_diff': diff_receive, 'recipe_time': time_receive},
+            {'_id': False}))
         print('삼중중첩 필터 재료 난이도 조리시간')
         filtered_data.append(db_find)
 
     # 5. 조건4 - 모든 데이터 일치
     # 모든 데이터에 일치하는 데이터 어펜드
     elif (taste_receive, ing_receive, diff_receive, time_receive is not None):
-        db_find = list(db.recipes.find({'recipe_taste':taste_receive, 'recipe_ing': {'$regex':ing_receive}, 'recipe_diff': diff_receive, 'recipe_time': time_receive},{'_id: False'}))
+        db_find = list(db.recipes.find(
+            {'recipe_taste': taste_receive, 'recipe_ing': {'$regex': ing_receive}, 'recipe_diff': diff_receive,
+             'recipe_time': time_receive}, {'_id: False'}))
         print('모두 존재')
         filtered_data.append(db_find)
 
     # 6. 처리 - 데이터 리턴
-    print("필터 데이터!",filtered_data)
+    print("필터 데이터!", filtered_data)
     return jsonify({'filtered_data': filtered_data})
-
 
 
 # 리스트 페이지 API
@@ -432,6 +440,7 @@ def rank_get():
 def render_mypage():
     return render_template('mypage.html')
 
+
 # 즐겨찾기 조회 페이지
 @app.route('/mylike')
 def render_mylike():
@@ -517,8 +526,8 @@ def signup_check():
     print(id_receive, pwd_receive, pwd2_receive, nickname_receive)
     # 2. 조건문1 - 입력확인
     # 데이터가 모두 입력되어 있지 않다면, fail msg return
-    if (id_receive, pwd_receive, pwd2_receive, nickname_receive) is None:
-        return jsonify({'response': 'failed_input_check','msg': '입력되지 않은 정보가 존재합니다'})
+    if id_receive == "" or pwd_receive =="" or pwd2_receive == "" or nickname_receive =="":
+        return jsonify({'response': 'failed_input_check', 'msg': '입력되지 않은 정보가 존재합니다'})
     # 데이터가 모두 입력되어 있다면, 조건문2 이동
     else:
         # 3. 조건문2 - 동일 아이디 확인
@@ -526,13 +535,13 @@ def signup_check():
         chk_id = list(db.users.find({'user_id': id_receive}))
         print(chk_id)
         if chk_id != []:
-            return jsonify({'response': 'failed_id_check','msg': '동일한 아이디가 이미 존재합니다'})
+            return jsonify({'response': 'failed_id_check', 'msg': '동일한 아이디가 이미 존재합니다'})
         # 동일 아이디가 존재하지 않는다면, 조건문3 이동
         else:
             # 4. 조건문3 - 비밀번호 일치 여부 확인
             # 비밀번호와 비밀번호 확인이 일치하지 않는다면, fail msg return
             if pwd_receive != pwd2_receive:
-                return jsonify({'response': 'failed_pwd_check','msg': '비밀번호가 일치하지 않습니다'})
+                return jsonify({'response': 'failed_pwd_check', 'msg': '비밀번호가 일치하지 않습니다'})
             # 비밀번호와 비밀번호 확인이 일치한다면, 조건문4 이동
             else:
                 # 5. 조건문4 - 동일 닉네임 확인
@@ -540,7 +549,7 @@ def signup_check():
                 chk_nickname = list(db.users.find(
                     {'user_nickname': nickname_receive}))
                 if chk_nickname != []:
-                    return jsonify({'response': 'failed_nickname_check','msg': '동일한 닉네임이 이미 존재합니다'})
+                    return jsonify({'response': 'failed_nickname_check', 'msg': '동일한 닉네임이 이미 존재합니다'})
                 # 동일 닉네임이 존재하지 않는다면, 처리작업 수행
                 else:
                     # 처리1 - 사용자 비밀번호 암호화(bcrypt)
@@ -555,7 +564,7 @@ def signup_check():
                     ]
                     db.users.insert_many(insert_doc)
                     # 처리3 - 리턴 jsonify
-                    return jsonify({'response': 'success','msg': '회원가입에 성공하였습니다!'})
+                    return jsonify({'response': 'success', 'msg': '회원가입에 성공하였습니다!'})
 
 
 # 레시피 상세페이지
@@ -707,13 +716,11 @@ def myrecipe_write():
         myrecipe_detail_receive = request.form['myrecipe_detail_give']
         # print(myrecipe_title_receive,myrecipe_diff_receive, myrecipe_time_receive,myrecipe_ing_receive,myrecipe_detail_receive )
 
-
         myrecipe_user_id_receive = session.get('user_id')  # 세션에서 가져와
         # print(myrecipe_writter_receive)
 
-        myrecipe_user_id_receive = session.get('user_id') # 세션에서 가져와
+        myrecipe_user_id_receive = session.get('user_id')  # 세션에서 가져와
         # print(myrecipe_user_id_receive)
-
 
         # 이미지 업로드 기능
         myrecipe_img_receive = request.files['myrecipe_img_give']  # 이미지파일
@@ -722,7 +729,7 @@ def myrecipe_write():
         today = datetime.now()
         mytime = today.strftime('%Y-%m-%d-%H-%M-%S')  # 날짜- 파일 이름이 중복일경우를 위해
         temp_filename = myrecipe_img_receive.filename
-        img_filename = f'{mytime}-{temp_filename}' # 최종 저장되는 이미지파일이름
+        img_filename = f'{mytime}-{temp_filename}'  # 최종 저장되는 이미지파일이름
         # print(img_filename)
 
         # 배포시 경로 변경예정
@@ -760,7 +767,7 @@ def myrecipe_update():
         data = db.myrecipes.find_one({"_id": ObjectId(idx)})
 
         idx_receive = request.form['idx_give']
-        data = db.myrecipes.find_one({"_id" : ObjectId(idx_receive)})
+        data = db.myrecipes.find_one({"_id": ObjectId(idx_receive)})
 
         # print(data)
 
@@ -770,7 +777,6 @@ def myrecipe_update():
             update_time_receive = request.form['myrecipe_time_give']
             update_ing_receive = request.form['myrecipe_ing_give']
             update_detail_receive = request.form['myrecipe_detail_give']
-
 
             # 이미지파일 추가업데이트
 
@@ -782,7 +788,7 @@ def myrecipe_update():
             if os.path.isfile(delete_img):
                 os.remove(path)
 
-            #이미지파일 추가 업데이트
+            # 이미지파일 추가 업데이트
 
             update_img_receive = request.files['myrecipe_img_give']  # 이미지파일
             today = datetime.now()
@@ -790,7 +796,6 @@ def myrecipe_update():
             temp_filename = update_img_receive.filename
             img_filename = f'{mytime}-{temp_filename}'  # 최종 저장되는 이미지파일이름
             # print(img_filename)
-
 
             # 이전 이미지데이터 삭제 부분 - 미완성
             # delete_img =
@@ -815,17 +820,16 @@ def myrecipe_update():
             save_to = 'static/myrecipe_img/{}'.format(img_filename)
             update_img_receive.save(save_to)
 
-
             db.myrecipes.update_one({"_id": ObjectId(idx_receive)}, {
-                                      '$set': {
-                                            'myrecipe_title': update_title_receive,
-                                            'myrecipe_img': img_filename,
-                                            'myrecipe_diff': update_diff_receive,
-                                            'myrecipe_time': update_time_receive,
-                                            'myrecipe_ing': update_ing_receive,
-                                            'myrecipe_detail': update_detail_receive
-                                        }
-                                    })
+                '$set': {
+                    'myrecipe_title': update_title_receive,
+                    'myrecipe_img': img_filename,
+                    'myrecipe_diff': update_diff_receive,
+                    'myrecipe_time': update_time_receive,
+                    'myrecipe_ing': update_ing_receive,
+                    'myrecipe_detail': update_detail_receive
+                }
+            })
 
             return jsonify({'msg': '나만의 레시피가 수정되었습니다.'})
         else:
@@ -887,6 +891,7 @@ def mypage_get():
         print(session)
         return jsonify({'msg': '로그인해주세요'})
 
+
 # 오늘의 레시피
 @app.route('/random', methods=['GET'])
 def random_recipe():
@@ -925,7 +930,4 @@ def random_recipe():
 
 # localhost:5000 으로 들어갈 수 있게 해주는 코드
 if __name__ == '__main__':
-
-
-
     app.run('0.0.0.0', port=5000, debug=True)
