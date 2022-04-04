@@ -20,8 +20,8 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 
 # 클라이언트 정의 - MongoClient를 로컬호스트와 연결
-client = MongoClient('mongodb+srv://making:making@cluster0.ymxju.mongodb.net/Cluster0?retryWrites=true&w=majority')
-# client = MongoClient('localhost',27017)
+# client = MongoClient('mongodb+srv://making:making@cluster0.ymxju.mongodb.net/Cluster0?retryWrites=true&w=majority')
+client = MongoClient('localhost',27017)
 
 
 # 컬렉션 정의. mc12th라는 컬렉션이 생성됨
@@ -469,7 +469,7 @@ def login_check():
 
     # 2. 조건문1 - 입력확인
     # 인풋의 모든 데이터가 없다면 실패 메시지 리턴
-    if (id_receive, pwd_receive) is None:
+    if id_receive == "" or pwd_receive =="":
         return jsonify({'msg': '정보를 빠짐없이 입력해주세요'})
     else:
         # 3. 아이디, 비밀번호 조회
