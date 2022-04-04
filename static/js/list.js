@@ -4,11 +4,11 @@
 $(".sortByDate").on("click", function() {
   $.ajax({
     type: "GET",
-    url: "/list/order_date",
-    data: {},
+    url: "/list/order",
+    data: {click_give: '최신순'},
     success: function (response) {
       $('.card-group').empty();
-        let recipes = response['append_data']
+        let recipes = response['filtered_data']
         for (let i = 0; i < recipes.length; i++) {
             let name = recipes[i]['recipe_name']
             let img = recipes[i]['recipe_img']
@@ -55,11 +55,11 @@ $(".sortByDate").on("click", function() {
 $(".sortByLike").on("click", function() {
   $.ajax({
     type: "GET",
-    url: "/list/order_like",
-    data: {},
+    url: "/list/order",
+    data: {click_give: '추천순'},
     success: function (response) {
       $('.card-group').empty();
-        let recipes = response['append_data']
+        let recipes = response['filtered_data']
         for (let i = 0; i < recipes.length; i++) {
             let name = recipes[i]['recipe_name']
             let img = recipes[i]['recipe_img']
