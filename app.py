@@ -1,14 +1,15 @@
 # flask 프레임워크 임포트.
 # render_template(페이지 이동), jsonify(json값 리턴), request(클라이언트 값 받기), session(로그인) 라이브러리 임포트
 import os
-import threading
 
-from flask import Flask, render_template, jsonify, request, session, url_for
+
+from flask import Flask, render_template, jsonify, request, session
 
 # 현재 날짜를 받아오기위한 import
 from datetime import datetime, timedelta
-from threading import Timer
+
 import threading
+
 
 
 # 암호화 라이브러리 bcrypy import. 오류가 뜬다면 interpreter에서 bcrypy 패키지 install
@@ -107,6 +108,7 @@ def main_top3():
         # 날짜 리시브와 부분 일치하는 데이터베이스 찾아오기, (1)작성 업데이트 날짜-(2)추천 수를 기준으로 정렬, 10개 제한
         find_db = db.recipes.find({'recipe_post_update': {'$regex': year_receive}}, {'_id': False})
         top3_db = list(find_db.sort('recipe_post_update', -1).sort('recipe_like', -1).limit(3))
+
     # 값이 만약 월간이라면
     elif click_receive == "월간":
         # 날짜 리시브와 부분 일치하는 데이터베이스 찾아오기, (1)작성 업데이트 날짜-(2)추천 수를 기준으로 정렬, 10개 제한
