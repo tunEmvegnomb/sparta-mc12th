@@ -2,11 +2,15 @@
 # render_template(페이지 이동), jsonify(json값 리턴), request(클라이언트 값 받기), session(로그인) 라이브러리 임포트
 import os
 
+
 from flask import Flask, render_template, jsonify, request, session
 
 # 현재 날짜를 받아오기위한 import
 from datetime import datetime, timedelta
+
 import threading
+
+
 
 # 암호화 라이브러리 bcrypy import. 오류가 뜬다면 interpreter에서 bcrypy 패키지 install
 # 그래도 오류가 뜬다면 terminal에서 pip install flask-bcrypt 입력
@@ -20,8 +24,8 @@ from bson.objectid import ObjectId
 
 # 클라이언트 정의 - MongoClient를 로컬호스트와 연결
 client = MongoClient('mongodb+srv://making:making@cluster0.ymxju.mongodb.net/Cluster0?retryWrites=true&w=majority')
- # client = MongoClient('localhost',27017)
- 
+# client = MongoClient('localhost',27017)
+
 
 # 컬렉션 정의. mc12th라는 컬렉션이 생성됨
 db = client.mc12th
@@ -104,6 +108,7 @@ def main_top3():
         # 날짜 리시브와 부분 일치하는 데이터베이스 찾아오기, (1)작성 업데이트 날짜-(2)추천 수를 기준으로 정렬, 10개 제한
         find_db = db.recipes.find({'recipe_post_update': {'$regex': year_receive}}, {'_id': False})
         top3_db = list(find_db.sort('recipe_post_update', -1).sort('recipe_like', -1).limit(3))
+
     # 값이 만약 월간이라면
     elif click_receive == "월간":
         # 날짜 리시브와 부분 일치하는 데이터베이스 찾아오기, (1)작성 업데이트 날짜-(2)추천 수를 기준으로 정렬, 10개 제한
@@ -441,7 +446,7 @@ def render_login():
 
 # 로그인 페이지 API
 # 로그인 체크
-@app.route('/login', methods=['POST'])
+@app.route('/login/check', methods=['POST'])
 def login_check():
     # 페이크 값 리턴
     # return jsonify({'msg': '로그인에 성공하였습니다. 환영합니다!'})
@@ -563,7 +568,7 @@ def render_detail():
 # list페이지에서 해당card를 클릭하면 get요청으로 해당레시피이름이 url을 통해 넘어와
 @app.route('/detail/recipe-detail', methods=['GET'])
 def recipe_detail():
-    recipe_name_receive = request.args.get('name')
+    recipe_name_receive = request.args.get('recipe_name')
     # print(recipe_name_receive)
     target_recipe = db.recipes.find_one({'recipe_name': recipe_name_receive})
     target_recipe['_id'] = str(target_recipe['_id'])
@@ -574,7 +579,7 @@ def recipe_detail():
 # 상세페이지 리뷰(댓글) 조회 api - 해당 상세레시피에 달린 리뷰(댓글)
 @app.route('/detail/review-list', methods=['GET'])
 def review_list():
-    recipe_name_receive = request.args.get('name')
+    recipe_name_receive = request.args.get('recipe_name')
     # print(recipe_name_receive)
     reviews = objectIdDecoder(list(db.reviews.find({'recipe_name': recipe_name_receive})))
     # print(reviews)
@@ -618,7 +623,7 @@ def review_post():
         db.reviews.insert_one(doc)
         return jsonify({'msg': '댓글 작성 완료'})
     else:
-        return jsonify({'msg': '로그인해주세요'})
+        return jsonify({'msg': '로그인 해주세요'})
 
 
 # 내가 쓴 후기 페이지
@@ -669,7 +674,7 @@ def myreview_delete():
 
         if session.get("user_id") == data.get('user_id'):
             db.reviews.delete_one({"_id": ObjectId(idx_receive)})
-            return jsonify({'msg': '댓글이 삭제되었습니다'})
+            return jsonify({'msg': '댓글이 삭제되었습니다.'})
         else:
             return jsonify({'msg': '댓글 삭제 권한이 없습니다.'})
     else:
@@ -919,4 +924,7 @@ def random_recipe():
 
 # localhost:5000 으로 들어갈 수 있게 해주는 코드
 if __name__ == '__main__':
+
+
+
     app.run('0.0.0.0', port=5000, debug=True)
