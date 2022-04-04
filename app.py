@@ -513,7 +513,7 @@ def signup_check():
     # 2. 조건문1 - 입력확인
     # 데이터가 모두 입력되어 있지 않다면, fail msg return
     if (id_receive, pwd_receive, pwd2_receive, nickname_receive) is None:
-        return jsonify({'msg': '입력되지 않은 정보가 존재합니다'})
+        return jsonify({'response': 'failed_input_check','msg': '입력되지 않은 정보가 존재합니다'})
     # 데이터가 모두 입력되어 있다면, 조건문2 이동
     else:
         # 3. 조건문2 - 동일 아이디 확인
@@ -521,13 +521,13 @@ def signup_check():
         chk_id = list(db.users.find({'user_id': id_receive}))
         print(chk_id)
         if chk_id != []:
-            return jsonify({'msg': '동일한 아이디가 이미 존재합니다'})
+            return jsonify({'response': 'failed_id_check','msg': '동일한 아이디가 이미 존재합니다'})
         # 동일 아이디가 존재하지 않는다면, 조건문3 이동
         else:
             # 4. 조건문3 - 비밀번호 일치 여부 확인
             # 비밀번호와 비밀번호 확인이 일치하지 않는다면, fail msg return
             if pwd_receive != pwd2_receive:
-                return jsonify({'msg': '비밀번호가 일치하지 않습니다'})
+                return jsonify({'response': 'failed_pwd_check','msg': '비밀번호가 일치하지 않습니다'})
             # 비밀번호와 비밀번호 확인이 일치한다면, 조건문4 이동
             else:
                 # 5. 조건문4 - 동일 닉네임 확인
@@ -535,7 +535,7 @@ def signup_check():
                 chk_nickname = list(db.users.find(
                     {'user_nickname': nickname_receive}))
                 if chk_nickname != []:
-                    return jsonify({'msg': '동일한 닉네임이 이미 존재합니다'})
+                    return jsonify({'response': 'failed_nickname_check','msg': '동일한 닉네임이 이미 존재합니다'})
                 # 동일 닉네임이 존재하지 않는다면, 처리작업 수행
                 else:
                     # 처리1 - 사용자 비밀번호 암호화(bcrypt)
@@ -550,7 +550,7 @@ def signup_check():
                     ]
                     db.users.insert_many(insert_doc)
                     # 처리3 - 리턴 jsonify
-                    return jsonify({'msg': '회원가입에 성공하였습니다!'})
+                    return jsonify({'response': 'success','msg': '회원가입에 성공하였습니다!'})
 
 
 # 레시피 상세페이지
@@ -593,6 +593,7 @@ def objectIdDecoder(list):
 # 리뷰(댓글) 작성 api
 @app.route('/detail/review-post', methods=['POST'])
 def review_post():
+    session['user_id'] = 'admin@gmail.com'
     if 'user_id' in session:
         user_nickname_receive = request.form['user_nickname_give']
         user_id_receive = session.get('user_id')
