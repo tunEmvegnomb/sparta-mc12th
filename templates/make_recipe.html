@@ -93,26 +93,31 @@
                 <div class="recipe-ingredient">
                     <p class="ingredient-title">레시피 재료   <span class="ingredient-sub">요리에 들어가는 재료와 정량을 적어주세요!</span></p>
                     <div class="row g-3" id="recipe-ing">
-                        <div class="input-ingredient col col-row" id="recipe-ing-input">
-                            <label class="col-sm-2 col-form-label">1번</label>
-                            <input type="text" class="form-control col-md-2" id="ing">
+                        <div class="input-ingredient col col-row" >
+                            <label class="col-sm-2 col-form-label">●</label>
+                            <input type="text" class="form-control col-md-2">
                         </div>
                         <div class="input-ingredient col col-row">
-                            <label class="col-sm-2 col-form-label">2번</label>
+                            <label class="col-sm-2 col-form-label">●</label>
                             <input type="text" class="form-control col-md-2">
                         </div>
                     </div>
                     <div class="row g-3">
                         <div class="input-ingredient col col-row">
-                            <label class="col-sm-2 col-form-label">3번</label>
+                            <label class="col-sm-2 col-form-label">●</label>
                             <input type="text" class="form-control col-md-2">
                         </div>
                         <div class="input-ingredient col col-row">
-                            <label class="col-sm-2 col-form-label">4번</label>
+                            <label class="col-sm-2 col-form-label">●</label>
                             <input type="text" class="form-control col-md-2">
                         </div>
                     </div>
-                    <div id="recipe-ing-add"></div>
+                    <div id="recipe-ing-add">
+                        <div class="input-ingredient col col-row" id="recipe-ing-input">
+                            <label class="col-sm-1 col-form-label">●</label>
+                            <input type="text" class="form-control col-md-2" id="ing">
+                        </div>
+                    </div>
                     <p class="ingredient-third" type="button" id="ing-add" onclick="ing_add()">추가</p>
                 </div>
                 <hr style="width: 600px; border: 1px solid #8C8C8C;">
@@ -120,19 +125,19 @@
                 <div class="recipe-order" id="recipe-order">
                   <p class="order-title">조리 순서   <span class="order-sub">조리 순서를 정확하게 작성해주세요!</span></p>
                   <div class="input-order mb-3 row" id="recipe-order-input">
-                    <label class="col-sm-1 col-form-label">1번</label>
+                    <label class="col-sm-1 col-form-label">●</label>
                     <input type="text" class="form-control col-sm-10" id="detail">
                   </div>
                   <div class="input-order mb-3 row">
-                    <label class="col-sm-1 col-form-label">2번</label>
+                    <label class="col-sm-1 col-form-label">●</label>
                     <input type="text" class="form-control col-sm-10" >
                   </div>
                   <div class="input-order mb-3 row">
-                    <label class="col-sm-1 col-form-label">3번</label>
+                    <label class="col-sm-1 col-form-label">●</label>
                     <input type="text" class="form-control col-sm-10" >
                   </div>
                   <div class="input-order mb-3 row">
-                    <label class="col-sm-1 col-form-label">4번</label>
+                    <label class="col-sm-1 col-form-label">●</label>
                     <input type="text" class="form-control col-sm-10" >
                   </div>
                   <div id="recipe-order-add"></div>
