@@ -869,13 +869,18 @@ def myrecipe_list():
 
 
 # 마이 페이지
-@app.route('/mypage', methods=['GET'])
+@app.route('/mypage/user', methods=['GET'])
 def mypage_get():
-    user_id = "admin"  # 추후 로그인 세션값으로 변경
-    user_nic = "고길동"  # 추후 로그인 세션값으로 변경
-    mypage = list(db.users.find({'user_id': user_id}, {'_id': False}))
-    myrecipes = list(db.myrecipes.find({'myrecipe_writter': user_nic}, {'_id': False}))
-    return jsonify({'mypage': mypage}, {'myrecipes': myrecipes})
+    session['user_id'] = 'ggoooood'
+    if 'user_id' in session:
+        get_user_id = session.get('user_id')
+        print(get_user_id)
+        mypage = list(db.users.find({'user_id': get_user_id}, {'_id': False, 'user_pwd': False}))
+        myrecipes = list(db.myrecipes.find({'user_id': get_user_id}, {'_id': False}))
+        return jsonify({'mypage': mypage}, {'myrecipes': myrecipes})
+    else:
+        print(session)
+        return jsonify({'msg': '로그인해주세요'})
 
 # 오늘의 레시피
 @app.route('/random', methods=['GET'])
