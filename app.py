@@ -1,5 +1,7 @@
 # flask 프레임워크 임포트.
 # render_template(페이지 이동), jsonify(json값 리턴), request(클라이언트 값 받기), session(로그인) 라이브러리 임포트
+import os
+
 from flask import Flask, render_template, jsonify, request, session
 
 # 현재 날짜를 받아오기위한 import
@@ -581,22 +583,23 @@ def myrecipe_write():
         myrecipe_time_receive = request.form['myrecipe_time_give']
         myrecipe_ing_receive = request.form['myrecipe_ing_give']
         myrecipe_detail_receive = request.form['myrecipe_detail_give']
-        # print(myrecipe_title_receive, myrecipe_writter_receive,myrecipe_diff_receive, myrecipe_time_receive,myrecipe_ing_receive,myrecipe_detail_receive )
+        # print(myrecipe_title_receive,myrecipe_diff_receive, myrecipe_time_receive,myrecipe_ing_receive,myrecipe_detail_receive )
 
         myrecipe_user_id_receive = session.get('user_id') # 세션에서 가져와
-        # print(myrecipe_writter_receive)
+        # print(myrecipe_user_id_receive)
 
         # 이미지 업로드 기능
         myrecipe_img_receive = request.files['myrecipe_img_give']  # 이미지파일
         # print(myrecipe_img_receive)
 
         today = datetime.now()
-        mytime = today.strftime('%Y-%m-%d-%H-%M-%S')  # 날짜- 파일이름이 중복일경우를 위해
-        img_filename = myrecipe_img_receive.filename
-        # print(img_filename, mytime)
+        mytime = today.strftime('%Y-%m-%d-%H-%M-%S')  # 날짜- 파일 이름이 중복일경우를 위해
+        temp_filename = myrecipe_img_receive.filename
+        img_filename = f'{mytime}-{temp_filename}' # 최종 저장되는 이미지파일이름
+        # print(img_filename)
 
         # 배포시 경로 변경예정
-        save_to = 'static/myrecipe_img/{}-{}'.format(mytime, img_filename)
+        save_to = 'static/myrecipe_img/{}'.format(img_filename)
         myrecipe_img_receive.save(save_to)
 
         # db저장
@@ -623,8 +626,8 @@ def render_myrecipe():
 @app.route('/myrecipe/update', methods=['POST'])
 def myrecipe_update():
     if 'user_id' in session:
-        idx = request.form['idx']
-        data = db.myrecipes.find_one({"_id" : ObjectId(idx)})
+        idx_receive = request.form['idx_give']
+        data = db.myrecipes.find_one({"_id" : ObjectId(idx_receive)})
         # print(data)
 
         if session.get("user_id") == data.get('user_id'):
@@ -634,23 +637,28 @@ def myrecipe_update():
             update_ing_receive = request.form['myrecipe_ing_give']
             update_detail_receive = request.form['myrecipe_detail_give']
 
-            #이미지파일 추가업데이트
+            # 이전 이미지파일 삭제 부분
+            delete_img = data.get('myrecipe_img')
+            # print(delete_img)
+            # 이미지삭제경로 -
+            path = 'static/myrecipe_img/{}'.format(delete_img)
+            if os.path.isfile(delete_img):
+                os.remove(path)
+
+            #이미지파일 추가 업데이트
             update_img_receive = request.files['myrecipe_img_give']  # 이미지파일
             today = datetime.now()
             mytime = today.strftime('%Y-%m-%d-%H-%M-%S')  # 날짜- 파일이름이 중복일경우를 위해
-            img_filename = update_img_receive.filename
-            # print(img_filename, mytime)
+            temp_filename = update_img_receive.filename
+            img_filename = f'{mytime}-{temp_filename}'  # 최종 저장되는 이미지파일이름
+            # print(img_filename)
 
-            # 이전 이미지데이터 삭제 부분 - 미완성
-            # delete_img =
-            # data.get('myrecipe_img')
-            # delete_to =
-
-
-            save_to = 'static/myrecipe_img/{}-{}'.format(mytime, img_filename)
+            # 배포시 경로 변경될수도
+            save_to = 'static/myrecipe_img/{}'.format(img_filename)
             update_img_receive.save(save_to)
 
-            db.myrecipes.update_one({"_id": ObjectId(idx)}, {
+
+            db.myrecipes.update_one({"_id": ObjectId(idx_receive)}, {
                                       '$set': {
                                             'myrecipe_title': update_title_receive,
                                             'myrecipe_img': img_filename,
@@ -675,6 +683,16 @@ def myrecipe_delete():
         data = db.myrecipes.find_one({"_id" : ObjectId(idx_receive)})
 
         if session.get("user_id") == data.get('user_id'):
+
+            # 이미지파일 삭제
+            delete_img = data.get('myrecipe_img')
+            # print(delete_img)
+            # 이미지삭제경로
+            path = 'static/myrecipe_img/{}'.format(delete_img)
+            if os.path.isfile(delete_img):
+                os.remove(path)
+
+            # db삭제
             db.myrecipes.delete_one({"_id": ObjectId(idx_receive)})
             return jsonify({'msg': '나만의 레시피가 삭제되었습니다'})
         else:
@@ -689,6 +707,7 @@ def myrecipe_list():
         get_user_id = session.get('user_id')
         # print(get_user_id)
         myrecipes = objectIdDecoder(list(db.myrecipes.find({'user_id': get_user_id})))
+
         return jsonify({'myrecipes': myrecipes})
     else:
         return jsonify({'msg': '로그인해주세요'})
