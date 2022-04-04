@@ -95,25 +95,25 @@ def main_top3():
     year_receive = date_receive.split('-')[0]
     month_receive = year_receive + "-" + date_receive.split('-')[1]
     day_receive = date_receive
-
     print(year_receive, month_receive, day_receive)
 
     # 3. 조건문1 - 클릭 리시브 확인
     # 값이 만약 연간이라면
     if click_receive == "연간":
         # 날짜 리시브와 부분 일치하는 데이터베이스 찾아오기, (1)작성 업데이트 날짜-(2)추천 수를 기준으로 정렬, 10개 제한
-        top3_db = db.recipes.find({'recipe_post_update': {'$regex': year_receive}}, {'_id': False})
-        top3_db = list(top3_db.sort('recipe_post_update', -1).sort('recipe_like', -1).limit(3))
+        find_db = db.recipes.find({'recipe_post_update': {'$regex': year_receive}}, {'_id': False})
+        top3_db = list(find_db.sort('recipe_post_update', -1).sort('recipe_like', -1).limit(3))
     # 값이 만약 월간이라면
     elif click_receive == "월간":
         # 날짜 리시브와 부분 일치하는 데이터베이스 찾아오기, (1)작성 업데이트 날짜-(2)추천 수를 기준으로 정렬, 10개 제한
-        top3_db = db.recipes.find({'recipe_post_update': {'$regex': month_receive}}, {'_id': False})
-        top3_db = list(top3_db.sort('recipe_post_update', -1).sort('recipe_like', -1).limit(3))
+        find_db = db.recipes.find({'recipe_post_update': {'$regex': month_receive}}, {'_id': False})
+        top3_db = list(find_db.sort('recipe_post_update', -1).sort('recipe_like', -1).limit(3))
+
     # 값이 만약 일간이라면
     elif click_receive == "일간":
         # 날짜 리시브와 부분 일치하는 데이터베이스 찾아오기, (1)작성 업데이트 날짜-(2)추천 수를 기준으로 정렬
-        top3_db = db.recipes.find({'recipe_post_update': {'$regex': day_receive}}, {'_id': False})
-        top3_db = list(top3_db.sort('recipe_post_update', -1).sort('recipe_like', -1).limit(3))
+        find_db = db.recipes.find({'recipe_post_update': {'$regex': day_receive}}, {'_id': False})
+        top3_db = list(find_db.sort('recipe_post_update', -1).sort('recipe_like', -1).limit(3))
 
     return jsonify({'filtered_data': top3_db})
 
@@ -143,7 +143,7 @@ def list_order():
     # 1. 사용자 요청 값 받기
     # 클릭 요청 값 - 추천순/최신순 으로 구분
     click_receive = request.args.get('click_give')
-    
+
     # 3. 조건문1 - 클릭 리시브 확인
     # 값이 만약 추천순이라면
     if click_receive == "추천순":
@@ -166,6 +166,7 @@ def list_order():
 
 @app.route('/list/filter', methods=['GET'])
 def list_filter():
+
     # 페이크 값 리턴
     filtered_data = list(db.recipes.find({}, {'_id': False}).limit(18))
     return jsonify({'filtered_data': filtered_data})
