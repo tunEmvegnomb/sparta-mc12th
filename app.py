@@ -193,7 +193,7 @@ def list_filter():
     # 재료만 비어있지 않다면
     elif ing_receive is not None and (taste_receive, diff_receive, time_receive is None):
         # 재료에 해당하는 데이터 어펜드
-        db_find = list(db.recipes.find({'recipe_ing':ing_receive},{'_id':False}))
+        db_find = list(db.recipes.find({'recipe_ing':{'$regex':ing_receive}},{'_id':False}))
         print('단독 재료 맛태그')
         filtered_data.append(db_find)
     # 난이도만 비어있지 않다면
@@ -213,7 +213,7 @@ def list_filter():
     # 맛태그와 재료 해당
     elif (taste_receive, ing_receive is not None) and (diff_receive, time_receive is None):
         # 맛태그와 재료에 해당하는 데이터 어펜드
-        db_find = list(db.recipes.find({'recipe_taste': taste_receive, 'recipe_ing': ing_receive},{'_id': False}))
+        db_find = list(db.recipes.find({'recipe_taste': taste_receive, 'recipe_ing': {'$regex':ing_receive}},{'_id': False}))
         print('이중중첩 필터 맛태그 재료')
         filtered_data.append(db_find)
 
@@ -234,14 +234,14 @@ def list_filter():
     # 재료와 난이도 해당
     elif (ing_receive, diff_receive is not None) and (taste_receive, time_receive is None):
         # 재료와 난이도에 해당하는 데이터 어펜드
-        db_find = list(db.recipes.find({'recipe_ing':ing_receive, 'recipe_diff': diff_receive},{'_id':False}))
+        db_find = list(db.recipes.find({'recipe_ing':{'$regex':ing_receive}, 'recipe_diff': diff_receive},{'_id':False}))
         print('이중중첩 필터 재료 난이도')
         filtered_data.append(db_find)
 
     # 재료와 조리시간 해당
     elif (ing_receive, time_receive is not None) and (taste_receive, diff_receive is None):
         # 재료와 조리시간에 해당하는 데이터 어펜드
-        db_find = list(db.recipes.find({'recipe_ing': ing_receive, 'recipe_time': time_receive},{'_id': False}))
+        db_find = list(db.recipes.find({'recipe_ing': {'$regex':ing_receive}, 'recipe_time': time_receive},{'_id': False}))
         print('이중중첩 필터 재료 조리시간')
         filtered_data.append(db_find)
 
@@ -256,14 +256,14 @@ def list_filter():
     # 맛태그와 재료와 난이도
     elif (taste_receive, ing_receive, diff_receive is not None) and time_receive is None:
         # 맛태그, 재료, 난이도 모두 일치하는 데이터 어펜드
-        db_find = list(db.recipes.find({'recipe_taste': taste_receive, 'recipe_ing': ing_receive, 'recipe_diff': diff_receive},{'_id': False}))
+        db_find = list(db.recipes.find({'recipe_taste': taste_receive, 'recipe_ing': {'$regex':ing_receive}, 'recipe_diff': diff_receive},{'_id': False}))
         print('삼중중첩 필터 맛태그 재료 난이도')
         filtered_data.append(db_find)
 
     # 맛태그와 재료와 조리시간
     elif (taste_receive, ing_receive, time_receive is not None) and diff_receive is None:
         # 맛태그, 재료, 조리시간 모두 일치하는 데이터 어펜드
-        db_find = list(db.recipes.find({'recipe_taste':taste_receive, 'recipe_ing': ing_receive, 'recipe_time': time_receive},{'_id': False}))
+        db_find = list(db.recipes.find({'recipe_taste':taste_receive, 'recipe_ing': {'$regex':ing_receive}, 'recipe_time': time_receive},{'_id': False}))
         print('삼중중첩 필터 맛태그 재료 조리시간')
         filtered_data.append(db_find)
     # 맛태그와 난이도와 조리시간
@@ -276,14 +276,14 @@ def list_filter():
     # 재료와 난이도 조리시간
     elif (ing_receive, diff_receive, time_receive is not None) and taste_receive is None:
         # 재료, 난이도, 조리시간 모두 일치하는 데이터 어펜드
-        db_find = list(db.recipes.find({'recipe_ing': ing_receive, 'recipe_diff': diff_receive, 'recipe_time': time_receive},{'_id': False}))
+        db_find = list(db.recipes.find({'recipe_ing': {'$regex':ing_receive}, 'recipe_diff': diff_receive, 'recipe_time': time_receive},{'_id': False}))
         print('삼중중첩 필터 재료 난이도 조리시간')
         filtered_data.append(db_find)
 
     # 5. 조건4 - 모든 데이터 일치
     # 모든 데이터에 일치하는 데이터 어펜드
     elif (taste_receive, ing_receive, diff_receive, time_receive is not None):
-        db_find = list(db.recipes.find({'recipe_taste':taste_receive, 'recipe_ing': ing_receive, 'recipe_diff': diff_receive, 'recipe_time': time_receive},{'_id: False'}))
+        db_find = list(db.recipes.find({'recipe_taste':taste_receive, 'recipe_ing': {'$regex':ing_receive}, 'recipe_diff': diff_receive, 'recipe_time': time_receive},{'_id: False'}))
         print('모두 존재')
         filtered_data.append(db_find)
 
