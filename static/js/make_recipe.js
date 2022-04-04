@@ -36,22 +36,6 @@
                 }
             });
         }
-        //
-        // $(document).ready(function() {
-	    //     var i=1; // 변수설정은 함수의 바깥에 설정!
-        //     $('#order-add').click(function() {
-        //         $("#recipe-order").append("<p class='original'>등장"+i+"</p>");
-        //         i++; // 함수 내 하단에 증가문 설정
-        //     });
-        // });
-        //
-        // $(document).ready(function() {
-	    //     var i=1; // 변수설정은 함수의 바깥에 설정!
-        //     $('#ing-add').click(function() {
-        //         $("#recipe-ing").append("<p class='original'>등장"+i+"</p>");
-        //         i++; // 함수 내 하단에 증가문 설정
-        //     });
-        // });
 
         function ing_add(){
         // pre_set 에 있는 내용을 읽어와서 처리..
@@ -65,6 +49,7 @@
         // pre_set 에 있는 내용을 읽어와서 처리..
         var div = document.createElement('div');
         div.innerHTML = document.getElementById('recipe-order-input').innerHTML;
-        document.getElementById('recipe-add-add').appendChild(div);
+        document.getElementById('recipe-order-add').appendChild(div);
 
         }
+
