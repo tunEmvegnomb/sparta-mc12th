@@ -773,19 +773,15 @@ def myrecipe_update():
             update_ing_receive = request.form['myrecipe_ing_give']
             update_detail_receive = request.form['myrecipe_detail_give']
 
-
-            # 이미지파일 추가업데이트
-
             # 이전 이미지파일 삭제 부분
             delete_img = data.get('myrecipe_img')
             # print(delete_img)
-            # 이미지삭제경로 -
+            # 이미지삭제경로
             path = 'static/myrecipe_img/{}'.format(delete_img)
             if os.path.isfile(delete_img):
                 os.remove(path)
 
-            #이미지파일 추가 업데이트
-
+            #이미지파일 추가
             update_img_receive = request.files['myrecipe_img_give']  # 이미지파일
             today = datetime.now()
             mytime = today.strftime('%Y-%m-%d-%H-%M-%S')  # 날짜- 파일이름이 중복일경우를 위해
@@ -793,11 +789,6 @@ def myrecipe_update():
             img_filename = f'{mytime}-{temp_filename}'  # 최종 저장되는 이미지파일이름
             # print(img_filename)
 
-
-            # 이전 이미지데이터 삭제 부분 - 미완성
-            # delete_img =
-            # data.get('myrecipe_img')
-            # delete_to =
 
             save_to = 'static/myrecipe_img/{}-{}'.format(mytime, img_filename)
             update_img_receive.save(save_to)
