@@ -1,7 +1,5 @@
 # flask 프레임워크 임포트.
 # render_template(페이지 이동), jsonify(json값 리턴), request(클라이언트 값 받기), session(로그인) 라이브러리 임포트
-import os
-
 from flask import Flask, render_template, jsonify, request, session
 
 # MongoClient(몽고DB 관리 라이브러리) 임포트
@@ -23,26 +21,6 @@ app = Flask(__name__)
 def render_main():
     # index.html에 원하는 클라이언트 파일 입력
     return render_template('main.html')
-
-@app.route("/reco", methods=["GET"])
-#난수활용 추천 페이지 출력
-def main_get(random=None):
-    # 추천순 내림차순 정렬
-    top_recipes = list(db.recipes.find({}, {'_id': False}).sort('recipe_like', -1))
-    # 10위부터 1위까지 새로 리스트 생성
-    top10 = top_recipes[0:10]
-
-    num = random.randrange(1, 11)  # 1부터 10 사이의 난수 생성
-    for top10_recipes in top10:
-        like = top10_recipes['recipe_like']
-
-        def random():
-            if num == like is not None:
-                return top10_recipes
-
-        print(random())
-
-    return jsonify({'top10': top10})
 
 
 # 리스트 페이지
@@ -159,45 +137,8 @@ def rank():
 # 나만의 레시피 작성 페이지
 @app.route('/write')
 def render_write():
-    return render_template('make_recipe.html')
+    return render_template('write.html')
 
-# 나만의 레시피 api - 작성 기능
-@app.route('/write', methods=['POST'])
-def myrecipe_write():
-    if 'user_id' in session:
-        myrecipe_title_receive = request.form['myrecipe_title_give']
-        myrecipe_writter_receive = request.form['myrecipe_writter_give'] # 사용자 id를 받아와야할듯..
-        myrecipe_diff_receive = request.form['myrecipe_diff_give']
-        myrecipe_time_receive = request.form['myrecipe_time_give']
-        myrecipe_ing_receive = request.form['myrecipe_ing_give']
-        myrecipe_detail_receive = request.form['myrecipe_detail_give']
-
-        # print(myrecipe_title_receive, myrecipe_writter_receive,myrecipe_diff_receive, myrecipe_time_receive,myrecipe_ing_receive,myrecipe_detail_receive )
-
-        # 이미지 파일 업로딩 관련부분 - 보완필요
-        myrecipe_img_receive = request.files['myrecipe_img_give'] # 이미지파일
-        # print(myrecipe_img_receive)
-        img_filename = myrecipe_img_receive.filename
-        # filename = f'{today}---{_filename}'
-        # extension = myrecipe_img_receive.filename.split('.')[-1]
-        # print(filename, extension)
-        save_to = 'static/myrecipe_img/{}'.format(img_filename)
-        myrecipe_img_receive.save(save_to)
-
-        # db저장
-        doc = {
-            'myrecipe_title': myrecipe_title_receive,
-            'myrecipe_img': img_filename,
-            'myrecipe_writter' : myrecipe_writter_receive,
-            'myrecipe_diff' : myrecipe_diff_receive,
-            'myrecipe_time' : myrecipe_time_receive,
-            'myrecipe_ing' : myrecipe_ing_receive,
-            'myrecipe_detail' : myrecipe_detail_receive
-        }
-        db.myrecipes.insert_one(doc)
-        return jsonify({'msg': '나만의 레시피 작성 완료'})
-    else:
-        return jsonify({'msg': '로그인 해주세요'})
 
 # 마이 페이지
 @app.route('/mypage', methods=['GET'])
@@ -333,23 +274,9 @@ def recipe_detail():
 
 
 
-
-
-
-
-
-
-
 # localhost:5000 으로 들어갈 수 있게 해주는 코드
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
-
-
-
-
-
-
-
 
 
 
