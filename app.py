@@ -1,5 +1,7 @@
 # flask 프레임워크 임포트.
 # render_template(페이지 이동), jsonify(json값 리턴), request(클라이언트 값 받기), session(로그인) 라이브러리 임포트
+import os
+
 from flask import Flask, render_template, jsonify, request, session
 
 # 현재 날짜를 받아오기위한 import
@@ -47,7 +49,7 @@ bcrypt = Bcrypt(app)
 
 
 # 메인 페이지 - app.py 실행 후, localhost:5000으로 접속했을 때, 가장 먼저 출력
-@app.route('/')
+@app.route('/', methods=['GET'])
 def render_main():
     # index.html에 원하는 클라이언트 파일 입력
     return render_template('main.html')
@@ -93,25 +95,25 @@ def main_top3():
     year_receive = date_receive.split('-')[0]
     month_receive = year_receive + "-" + date_receive.split('-')[1]
     day_receive = date_receive
-
     print(year_receive, month_receive, day_receive)
 
     # 3. 조건문1 - 클릭 리시브 확인
     # 값이 만약 연간이라면
     if click_receive == "연간":
         # 날짜 리시브와 부분 일치하는 데이터베이스 찾아오기, (1)작성 업데이트 날짜-(2)추천 수를 기준으로 정렬, 10개 제한
-        top3_db = db.recipes.find({'recipe_post_update': {'$regex': year_receive}}, {'_id': False})
-        top3_db = list(top3_db.sort('recipe_post_update', -1).sort('recipe_like', -1).limit(3))
+        find_db = db.recipes.find({'recipe_post_update': {'$regex': year_receive}}, {'_id': False})
+        top3_db = list(find_db.sort('recipe_post_update', -1).sort('recipe_like', -1).limit(3))
     # 값이 만약 월간이라면
     elif click_receive == "월간":
         # 날짜 리시브와 부분 일치하는 데이터베이스 찾아오기, (1)작성 업데이트 날짜-(2)추천 수를 기준으로 정렬, 10개 제한
-        top3_db = db.recipes.find({'recipe_post_update': {'$regex': month_receive}}, {'_id': False})
-        top3_db = list(top3_db.sort('recipe_post_update', -1).sort('recipe_like', -1).limit(3))
+        find_db = db.recipes.find({'recipe_post_update': {'$regex': month_receive}}, {'_id': False})
+        top3_db = list(find_db.sort('recipe_post_update', -1).sort('recipe_like', -1).limit(3))
+
     # 값이 만약 일간이라면
     elif click_receive == "일간":
         # 날짜 리시브와 부분 일치하는 데이터베이스 찾아오기, (1)작성 업데이트 날짜-(2)추천 수를 기준으로 정렬
-        top3_db = db.recipes.find({'recipe_post_update': {'$regex': day_receive}}, {'_id': False})
-        top3_db = list(top3_db.sort('recipe_post_update', -1).sort('recipe_like', -1).limit(3))
+        find_db = db.recipes.find({'recipe_post_update': {'$regex': day_receive}}, {'_id': False})
+        top3_db = list(find_db.sort('recipe_post_update', -1).sort('recipe_like', -1).limit(3))
 
     return jsonify({'filtered_data': top3_db})
 
@@ -159,6 +161,7 @@ def list_order():
 
 @app.route('/list/filter', methods=['GET'])
 def list_filter():
+
     # 페이크 값 리턴
     filtered_data = list(db.recipes.find({}, {'_id': False}).limit(18))
     return jsonify({'filtered_data': filtered_data})
@@ -298,13 +301,9 @@ def rank_get():
 
 
 # 마이 페이지
-@app.route('/mypage', methods=['GET'])
+@app.route('/mypage')
 def render_mypage():
-    if session is not None:
-        user_id = "admin"  # 추후 로그인 세션값으로 변경
-        mypage = list(db.users.find({'user_id': user_id}, {'_id': False}))
-        return jsonify({'mypage': mypage})
-
+    return render_template('mypage.html')
 
 # 즐겨찾기 조회 페이지
 @app.route('/mylike')
@@ -577,22 +576,28 @@ def myrecipe_write():
         myrecipe_time_receive = request.form['myrecipe_time_give']
         myrecipe_ing_receive = request.form['myrecipe_ing_give']
         myrecipe_detail_receive = request.form['myrecipe_detail_give']
-        # print(myrecipe_title_receive, myrecipe_writter_receive,myrecipe_diff_receive, myrecipe_time_receive,myrecipe_ing_receive,myrecipe_detail_receive )
+        # print(myrecipe_title_receive,myrecipe_diff_receive, myrecipe_time_receive,myrecipe_ing_receive,myrecipe_detail_receive )
+
 
         myrecipe_user_id_receive = session.get('user_id')  # 세션에서 가져와
         # print(myrecipe_writter_receive)
+
+        myrecipe_user_id_receive = session.get('user_id') # 세션에서 가져와
+        # print(myrecipe_user_id_receive)
+
 
         # 이미지 업로드 기능
         myrecipe_img_receive = request.files['myrecipe_img_give']  # 이미지파일
         # print(myrecipe_img_receive)
 
         today = datetime.now()
-        mytime = today.strftime('%Y-%m-%d-%H-%M-%S')  # 날짜- 파일이름이 중복일경우를 위해
-        img_filename = myrecipe_img_receive.filename
-        # print(img_filename, mytime)
+        mytime = today.strftime('%Y-%m-%d-%H-%M-%S')  # 날짜- 파일 이름이 중복일경우를 위해
+        temp_filename = myrecipe_img_receive.filename
+        img_filename = f'{mytime}-{temp_filename}' # 최종 저장되는 이미지파일이름
+        # print(img_filename)
 
         # 배포시 경로 변경예정
-        save_to = 'static/myrecipe_img/{}-{}'.format(mytime, img_filename)
+        save_to = 'static/myrecipe_img/{}'.format(img_filename)
         myrecipe_img_receive.save(save_to)
 
         # db저장
@@ -621,8 +626,13 @@ def render_myrecipe():
 @app.route('/myrecipe/update', methods=['POST'])
 def myrecipe_update():
     if 'user_id' in session:
+
         idx = request.form['idx']
         data = db.myrecipes.find_one({"_id": ObjectId(idx)})
+
+        idx_receive = request.form['idx_give']
+        data = db.myrecipes.find_one({"_id" : ObjectId(idx_receive)})
+
         # print(data)
 
         if session.get("user_id") == data.get('user_id'):
@@ -632,12 +642,26 @@ def myrecipe_update():
             update_ing_receive = request.form['myrecipe_ing_give']
             update_detail_receive = request.form['myrecipe_detail_give']
 
+
             # 이미지파일 추가업데이트
+
+            # 이전 이미지파일 삭제 부분
+            delete_img = data.get('myrecipe_img')
+            # print(delete_img)
+            # 이미지삭제경로 -
+            path = 'static/myrecipe_img/{}'.format(delete_img)
+            if os.path.isfile(delete_img):
+                os.remove(path)
+
+            #이미지파일 추가 업데이트
+
             update_img_receive = request.files['myrecipe_img_give']  # 이미지파일
             today = datetime.now()
             mytime = today.strftime('%Y-%m-%d-%H-%M-%S')  # 날짜- 파일이름이 중복일경우를 위해
-            img_filename = update_img_receive.filename
-            # print(img_filename, mytime)
+            temp_filename = update_img_receive.filename
+            img_filename = f'{mytime}-{temp_filename}'  # 최종 저장되는 이미지파일이름
+            # print(img_filename)
+
 
             # 이전 이미지데이터 삭제 부분 - 미완성
             # delete_img =
@@ -657,6 +681,23 @@ def myrecipe_update():
                     'myrecipe_detail': update_detail_receive
                 }
             })
+
+            # 배포시 경로 변경될수도
+            save_to = 'static/myrecipe_img/{}'.format(img_filename)
+            update_img_receive.save(save_to)
+
+
+            db.myrecipes.update_one({"_id": ObjectId(idx_receive)}, {
+                                      '$set': {
+                                            'myrecipe_title': update_title_receive,
+                                            'myrecipe_img': img_filename,
+                                            'myrecipe_diff': update_diff_receive,
+                                            'myrecipe_time': update_time_receive,
+                                            'myrecipe_ing': update_ing_receive,
+                                            'myrecipe_detail': update_detail_receive
+                                        }
+                                    })
+
             return jsonify({'msg': '나만의 레시피가 수정되었습니다.'})
         else:
             return jsonify({'msg': '수정 권한이 없습니다.'})
@@ -672,6 +713,16 @@ def myrecipe_delete():
         data = db.myrecipes.find_one({"_id": ObjectId(idx_receive)})
 
         if session.get("user_id") == data.get('user_id'):
+
+            # 이미지파일 삭제
+            delete_img = data.get('myrecipe_img')
+            # print(delete_img)
+            # 이미지삭제경로
+            path = 'static/myrecipe_img/{}'.format(delete_img)
+            if os.path.isfile(delete_img):
+                os.remove(path)
+
+            # db삭제
             db.myrecipes.delete_one({"_id": ObjectId(idx_receive)})
             return jsonify({'msg': '나만의 레시피가 삭제되었습니다'})
         else:
@@ -687,9 +738,43 @@ def myrecipe_list():
         get_user_id = session.get('user_id')
         # print(get_user_id)
         myrecipes = objectIdDecoder(list(db.myrecipes.find({'user_id': get_user_id})))
+
         return jsonify({'myrecipes': myrecipes})
     else:
         return jsonify({'msg': '로그인해주세요'})
+
+
+# 마이 페이지
+@app.route('/mypage', methods=['GET'])
+def mypage_get():
+    user_id = "admin"  # 추후 로그인 세션값으로 변경
+    user_nic = "고길동"  # 추후 로그인 세션값으로 변경
+    mypage = list(db.users.find({'user_id': user_id}, {'_id': False}))
+    myrecipes = list(db.myrecipes.find({'myrecipe_writter': user_nic}, {'_id': False}))
+    return jsonify({'mypage': mypage}, {'myrecipes': myrecipes})
+
+# 오늘의 레시피
+@app.route('/random', methods=['GET'])
+def random_recipe():
+    # like 내림차순 정렬
+    top_recipes = list(db.recipes.find({}, {'_id': False}).sort('recipe_like', -1))
+    # like 상위 10개 새 리스트 생성
+    top10 = top_recipes[0:10]
+
+    # 랜덤 수 생성
+    import random
+    num = random.randrange(1, 11)
+
+    for top10_recipes in range(0, len(top10)):
+        index = top10_recipes  # 상위 10개 레시피 인덱스
+        rank = index + 1  # 상위 10개 레시피 순위
+        reco_data = top10[index]  # 상위 레시피 10개 내용
+
+        # 랜덤 수와 일치하는 레시피 출력
+        def random():
+            if num == rank is not None:
+                return reco_data
+    return jsonify({'reco_data': reco_data})
 
 
 # localhost:5000 으로 들어갈 수 있게 해주는 코드
