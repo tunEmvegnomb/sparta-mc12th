@@ -104,24 +104,20 @@
 
             })
 
-
         // 리뷰 등록하기(create 기능) ajax
             $(document).on('click', '#reviewPostBtn', function () {
-                    let nickName = sessionStorage.getItem("user_id")
+                    let nickName = sessionStorage.getItem("user_nickname")
                     let content = $('#reviewInput').val()
+                    console.log(nickName, content)
 
                     $.ajax({
                         type: "POST",
-                        url: `/detail/review-post`,
-                        data: {user_nickname_give:nickName, review_content_give:content, recipe_name_give:name},
+                        url: '/detail/review-post',
+                        data: {user_nickname_give: nickName, review_content_give:content, recipe_name_give: name},
                         success: function (response) { // 성공하면
                             let answer = response["msg"]
                             alert(answer);
-                            if (answer === "로그인 해주세요") {
-                                location.href = "/login"
-                            } else if (answer === "댓글 작성 완료") {
-                                document.location.reload()
-                            }
+                            location.reload();
                         }
 
                     })
@@ -160,45 +156,7 @@
                 }
             })
 
-            $(document).on("click", "updateBtn", function () {
-                $.ajax({
-                        type: "POST",
-                        url: `/myriew/update`,
-                        data: {},
-                        success: function (response) { // 성공하면
-                            let answer = response["msg"]
-                            alert(answer);
-                            if (answer === "로그인 해주세요") {
-                                location.href = "/login"
-                            } else if (answer === "댓글 수정 권한이 없습니다.") {
-                                document.location.reload()
-                            } else if (answer === "댓글 수정 완료") {
-                                document.location.reload()
-                            }
-                        }
 
-                    })
-            })
-
-            $(document).on("click", "deleteBtn", function () {
-                $.ajax({
-                        type: "POST",
-                        url: `/myriew/update`,
-                        data: {},
-                        success: function (response) { // 성공하면
-                            let answer = response["msg"]
-                            alert(answer);
-                            if (answer === "로그인 해주세요") {
-                                location.href = "/login"
-                            } else if (answer === "댓글 삭제 권한이 없습니다.") {
-                                document.location.reload()
-                            } else if (answer === "댓글이 삭제되었습니다.") {
-                                document.location.reload()
-                            }
-                        }
-
-                    })
-            })
         })
 
     // 즐겨찾기 추가 기능 ajax
