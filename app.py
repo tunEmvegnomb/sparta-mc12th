@@ -8,6 +8,7 @@ from flask import Flask, render_template, jsonify, request, session, url_for
 # 현재 날짜를 받아오기위한 import
 from datetime import datetime, timedelta
 from threading import Timer
+import threading
 
 
 # 암호화 라이브러리 bcrypy import. 오류가 뜬다면 interpreter에서 bcrypy 패키지 install
@@ -885,45 +886,16 @@ def mypage_get():
 # 오늘의 레시피
 @app.route('/random', methods=['GET'])
 def random_recipe():
-    # # like 내림차순 정렬
-    # top_recipes = list(db.recipes.find({}, {'_id': False}).sort('recipe_like', -1))
-    # # like 상위 10개 새 리스트 생성
-    # top10 = top_recipes[0:10]
-    #
-    # # 랜덤 수 생성
-    # import random
-    # num = random.randrange(1, 11)
-    #
-    # for top10_recipes in range(0, len(top10)):
-    #     index = top10_recipes  # 상위 10개 레시피 인덱스
-    #     rank = index + 1  # 상위 10개 레시피 순위
-    #     reco_data = top10[index]  # 상위 레시피 10개 내용
-    #
-    #     # 랜덤 수와 일치하는 레시피 출력
-    #     def random():
-    #         if num == rank is not None:
-    #             return reco_data
-    #
-    # today = datetime.today()
-    # tomo = today.replace(day=today.day, hour=0, minute=0, second=0, microsecond=0) + timedelta(seconds=5)
-    # delta_t = tomo-today
-    #
-    # secs = delta_t.total_seconds()
-    # print(secs)
-    # t = Timer(secs, random_recipe).start()
-    #
-    # return jsonify({'reco_data': reco_data})
-
     import random
     # 설계
     # 1. 랜덤 변수 선언
-    random = random.randrange(1,11)
+    random = random.randrange(1, 11)
 
     # 2. 추천순으로 정렬된 데이터 가져오기
-    db_find = list(db.recipes.find({},{'_id': False}).sort('recipe_like',-1))
+    db_find = list(db.recipes.find({}, {'_id': False}).sort('recipe_like', -1))
 
     # 3. 랜덤변수 순번 데이터 출력
-    random_value = db_find[random-1]
+    random_value = db_find[random - 1]
 
     # 4. 오늘 변수 설정
     now = datetime.now()
@@ -945,7 +917,6 @@ def random_recipe():
     threading.Timer(time_sec, random_recipe).start()
 
     return jsonify({'random_value': random_value})
-
 
 
 # localhost:5000 으로 들어갈 수 있게 해주는 코드
