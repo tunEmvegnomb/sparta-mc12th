@@ -24,34 +24,14 @@
 
   <body>
     <nav class="naviBar">
-      <ul>
-        <li>
-          <a class="logoLink" href="/"
-            ><img src="/static/img/cook-hat.svg" class="logoIcon"
-          /></a>
-        </li>
-        <li><a class="menuLink" href="#">전체 레시피</a></li>
-        <li><a class="menuLink" href="#">랭킹 보기</a></li>
-        <li><a class="menuLink" href="#">레시피 등록</a></li>
-        <li>
-          <a class="myPageLink" href="#"
-            ><svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="32"
-              fill="currentColor"
-              class="bi bi-person-circle loginIcon current"
-              viewBox="0 0 16 16"
-            >
-              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-              <path
-                fill-rule="evenodd"
-                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
-              />
-            </svg>
-          </a>
-        </li>
-      </ul>
+        <ul>
+            <li><a class="logoLink" href="/"><img class="logoIcon" src="/static/img/logo.png"></a></li>
+            <li><a class="menuLink" href="/list">전체 레시피 보기</a></li>
+            <li><a class="menuLink" href="/rank">랭킹 보기</a></li>
+            <li><a class="menuLink" href="/write">나만의 레시피</a></li>
+            <li><a class="menuLink" href="/mypage">마이페이지</a></li>
+            <li><a class="myPageLink" href="/login"><img src="/static/img/myPageIcon.png" class="loginIcon"></a></li>
+        </ul>
     </nav>
     <main class="wrap main-col signup-main">
       <h1 class="signup-title">회원가입</h1>
@@ -85,7 +65,7 @@
             required
           />
         </div>
-        <button type="submit" class="signup-btn">회원가입</button>
+        <button type="submit" class="signup-btn" onclick="signup()">회원가입</button>
         <a href="/login" class="login-link"
           >회원이신가요? 로그인 페이지로 이동</a
         >
