@@ -21,7 +21,7 @@ from bson.objectid import ObjectId
 
 # 클라이언트 정의 - MongoClient를 로컬호스트와 연결
 client = MongoClient('mongodb+srv://making:making@cluster0.ymxju.mongodb.net/Cluster0?retryWrites=true&w=majority')
-# client = MongoClient('localhost',27017)
+ # client = MongoClient('localhost',27017)
 
 
 # 컬렉션 정의. mc12th라는 컬렉션이 생성됨
@@ -880,15 +880,14 @@ def myrecipe_list():
 # 마이 페이지
 @app.route('/mypage/user', methods=['GET'])
 def mypage_get():
-    session['user_id'] = 'ggoooood'
     if 'user_id' in session:
         get_user_id = session.get('user_id')
-        print(get_user_id)
+        # print(get_user_id)
         mypage = list(db.users.find({'user_id': get_user_id}, {'_id': False, 'user_pwd': False}))
         myrecipes = list(db.myrecipes.find({'user_id': get_user_id}, {'_id': False}))
         return jsonify({'mypage': mypage}, {'myrecipes': myrecipes})
     else:
-        print(session)
+        # print(session)
         return jsonify({'msg': '로그인해주세요'})
 
 
@@ -926,6 +925,12 @@ def random_recipe():
     threading.Timer(time_sec, random_recipe).start()
 
     return jsonify({'random_value': random_value})
+
+# 마이페이지 즐겨찾기 폴더 생성
+@app.route('/bookmark/list', methods=['POST'])
+def bookmark_list():
+    bookmark_name = request.form['bookmark_name']
+    return jsonify({'msg': '폴더 생성이 완료되었습니다.'})
 
 
 # localhost:5000 으로 들어갈 수 있게 해주는 코드
