@@ -19,7 +19,7 @@ from bson.objectid import ObjectId
 
 # 클라이언트 정의 - MongoClient를 로컬호스트와 연결
 client = MongoClient('mongodb+srv://making:making@cluster0.ymxju.mongodb.net/Cluster0?retryWrites=true&w=majority')
-# client = MongoClient('localhost',27017)
+ # client = MongoClient('localhost',27017)
 
 
 
@@ -716,13 +716,15 @@ def myrecipe_list():
 # 마이 페이지
 @app.route('/mypage/user', methods=['GET'])
 def mypage_get():
+    session['user_id'] = 'ggoooood'
     if 'user_id' in session:
         get_user_id = session.get('user_id')
-        # print(get_user_id)
-        mypage = list(db.users.find({'user_id': get_user_id}, {'_id': False}))
+        print(get_user_id)
+        mypage = list(db.users.find({'user_id': get_user_id}, {'_id': False, 'user_pwd': False}))
         myrecipes = list(db.myrecipes.find({'user_id': get_user_id}, {'_id': False}))
         return jsonify({'mypage': mypage}, {'myrecipes': myrecipes})
     else:
+        print(session)
         return jsonify({'msg': '로그인해주세요'})
 
 # 오늘의 레시피
