@@ -21,8 +21,8 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 
 # 클라이언트 정의 - MongoClient를 로컬호스트와 연결
-client = MongoClient('mongodb+srv://making:making@cluster0.ymxju.mongodb.net/Cluster0?retryWrites=true&w=majority')
-# client = MongoClient('localhost',27017)
+# client = MongoClient('mongodb+srv://making:making@cluster0.ymxju.mongodb.net/Cluster0?retryWrites=true&w=majority')
+client = MongoClient('localhost',27017)
 
 
 # 컬렉션 정의. mc12th라는 컬렉션이 생성됨
@@ -606,7 +606,7 @@ def review_post():
         today = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
         recipe_review_update = today  # 작성날짜
 
-        # print(user_nickname_receive, review_content_receive, recipe_name_receive)
+        print(user_nickname_receive, review_content_receive, recipe_name_receive)
         # print(recipe_review_update)
 
         doc = {
@@ -619,7 +619,7 @@ def review_post():
         db.reviews.insert_one(doc)
         return jsonify({'msg': '댓글 작성 완료'})
     else:
-        return jsonify({'msg': '로그인 해주세요'})
+        return jsonify({'msg': '로그인 해주세요.'})
 
 
 # 내가 쓴 후기 페이지
@@ -642,6 +642,7 @@ def myreview_list():
 # 리뷰(댓글) 수정 api
 @app.route('/myreview/update', methods=['POST'])
 def myreview_update():
+    session['user_id'] = 'qqqqqq'
     if 'user_id' in session:
         idx_receive = request.form['idx_give']
         data = db.reviews.find_one({"_id": ObjectId(idx_receive)})
