@@ -25,157 +25,147 @@
 
     <title>랭킹 페이지</title>
     <script>
+
         $(document).ready(function () {
-            $.ajax({
+
+            //let today = new Date();
+            //let year = today.getFullYear()
+            //let month = ("00" + (today.getMonth() + 1)).slice(-2)
+            //let day = ("00" + today.getDate()).slice(-2)
+
+            //let today_date = year + "-" + month + "-" + day
+            let today_date = "2022-03-01"
+            //console.log(today_date)
+
+            let sort = "";
+            $(".tabs li").on("click", function () {
+                $('#firstRecipe').empty()
+                $('#secondRecipe').empty()
+                $('#thirdRecipe').empty()
+                $('#otherRecipes').empty()
+                $('#firstRecipe2').empty()
+                $('#secondRecipe2').empty()
+                $('#thirdRecipe2').empty()
+                $('#otherRecipes2').empty()
+
+                sort = $(this).text()
+
+                let alldata = {"click_give": sort, "date_give":today_date}
+                console.log(sort)
+
+                $.ajax({
                     type: "GET",
                     url: "/rank/get",
-                    data: {},
+                    data: alldata,
                     success: function (response) {
-
-                        let recipes = response['append_data']
+                        let recipes = response['filtered_data']
                         // console.log(recipes)
 
-                        // 1등 레시피 append
-                        let firstRecipe = recipes[0]
-                        // console.log(recipe)
+                        if (sort === "월간") {
+                            // 1등 레시피 append
+                            let firstRecipe = recipes[0]
 
-                        let firstRecipeName = firstRecipe['recipe_name']
-                        let firstRecipeImg = firstRecipe['recipe_img']
-                        let firstRecipeDiff = firstRecipe['recipe_diff']
-                        let firstRecipeTime = firstRecipe['recipe_time']
-                        // console.log(firstRecipeName, firstRecipeImg, firstRecipeDiff, firstRecipeTime)
+                            let firstRecipeName = firstRecipe['recipe_name']
+                            let firstRecipeImg = firstRecipe['recipe_img']
+                            let firstRecipeDiff = firstRecipe['recipe_diff']
+                            let firstRecipeTime = firstRecipe['recipe_time']
+                            console.log(firstRecipeName, firstRecipeImg, firstRecipeDiff, firstRecipeTime)
 
-                        temp_html = `<div class="recipeWrap">
-                                          <div class="recipeImgWrap">
-                                              <img class="medalIcon" src="/static/img/firstMedalIcon.png">
-                                              <img class="recipe_img" src="${firstRecipeImg}">
-                                          </div>
-                                          <div class="descWrap">
-                                              <div class="recipeDescWrap">
-                                              <a class="recipe_link" href="#"><span class="recipe_name">${firstRecipeName}</span></a><br>
+                            temp_html = `<div class="recipeWrap">
+                                              <div class="recipeImgWrap">
+                                                  <img class="medalIcon" src="/static/img/firstMedalIcon.png">
+                                                  <img class="recipe_img" src="${firstRecipeImg}">
                                               </div>
-                                          </div>
-                                          <div class="recipeDesc2Wrap">
-                                              <div class="recipeTimeWrap">
-                                                  <img class="timeIcon" src="/static/img/timeIcon.png/">
-                                                  <span class="recipe_time" id="recipe_time">${firstRecipeTime}</span>
-                                              </div>
-                                              <div class="recipeDiffWrap">
-                                                  <img class="diffIcon" src="/static/img/3starIcon.png/">
-                                                  <span class="recipe_diff" id="recipe_diff">${firstRecipeDiff}</span>
-                                              </div>
-                                          </div>
-                                      </div>`
-
-                        $('#firstRecipe').append(temp_html)
-
-                        // 2등 레시피 append
-                        let secondRecipe = recipes[1]
-                        // console.log(recipe)
-
-                        let secondRecipeName = secondRecipe['recipe_name']
-                        let secondRecipeImg = secondRecipe['recipe_img']
-                        let secondRecipeDiff = secondRecipe['recipe_diff']
-                        let secondRecipeTime = secondRecipe['recipe_time']
-                        // console.log(secondRecipeName, secondRecipeImg, secondRecipeDiff, secondRecipeTime)
-
-                        temp_html2 = `<div class="recipeWrap">
-                                          <div class="recipeImgWrap">
-                                              <img class="medalIcon" src="/static/img/secondMedalIcon.png">
-                                              <img class="recipe_img" src="${secondRecipeImg}">
-                                          </div>
-                                          <div class="descWrap">
-                                              <div class="recipeDescWrap">
-                                              <a class="recipe_link" href="#"><span class="recipe_name">${secondRecipeName}</span></a><br>
-                                              </div>
-                                          </div>
-                                          <div class="recipeDesc2Wrap">
-                                              <div class="recipeTimeWrap">
-                                                  <img class="timeIcon" src="/static/img/timeIcon.png/">
-                                                  <span class="recipe_time" id="recipe_time">${secondRecipeTime}</span>
-                                              </div>
-                                              <div class="recipeDiffWrap">
-                                                  <img class="diffIcon" src="/static/img/3starIcon.png/">
-                                                  <span class="recipe_diff" id="recipe_diff">${secondRecipeDiff}</span>
-                                              </div>
-                                          </div>
-                                      </div>`
-
-                        $('#secondRecipe').append(temp_html2)
-
-                        // 3등 레시피 append
-                        let thirdRecipe = recipes[2]
-                        // console.log(recipe)
-
-                        let thirdRecipeName = thirdRecipe['recipe_name']
-                        let thirdRecipeImg = thirdRecipe['recipe_img']
-                        let thirdRecipeDiff = thirdRecipe['recipe_diff']
-                        let thirdRecipeTime = thirdRecipe['recipe_time']
-                        // console.log(thirdRecipeName, thirdRecipeImg, thirdRecipeDiff, thirdRecipeTime)
-
-                        temp_html3 = `<div class="recipeWrap">
-                                          <div class="recipeImgWrap">
-                                              <img class="medalIcon" src="/static/img/thirdMedalIcon.png">
-                                              <img class="recipe_img" src="${thirdRecipeImg}">
-                                          </div>
-                                          <div class="descWrap">
-                                              <div class="recipeDescWrap">
-                                              <a class="recipe_link" href="#"><span class="recipe_name">${thirdRecipeName}</span></a><br>
-                                              </div>
-                                          </div>
-                                          <div class="recipeDesc2Wrap">
-                                              <div class="recipeTimeWrap">
-                                                  <img class="timeIcon" src="/static/img/timeIcon.png/">
-                                                  <span class="recipe_time" id="recipe_time">${thirdRecipeTime}</span>
-                                              </div>
-                                              <div class="recipeDiffWrap">
-                                                  <img class="diffIcon" src="/static/img/3starIcon.png/">
-                                                  <span class="recipe_diff" id="recipe_diff">${thirdRecipeDiff}</span>
-                                              </div>
-                                          </div>
-                                      </div>`
-
-                        // 레시피 이름 클릭하면 해당 레시피의 상세 페이지로 이동
-                        $('#thirdRecipe').append(temp_html3)
-
-                        let name = "";
-                        $(".recipe_name").click(function () {
-                            name = $(this).text()
-
-                            if (name != null) {
-                            document.location.href = `/detail?recipe_name=${name}`
-                            }
-                        })
-
-                        // 4~10위 레시피 append
-                        for (let i = 3; i < recipes.length; i++) {
-                            let recipe = recipes[i]
-                            // console.log(recipe)
-
-                            let recipeName = recipe['recipe_name']
-                            let recipeDiff = recipe['recipe_diff']
-                            let recipeTime = recipe['recipe_time']
-                            let rank = i+1
-                            // console.log(rank, recipeName, recipeDiff, recipeTime)
-
-                            temp_html4 = `<div class="recipeWraps">
-                                              <span class="recipeRank">${rank}</span>
-                                              <div class="recipeNameWrap">
-                                                  <a class="recipe_link" href="#"><span class="recipe_name2">${recipeName}</span></a>
-                                                  <div class="recipeDescWraps">
-                                                      <img class="timeIcon2" style="width: 30px" src="/static/img/timeIcon.png/">
-                                                      <span class="recipe_time2">${recipeTime}</span>
-                                                      <img class="diffIcon2" style="width: 35px" src="/static/img/3starIcon.png/">
-                                                      <span class="recipe_diff2">${recipeDiff}</span>
+                                              <div class="descWrap">
+                                                  <div class="recipeDescWrap">
+                                                  <a class="recipe_link" href="#"><span class="recipe_name">${firstRecipeName}</span></a><br>
                                                   </div>
                                               </div>
-                                              <hr>
-                                           </div>`
+                                              <div class="recipeDesc2Wrap">
+                                                  <div class="recipeTimeWrap">
+                                                      <img class="timeIcon" src="/static/img/timeIcon.png/">
+                                                      <span class="recipe_time" id="recipe_time">${firstRecipeTime}</span>
+                                                  </div>
+                                                  <div class="recipeDiffWrap">
+                                                      <img class="diffIcon" src="/static/img/3starIcon.png/">
+                                                      <span class="recipe_diff" id="recipe_diff">${firstRecipeDiff}</span>
+                                                  </div>
+                                              </div>
+                                          </div>`
 
-                            $('#otherRecipes').append(temp_html4)
+                            $('#firstRecipe').append(temp_html)
+
+                            // 2등 레시피 append
+                            let secondRecipe = recipes[1]
+                            // console.log(recipe)
+
+                            let secondRecipeName = secondRecipe['recipe_name']
+                            let secondRecipeImg = secondRecipe['recipe_img']
+                            let secondRecipeDiff = secondRecipe['recipe_diff']
+                            let secondRecipeTime = secondRecipe['recipe_time']
+                            // console.log(secondRecipeName, secondRecipeImg, secondRecipeDiff, secondRecipeTime)
+
+                            temp_html2 = `<div class="recipeWrap">
+                                              <div class="recipeImgWrap">
+                                                  <img class="medalIcon" src="/static/img/secondMedalIcon.png">
+                                                  <img class="recipe_img" src="${secondRecipeImg}">
+                                              </div>
+                                              <div class="descWrap">
+                                                  <div class="recipeDescWrap">
+                                                  <a class="recipe_link" href="#"><span class="recipe_name">${secondRecipeName}</span></a><br>
+                                                  </div>
+                                              </div>
+                                              <div class="recipeDesc2Wrap">
+                                                  <div class="recipeTimeWrap">
+                                                      <img class="timeIcon" src="/static/img/timeIcon.png/">
+                                                      <span class="recipe_time" id="recipe_time">${secondRecipeTime}</span>
+                                                  </div>
+                                                  <div class="recipeDiffWrap">
+                                                      <img class="diffIcon" src="/static/img/3starIcon.png/">
+                                                      <span class="recipe_diff" id="recipe_diff">${secondRecipeDiff}</span>
+                                                  </div>
+                                              </div>
+                                          </div>`
+
+                            $('#secondRecipe').append(temp_html2)
+
+                            // 3등 레시피 append
+                            let thirdRecipe = recipes[2]
+                            // console.log(recipe)
+
+                            let thirdRecipeName = thirdRecipe['recipe_name']
+                            let thirdRecipeImg = thirdRecipe['recipe_img']
+                            let thirdRecipeDiff = thirdRecipe['recipe_diff']
+                            let thirdRecipeTime = thirdRecipe['recipe_time']
+                            // console.log(thirdRecipeName, thirdRecipeImg, thirdRecipeDiff, thirdRecipeTime)
+
+                            temp_html3 = `<div class="recipeWrap">
+                                              <div class="recipeImgWrap">
+                                                  <img class="medalIcon" src="/static/img/thirdMedalIcon.png">
+                                                  <img class="recipe_img" src="${thirdRecipeImg}">
+                                              </div>
+                                              <div class="descWrap">
+                                                  <div class="recipeDescWrap">
+                                                  <a class="recipe_link" href="#"><span class="recipe_name">${thirdRecipeName}</span></a><br>
+                                                  </div>
+                                              </div>
+                                              <div class="recipeDesc2Wrap">
+                                                  <div class="recipeTimeWrap">
+                                                      <img class="timeIcon" src="/static/img/timeIcon.png/">
+                                                      <span class="recipe_time" id="recipe_time">${thirdRecipeTime}</span>
+                                                  </div>
+                                                  <div class="recipeDiffWrap">
+                                                      <img class="diffIcon" src="/static/img/3starIcon.png/">
+                                                      <span class="recipe_diff" id="recipe_diff">${thirdRecipeDiff}</span>
+                                                  </div>
+                                              </div>
+                                          </div>`
+
+                            // 레시피 이름 클릭하면 해당 레시피의 상세 페이지로 이동
+                            $('#thirdRecipe').append(temp_html3)
 
                             let name = "";
-                            $(".recipe_name2").click(function () {
+                            $(".recipe_name").click(function () {
                                 name = $(this).text()
 
                                 if (name != null) {
@@ -183,20 +173,225 @@
                                 }
                             })
 
+                            // 4~10위 레시피 append
+                            for (let i = 3; i < recipes.length; i++) {
+                                let recipe = recipes[i]
+                                // console.log(recipe)
 
+                                let recipeName = recipe['recipe_name']
+                                let recipeDiff = recipe['recipe_diff']
+                                let recipeTime = recipe['recipe_time']
+                                let rank = i+1
+                                // console.log(rank, recipeName, recipeDiff, recipeTime)
+
+                                temp_html4 = `<div class="recipeWraps">
+                                                  <span class="recipeRank">${rank}</span>
+                                                  <div class="recipeNameWrap">
+                                                      <a class="recipe_link" href="#"><span class="recipe_name2">${recipeName}</span></a>
+                                                      <div class="recipeDescWraps">
+                                                          <img class="timeIcon2" style="width: 30px" src="/static/img/timeIcon.png/">
+                                                          <span class="recipe_time2">${recipeTime}</span>
+                                                          <img class="diffIcon2" style="width: 35px" src="/static/img/3starIcon.png/">
+                                                          <span class="recipe_diff2">${recipeDiff}</span>
+                                                      </div>
+                                                  </div>
+                                                  <hr>
+                                               </div>`
+
+                                $('#otherRecipes').append(temp_html4)
+
+                                let name = "";
+                                $(".recipe_name2").click(function () {
+                                    name = $(this).text()
+
+                                    if (name != null) {
+                                    document.location.href = `/detail?recipe_name=${name}`
+                                    }
+                                })
+
+
+                            }
+                        } else if (sort === "일간") {
+                                // 1등 레시피 append
+                            let firstRecipe = recipes[0]
+
+                            let firstRecipeName = firstRecipe['recipe_name']
+                            let firstRecipeImg = firstRecipe['recipe_img']
+                            let firstRecipeDiff = firstRecipe['recipe_diff']
+                            let firstRecipeTime = firstRecipe['recipe_time']
+                            console.log(firstRecipeName, firstRecipeImg, firstRecipeDiff, firstRecipeTime)
+
+                            temp_html = `<div class="recipeWrap">
+                                              <div class="recipeImgWrap">
+                                                  <img class="medalIcon" src="/static/img/firstMedalIcon.png">
+                                                  <img class="recipe_img" src="${firstRecipeImg}">
+                                              </div>
+                                              <div class="descWrap">
+                                                  <div class="recipeDescWrap">
+                                                  <a class="recipe_link" href="#"><span class="recipe_name">${firstRecipeName}</span></a><br>
+                                                  </div>
+                                              </div>
+                                              <div class="recipeDesc2Wrap">
+                                                  <div class="recipeTimeWrap">
+                                                      <img class="timeIcon" src="/static/img/timeIcon.png/">
+                                                      <span class="recipe_time" id="recipe_time">${firstRecipeTime}</span>
+                                                  </div>
+                                                  <div class="recipeDiffWrap">
+                                                      <img class="diffIcon" src="/static/img/3starIcon.png/">
+                                                      <span class="recipe_diff" id="recipe_diff">${firstRecipeDiff}</span>
+                                                  </div>
+                                              </div>
+                                          </div>`
+
+                            $('#firstRecipe2').append(temp_html)
+
+                            // 2등 레시피 append
+                            let secondRecipe = recipes[1]
+                            // console.log(recipe)
+
+                            let secondRecipeName = secondRecipe['recipe_name']
+                            let secondRecipeImg = secondRecipe['recipe_img']
+                            let secondRecipeDiff = secondRecipe['recipe_diff']
+                            let secondRecipeTime = secondRecipe['recipe_time']
+                            // console.log(secondRecipeName, secondRecipeImg, secondRecipeDiff, secondRecipeTime)
+
+                            temp_html2 = `<div class="recipeWrap">
+                                              <div class="recipeImgWrap">
+                                                  <img class="medalIcon" src="/static/img/secondMedalIcon.png">
+                                                  <img class="recipe_img" src="${secondRecipeImg}">
+                                              </div>
+                                              <div class="descWrap">
+                                                  <div class="recipeDescWrap">
+                                                  <a class="recipe_link" href="#"><span class="recipe_name">${secondRecipeName}</span></a><br>
+                                                  </div>
+                                              </div>
+                                              <div class="recipeDesc2Wrap">
+                                                  <div class="recipeTimeWrap">
+                                                      <img class="timeIcon" src="/static/img/timeIcon.png/">
+                                                      <span class="recipe_time" id="recipe_time">${secondRecipeTime}</span>
+                                                  </div>
+                                                  <div class="recipeDiffWrap">
+                                                      <img class="diffIcon" src="/static/img/3starIcon.png/">
+                                                      <span class="recipe_diff" id="recipe_diff">${secondRecipeDiff}</span>
+                                                  </div>
+                                              </div>
+                                          </div>`
+
+                            $('#secondRecipe2').append(temp_html2)
+
+                            // 3등 레시피 append
+                            let thirdRecipe = recipes[2]
+                            // console.log(recipe)
+
+                            let thirdRecipeName = thirdRecipe['recipe_name']
+                            let thirdRecipeImg = thirdRecipe['recipe_img']
+                            let thirdRecipeDiff = thirdRecipe['recipe_diff']
+                            let thirdRecipeTime = thirdRecipe['recipe_time']
+                            // console.log(thirdRecipeName, thirdRecipeImg, thirdRecipeDiff, thirdRecipeTime)
+
+                            temp_html3 = `<div class="recipeWrap">
+                                              <div class="recipeImgWrap">
+                                                  <img class="medalIcon" src="/static/img/thirdMedalIcon.png">
+                                                  <img class="recipe_img" src="${thirdRecipeImg}">
+                                              </div>
+                                              <div class="descWrap">
+                                                  <div class="recipeDescWrap">
+                                                  <a class="recipe_link" href="#"><span class="recipe_name">${thirdRecipeName}</span></a><br>
+                                                  </div>
+                                              </div>
+                                              <div class="recipeDesc2Wrap">
+                                                  <div class="recipeTimeWrap">
+                                                      <img class="timeIcon" src="/static/img/timeIcon.png/">
+                                                      <span class="recipe_time" id="recipe_time">${thirdRecipeTime}</span>
+                                                  </div>
+                                                  <div class="recipeDiffWrap">
+                                                      <img class="diffIcon" src="/static/img/3starIcon.png/">
+                                                      <span class="recipe_diff" id="recipe_diff">${thirdRecipeDiff}</span>
+                                                  </div>
+                                              </div>
+                                          </div>`
+
+                            // 레시피 이름 클릭하면 해당 레시피의 상세 페이지로 이동
+                            $('#thirdRecipe2').append(temp_html3)
+
+                            let name = "";
+                            $(".recipe_name").click(function () {
+                                name = $(this).text()
+
+                                if (name != null) {
+                                document.location.href = `/detail?recipe_name=${name}`
+                                }
+                            })
+
+                            // 4~10위 레시피 append
+                            for (let i = 3; i < recipes.length; i++) {
+                                let recipe = recipes[i]
+                                // console.log(recipe)
+
+                                let recipeName = recipe['recipe_name']
+                                let recipeDiff = recipe['recipe_diff']
+                                let recipeTime = recipe['recipe_time']
+                                let rank = i+1
+                                // console.log(rank, recipeName, recipeDiff, recipeTime)
+
+                                temp_html4 = `<div class="recipeWraps">
+                                                  <span class="recipeRank">${rank}</span>
+                                                  <div class="recipeNameWrap">
+                                                      <a class="recipe_link" href="#"><span class="recipe_name2">${recipeName}</span></a>
+                                                      <div class="recipeDescWraps">
+                                                          <img class="timeIcon2" style="width: 30px" src="/static/img/timeIcon.png/">
+                                                          <span class="recipe_time2">${recipeTime}</span>
+                                                          <img class="diffIcon2" style="width: 35px" src="/static/img/3starIcon.png/">
+                                                          <span class="recipe_diff2">${recipeDiff}</span>
+                                                      </div>
+                                                  </div>
+                                                  <hr>
+                                               </div>`
+
+                                $('#otherRecipes2').append(temp_html4)
+
+                                let name = "";
+                                $(".recipe_name2").click(function () {
+                                    name = $(this).text()
+
+                                    if (name != null) {
+                                    document.location.href = `/detail?recipe_name=${name}`
+                                    }
+                                })
+
+
+                            }
                         }
 
 
-                        }
-                    })
+
+
+
+                    }
+                })
+
+
+            })
+            $("#defaultTab").trigger("click");
+
+
         })
+
+
+
+
+
+
+
+
+
     </script>
 
 
 <body>
     <nav class="naviBar">
         <ul>
-            <li><a class="logoLink" href="/"><img class="logoIcon" src="/static/img/cook-hat.svg"></a></li>
+            <li><a class="logoLink" href="/"><img class="logoIcon" src="/static/img/logo.png"></a></li>
             <li><a class="menuLink" href="/list">전체 레시피 보기</a></li>
             <li><a class="menuLink" href="/rank">랭킹 보기</a></li>
             <li><a class="menuLink" href="/make_recipe">나만의 레시피</a></li>
@@ -215,7 +410,7 @@
             <div class="sortBar">
                 <p class="text">요리 이름을 클릭하면, 더욱 자세한 레시피를 보러 갈 수 있습니다!</p>
                 <ul class="tabs">
-                    <li class="sortTab current" data-tab="tab-1">월간</li>
+                    <li class="sortTab current" data-tab="tab-1" id="defaultTab">월간</li>
                     <li class="sortTab" data-tab="tab-2">일간</li>
                 </ul>
             </div>
@@ -239,131 +434,23 @@
                     </div>
                 </div>
             </div>
-            <div id="tab-2" class="listWrap">
-                <div class="weeklyFirstRecipe">
-                    <div class="recipeWrap">
-                        <div class="recipeImgWrap">
-                            <img class="medalIcon" src="/static/img/firstMedalIcon.png">
-                            <a class="recipe_link" href="#"><img class="recipe_img" src="https://img-cf.kurly.com/shop/data/goodsview/20201012/gv10000126356_1.jpg"></a>
-                        </div>
-                        <div class="descWrap">
-                            <div class="recipeDescWrap">
-                            <a class="recipe_link" href="#"><span class="recipe_name" id="recipe_name">주간 1위 김치볶음밥</span></a><br>
-                        </div>
-                        <div class="recipeDesc2Wrap">
-                            <div class="recipeTimeWrap">
-                                <img class="timeIcon" src="/static/img/timeIcon.png/">
-                                <span class="recipe_time" id="recipe_time">약 00분 소요</span>
-                            </div>
-                            <div class="recipeDiffWrap">
-                                <img class="diffIcon" src="/static/img/3starIcon.png/">
-                                <span class="recipe_diff" id="recipe_diff">매우 쉬움 주의</span>
-                            </div>
-                        </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="weeklyFirstRecipe">
-                    <div class="recipeWrap">
-                        <div class="recipeImgWrap">
-                            <img class="medalIcon" src="/static/img/secondMedalIcon.png">
-                            <a class="recipe_link" href="#"><img class="recipe_img" src="https://img-cf.kurly.com/shop/data/goodsview/20201012/gv10000126356_1.jpg"></a>
-                        </div>
-                        <div class="descWrap">
-                            <div class="recipeDescWrap">
-                            <a class="recipe_link" href="#"><span class="recipe_name" id="recipe_name">맛있는 김치찌개</span></a><br>
-                        </div>
-                        <div class="recipeDesc2Wrap">
-                            <div class="recipeTimeWrap">
-                                <img class="timeIcon" src="/static/img/timeIcon.png/">
-                                <span class="recipe_time" id="recipe_time">약 00분 소요</span>
-                            </div>
-                            <div class="recipeDiffWrap">
-                                <img class="diffIcon" src="/static/img/3starIcon.png/">
-                                <span class="recipe_diff" id="recipe_diff">똥손 아니면 가능</span>
-                            </div>
-                        </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="weeklyFirstRecipe">
-                    <div class="recipeWrap">
-                        <div class="recipeImgWrap">
-                            <img class="medalIcon" src="/static/img/thirdMedalIcon.png">
-                            <a class="recipe_link" href="#"><img class="recipe_img" src="https://img-cf.kurly.com/shop/data/goodsview/20201012/gv10000126356_1.jpg"></a>
-                        </div>
-                        <div class="descWrap">
-                            <div class="recipeDescWrap">
-                            <a class="recipe_link" href="#"><span class="recipe_name" id="recipe_name">마성의 김치볶음밥</span></a><br>
-                        </div>
-                        <div class="recipeDesc2Wrap">
-                            <div class="recipeTimeWrap">
-                                <img class="timeIcon" src="/static/img/timeIcon.png/">
-                                <span class="recipe_time" id="recipe_time">약 00분 소요</span>
-                            </div>
-                            <div class="recipeDiffWrap">
-                                <img class="diffIcon" src="/static/img/3starIcon.png/">
-                                <span class="recipe_diff" id="recipe_diff">조금 어려울 수도..</span>
-                            </div>
-                        </div>
-                        </div>
-
-                    </div>
-                </div>
+            <div id="tab-2" class="listWrap current">
+<!--                일간 추천 1위 레시피-->
+                <div class="weeklyFirstRecipe" id="firstRecipe2"></div>
+<!--                일간 추천 2위 레시피-->
+                <div class="weeklyFirstRecipe" id="secondRecipe2"></div>
+<!--                일간 추천 3위 레시피-->
+                <div class="weeklyFirstRecipe" id="thirdRecipe2"></div>
                 <div class="weeklyRecipes">
-                    <div class="recipeWrap">
-<!--                        주간 랭킹 4위 레시피-->
-                        <div class="recipeWraps">
-                            <span class="recipeRank">4</span>
-                            <div class="recipeNameWrap">
-                                <a class="recipe_link" href="#"><span class="recipe_name2">간장버터계란밥</span></a>
-                                <div class="recipeDescWraps">
-                                    <img class="timeIcon" style="width: 25px" src="/static/img/timeIcon.png/">
-                                    <span class="recipe_time" style="font-size: 15px">약 00분 소요</span><br>
-                                    <img class="diffIcon" style="width: 30px" src="/static/img/3starIcon.png/">
-                                    <span class="recipe_diff" style="font-size: 15px">매우 쉬움 주의</span>
-                                </div>
-                            </div>
-                        </div>
-<!--                        주간 랭킹 5위 레시피-->
-                        <div class="recipeWraps">
-                            <span class="recipeRank">5</span>
-                            <div class="recipeNameWrap">
-                                <a class="recipe_link" href="#"><span class="recipe_name2">간장버터계란밥</span></a>
-                                <div class="recipeDescWraps">
-                                    <img class="timeIcon" style="width: 25px" src="/static/img/timeIcon.png/">
-                                    <span class="recipe_time" style="font-size: 15px">약 00분 소요</span><br>
-                                    <img class="diffIcon" style="width: 30px" src="/static/img/3starIcon.png/">
-                                    <span class="recipe_diff" style="font-size: 15px">매우 쉬움 주의</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="recipeWraps">
-                            <span class="recipeRank">6</span>
-                            <div class="recipeNameWrap">
-                                <a class="recipe_link" href="#"><span class="recipe_name2">주간 추천 6위 레시피</span></a>
-                                <div class="recipeDescWraps">
-                                    <img class="timeIcon" style="width: 25px" src="/static/img/timeIcon.png/">
-                                    <span class="recipe_time" style="font-size: 15px">약 00분 소요</span><br>
-                                    <img class="diffIcon" style="width: 30px" src="/static/img/3starIcon.png/">
-                                    <span class="recipe_diff" style="font-size: 15px">매우 쉬움 주의</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="recipeWraps">
-                            <span class="recipeRank">7</span>
-                            <div class="recipeNameWrap">
-                                <a class="recipe_link" href="#"><span class="recipe_name2">주간 추천 7위 레시피</span></a>
-                                <div class="recipeDescWraps">
-                                    <img class="timeIcon" style="width: 25px" src="/static/img/timeIcon.png/">
-                                    <span class="recipe_time" style="font-size: 15px">약 00분 소요</span><br>
-                                    <img class="diffIcon" style="width: 30px" src="/static/img/3starIcon.png/">
-                                    <span class="recipe_diff" style="font-size: 15px">매우 쉬움 주의</span>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="recipeWrapss" id="otherRecipes2">
+                        <hr>
+<!--                        일간 랭킹 4위 레시피-->
+
+<!--                        일간 랭킹 5위 레시피-->
+
+<!--                        일간 랭킹 6위 레시피-->
+
+<!--                        일간 랭킹 7위 레시피 -->
                     </div>
                 </div>
             </div>
