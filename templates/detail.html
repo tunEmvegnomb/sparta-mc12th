@@ -144,8 +144,6 @@
                                         <span class="userName">작성자: ${nickName}</span>
                                         <span class="reviewDate">${reviewUpdate}</span>
                                         <span class="review">${reviewContent}</span>
-                                        <button type="button" class="deleteBtn" id="deleteBtn">삭제</button>
-                                        <button type="button" class="updateBtn" id="updateBtn">수정</button>
                                     </div>`
 
                         $('#reviewList').append(temp_html)
@@ -185,9 +183,9 @@
             <li><a class="logoLink" href="/"><img class="logoIcon" src="/static/img/logo.png"></a></li>
             <li><a class="menuLink" href="/list">전체 레시피 보기</a></li>
             <li><a class="menuLink" href="/rank">랭킹 보기</a></li>
-            <li><a class="menuLink" href="/make_recipe">나만의 레시피</a></li>
-            <li><a class="menuLink" href="#">마이페이지</a></li>
-            <li><a class="myPageLink" href="/login/"><img src="/static/img/myPageIcon.png" class="loginIcon"></a></li>
+            <li><a class="menuLink" href="/write">나만의 레시피</a></li>
+            <li><a class="menuLink" href="/mypage">마이페이지</a></li>
+            <li><a class="myPageLink" href="/login"><img src="/static/img/myPageIcon.png" class="loginIcon"></a></li>
         </ul>
     </nav>
 

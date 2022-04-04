@@ -693,7 +693,7 @@ def detail_add_bookmark():
 # 나만의 레시피 작성 페이지
 @app.route('/write')
 def render_write():
-    return render_template('write.html')
+    return render_template('make_recipe.html')
 
 
 # 나만의 레시피 작성 api
