@@ -167,9 +167,133 @@ def list_order():
 @app.route('/list/filter', methods=['GET'])
 def list_filter():
 
-    # 페이크 값 리턴
-    filtered_data = list(db.recipes.find({}, {'_id': False}).limit(18))
+    # 설계
+    # 1. 사용자 요청 값 받기
+    # 맛태그 리시브
+    taste_receive = request.args.get('taste_give')
+    # 재료 리시브
+    ing_receive = request.args.get('ing_give')
+    # 난이도 리시브
+    diff_receive = request.args.get('diff_give')
+    # 조리시간 리시브
+    time_receive = request.args.get('time_give')
+
+    print("요청 받음!", taste_receive, ing_receive, diff_receive, time_receive)
+
+    # 리턴할 데이터 초기화
+    filtered_data = []
+
+    # 2. 조건1 - 단독 필터
+    # 맛태그만 비어있지 않다면
+    if taste_receive is not None and (ing_receive,diff_receive,time_receive is None):
+        # 맛태그에 해당하는 데이터 어펜드
+        db_find = list(db.recipes.find({'recipe_taste':taste_receive},{'_id':False}))
+        print('단독 필터 맛태그')
+        filtered_data.append(db_find)
+    # 재료만 비어있지 않다면
+    elif ing_receive is not None and (taste_receive, diff_receive, time_receive is None):
+        # 재료에 해당하는 데이터 어펜드
+        db_find = list(db.recipes.find({'recipe_ing':{'$regex':ing_receive}},{'_id':False}))
+        print('단독 재료 맛태그')
+        filtered_data.append(db_find)
+    # 난이도만 비어있지 않다면
+    elif diff_receive is not None and (taste_receive, ing_receive, time_receive is None):
+        # 난이도에 해당하는 데이터 어펜드
+        db_find = list(db.recipes.find({'recipe_diff': diff_receive},{'_id':False}))
+        print('단독 난이도 맛태그')
+        filtered_data.append(db_find)
+    # 조리시간만 비어있지 않다면
+    elif time_receive is not None and (taste_receive, ing_receive, diff_receive is None):
+        # 조리시간에 해당하는 데이터 어펜드
+        db_find = list(db.recipes.find({'recipe_time': time_receive},{'_id': False}))
+        print('단독 조리시간 맛태그')
+        filtered_data.append(db_find)
+
+    # 3. 조건2 - 두 가지 필터 중첩
+    # 맛태그와 재료 해당
+    elif (taste_receive, ing_receive is not None) and (diff_receive, time_receive is None):
+        # 맛태그와 재료에 해당하는 데이터 어펜드
+        db_find = list(db.recipes.find({'recipe_taste': taste_receive, 'recipe_ing': {'$regex':ing_receive}},{'_id': False}))
+        print('이중중첩 필터 맛태그 재료')
+        filtered_data.append(db_find)
+
+    # 맛태그와 난이도 해당
+    elif (taste_receive, diff_receive is not None) and (ing_receive, time_receive is None):
+        # 맛태그와 재료에 해당하는 데이터 어펜드
+        db_find = list(db.recipes.find({'recipe_taste': taste_receive, 'recipe_diff': diff_receive},{'_id': False}))
+        print('이중중첩 필터 맛태그 난이도')
+        filtered_data.append(db_find)
+
+    # 맛태그와 조리시간 해당
+    elif (taste_receive, time_receive is not None) and (ing_receive, diff_receive is None):
+        # 맛태그와 조리시간에 해당하는 데이터 어펜드
+        db_find = list(db.recipes.find({'recipe_taste': taste_receive, 'recipe_time': time_receive},{'_id': False}))
+        print('이중중첩 필터 맛태그 조리시간')
+        filtered_data.append(db_find)
+
+    # 재료와 난이도 해당
+    elif (ing_receive, diff_receive is not None) and (taste_receive, time_receive is None):
+        # 재료와 난이도에 해당하는 데이터 어펜드
+        db_find = list(db.recipes.find({'recipe_ing':{'$regex':ing_receive}, 'recipe_diff': diff_receive},{'_id':False}))
+        print('이중중첩 필터 재료 난이도')
+        filtered_data.append(db_find)
+
+    # 재료와 조리시간 해당
+    elif (ing_receive, time_receive is not None) and (taste_receive, diff_receive is None):
+        # 재료와 조리시간에 해당하는 데이터 어펜드
+        db_find = list(db.recipes.find({'recipe_ing': {'$regex':ing_receive}, 'recipe_time': time_receive},{'_id': False}))
+        print('이중중첩 필터 재료 조리시간')
+        filtered_data.append(db_find)
+
+    # 난이도와 조리시간 해당
+    elif (diff_receive, time_receive is not None) and (taste_receive, ing_receive is None):
+        # 난이도와 조리시간에 해당하는 데이터 어펜드
+        db_find = list(db.recipes.find({'recipe_diff': diff_receive, 'recipe_time':time_receive},{'_id':False}))
+        print('이중중첩 필터 난이도 조리시간')
+        filtered_data.append(db_find)
+
+    # 4. 조건3 - 세 가지 필터 중첩
+    # 맛태그와 재료와 난이도
+    elif (taste_receive, ing_receive, diff_receive is not None) and time_receive is None:
+        # 맛태그, 재료, 난이도 모두 일치하는 데이터 어펜드
+        db_find = list(db.recipes.find({'recipe_taste': taste_receive, 'recipe_ing': {'$regex':ing_receive}, 'recipe_diff': diff_receive},{'_id': False}))
+        print('삼중중첩 필터 맛태그 재료 난이도')
+        filtered_data.append(db_find)
+
+    # 맛태그와 재료와 조리시간
+    elif (taste_receive, ing_receive, time_receive is not None) and diff_receive is None:
+        # 맛태그, 재료, 조리시간 모두 일치하는 데이터 어펜드
+        db_find = list(db.recipes.find({'recipe_taste':taste_receive, 'recipe_ing': {'$regex':ing_receive}, 'recipe_time': time_receive},{'_id': False}))
+        print('삼중중첩 필터 맛태그 재료 조리시간')
+        filtered_data.append(db_find)
+    # 맛태그와 난이도와 조리시간
+    elif(taste_receive, diff_receive, time_receive is not None) and ing_receive is None:
+        # 맛태그, 난이도, 조리시간 모두 일치하는 데이터 어펜드
+        db_find = list(db.recipes.find({'recipe_taste': taste_receive, 'recipe_diff': diff_receive, 'recipe_time': time_receive},{'_id': False}))
+        print('삼중중첩 필터 맛태그 난이도 조리시간', db_find)
+
+        filtered_data.append(db_find)
+    # 재료와 난이도 조리시간
+    elif (ing_receive, diff_receive, time_receive is not None) and taste_receive is None:
+        # 재료, 난이도, 조리시간 모두 일치하는 데이터 어펜드
+        db_find = list(db.recipes.find({'recipe_ing': {'$regex':ing_receive}, 'recipe_diff': diff_receive, 'recipe_time': time_receive},{'_id': False}))
+        print('삼중중첩 필터 재료 난이도 조리시간')
+        filtered_data.append(db_find)
+
+    # 5. 조건4 - 모든 데이터 일치
+    # 모든 데이터에 일치하는 데이터 어펜드
+    elif (taste_receive, ing_receive, diff_receive, time_receive is not None):
+        db_find = list(db.recipes.find({'recipe_taste':taste_receive, 'recipe_ing': {'$regex':ing_receive}, 'recipe_diff': diff_receive, 'recipe_time': time_receive},{'_id: False'}))
+        print('모두 존재')
+        filtered_data.append(db_find)
+
+    # 6. 처리 - 데이터 리턴
+    print("필터 데이터!",filtered_data)
     return jsonify({'filtered_data': filtered_data})
+
+
+
+
 
 # 리스트 페이지 API
 # 리스트 검색 API
