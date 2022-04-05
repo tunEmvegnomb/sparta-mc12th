@@ -962,9 +962,20 @@ def random_recipe():
 @app.route('/bookmark/folder', methods=['POST'])
 def bookmark_folder():
     if 'user_id' in session:
-        # 즐겨찾기 생성 버튼 클릭 요청 받기
-        # click_receive = request.args.get(’click_give’)
+
+        user_nickname = request.form['user_nickname']
         bookmark_name = request.form['bookmark_name']
+        recipe_name = request.form['recipe_name']
+        user_id = request.form['user_id']
+
+        db.bookmarks.update_one({
+                'user_nickname': user_nickname,
+                'bookmark_name': bookmark_name,
+                'recipe_name': recipe_name,
+                'user_id': user_id
+            }
+        )
+
         return jsonify({'msg': '폴더 생성이 완료되었습니다.'})
     else:
         return jsonify({'msg': '로그인해주세요'})
@@ -987,6 +998,7 @@ def bookmark_delete():
         return jsonify({'msg': '저장한 레시피가 삭제되었습니다.'})
     else:
         return jsonify({'msg': '로그인해주세요'})
+    
 
 # localhost:5000 으로 들어갈 수 있게 해주는 코드
 if __name__ == '__main__':
