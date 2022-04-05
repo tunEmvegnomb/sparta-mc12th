@@ -1,13 +1,16 @@
 # flask 프레임워크 임포트.
 # render_template(페이지 이동), jsonify(json값 리턴), request(클라이언트 값 받기), session(로그인) 라이브러리 임포트
-import os
-
 from flask import Flask, render_template, jsonify, request, session
 
 # 현재 날짜를 받아오기위한 import
 from datetime import datetime, timedelta
 
 import threading
+
+
+# 이미지파일 경로를 받기 위한 import
+import os
+
 
 # 암호화 라이브러리 bcrypy import. 오류가 뜬다면 interpreter에서 bcrypy 패키지 install
 # 그래도 오류가 뜬다면 terminal에서 pip install flask-bcrypt 입력
@@ -716,8 +719,6 @@ def myrecipe_write():
         myrecipe_detail_receive = request.form['myrecipe_detail_give']
         # print(myrecipe_title_receive,myrecipe_diff_receive, myrecipe_time_receive,myrecipe_ing_receive,myrecipe_detail_receive )
 
-        myrecipe_user_id_receive = session.get('user_id')  # 세션에서 가져와
-        # print(myrecipe_writter_receive)
 
         myrecipe_user_id_receive = session.get('user_id')  # 세션에서 가져와
         # print(myrecipe_user_id_receive)
@@ -778,17 +779,15 @@ def myrecipe_update():
             update_ing_receive = request.form['myrecipe_ing_give']
             update_detail_receive = request.form['myrecipe_detail_give']
 
-            # 이미지파일 추가업데이트
 
             # 이전 이미지파일 삭제 부분
             delete_img = data.get('myrecipe_img')
             # print(delete_img)
-            # 이미지삭제경로 -
+            # 이미지삭제경로
             path = 'static/myrecipe_img/{}'.format(delete_img)
             if os.path.isfile(delete_img):
                 os.remove(path)
 
-            # 이미지파일 추가 업데이트
 
             update_img_receive = request.files['myrecipe_img_give']  # 이미지파일
             today = datetime.now()
@@ -797,10 +796,6 @@ def myrecipe_update():
             img_filename = f'{mytime}-{temp_filename}'  # 최종 저장되는 이미지파일이름
             # print(img_filename)
 
-            # 이전 이미지데이터 삭제 부분 - 미완성
-            # delete_img =
-            # data.get('myrecipe_img')
-            # delete_to =
 
             save_to = 'static/myrecipe_img/{}-{}'.format(mytime, img_filename)
             update_img_receive.save(save_to)
@@ -864,7 +859,7 @@ def myrecipe_delete():
         return jsonify({'msg': '로그인해주세요'})
 
 
-# 나만의 레시피 조회 리스트 API
+# 나만의 레시피  리스트 API
 @app.route('/myrecipe/list', methods=['GET'])
 def myrecipe_list():
     if 'user_id' in session:
