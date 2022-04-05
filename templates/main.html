@@ -18,21 +18,21 @@
           rel="stylesheet">
     <!-- style.css 파일을 같은 폴더에 만들고, head 태그에서 불러오기 -->
     <link rel="stylesheet" type="text/css" href = "\static\css\main.css">
+    <script src="\static\js\main.js"></script>
 </head>
 
 <body>
         <!--    여기서부터 네비게이션바-->
         <nav class="naviBar">
-            <ul>
-                <li><a class="logoLink" href="/"><img class="logoIcon" src="/static/img/logo.png"></a></li>
-                <li><a class="menuLink" href="/list">전체 레시피 보기</a></li>
-                <li><a class="menuLink" href="/rank">랭킹 보기</a></li>
-                <li><a class="menuLink" href="/write">나만의 레시피</a></li>
-                <li><a class="menuLink" href="/mypage">마이페이지</a></li>
-                <li><a class="myPageLink" href="/login"><img src="/static/img/myPageIcon.png" class="loginIcon"></a>
-                </li>
-            </ul>
-        </nav>
+        <ul>
+            <li><a class="logoLink" href="/"><img class="logoIcon" src="/static/img/logo.png"></a></li>
+            <li><a class="menuLink" href="/list">전체 레시피 보기</a></li>
+            <li><a class="menuLink" href="/rank">랭킹 보기</a></li>
+            <li><a class="menuLink" href="/write">나만의 레시피</a></li>
+            <li><a class="menuLink" href="/mypage">마이페이지</a></li>
+            <li><a class="myPageLink" href="/login"><img src="/static/img/myPageIcon.png" class="loginIcon"></a></li>
+        </ul>
+    </nav>
         <!--실제 컨텐츠 작성-->
         <div class="wrap">
             <!--메인 배너-->
@@ -60,9 +60,10 @@
                 </button>
             </div>
             <!--메인 추천 레시피-->
-            <div>
+            <div id="main-random">
+                <div>
                 <img src="\static\img\ONE-POP-1.png" alt="이미지" class="random-food"/>
-                <div class="random-food-recipe">
+                <div class="random-food-recipe" >
                     <img src="\static\img\recipe.png" alt="이미지"/>
                     <div>
                         <div>
@@ -103,6 +104,8 @@
                         </div>
                     </div>
                 </div>
+                </div>
+
             </div>
 
 
@@ -111,14 +114,15 @@
                 <div class="best-recipe-top">
                     <img src="\static\img\rank.png" alt="이미지" class="random-food"/>
                     <h5 style="font-weight: 600;">
-                        <span class="best-recipe-text" type="button">월간</span>
-                        <span class="best-recipe-text" type="button">주간</span>
-                        <span class="best-recipe-text" type="button">일간</span></h5>
+                        <span class="best-recipe-text" type="button" style="margin-right: 10px" onclick="main_top3()">월간</span>
+                        <span class="best-recipe-text" type="button" onclick="main_top3()">주간</span>
+                        <span class="best-recipe-text" type="button" onclick="main_top3()">일간</span></h5>
                 </div>
                 <div style="margin-bottom: -60px">
                     <button type="button" class="btn">더보기</button>
                 </div>
-                <div style="display: flex; justify-content: space-around;">
+                <div id="image-card">
+                    <div style="display: flex; justify-content: space-around;">
                     <div>
                         <img src="\static\img\rank-1.png" alt="이미지" class="best-recipe-rank-top"/>
                         <img src="\static\img\recipe-small.png" alt="이미지"/>
@@ -131,6 +135,7 @@
                         <img src="\static\img\rank-3.png" alt="이미지" class="best-recipe-rank-third"/>
                         <img src="\static\img\recipe-small.png" alt="이미지"/>
                     </div>
+                </div>
                 </div>
             </div>
         </div>

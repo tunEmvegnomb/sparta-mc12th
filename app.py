@@ -1,13 +1,16 @@
 # flask 프레임워크 임포트.
 # render_template(페이지 이동), jsonify(json값 리턴), request(클라이언트 값 받기), session(로그인) 라이브러리 임포트
-import os
-
 from flask import Flask, render_template, jsonify, request, session
 
 # 현재 날짜를 받아오기위한 import
 from datetime import datetime, timedelta
 
 import threading
+
+
+# 이미지파일 경로를 받기 위한 import
+import os
+
 
 # 암호화 라이브러리 bcrypy import. 오류가 뜬다면 interpreter에서 bcrypy 패키지 install
 # 그래도 오류가 뜬다면 terminal에서 pip install flask-bcrypt 입력
@@ -138,8 +141,29 @@ def render_list():
 @app.route('/list/data', methods=['GET'])
 def list_data_append():
     # 페이크 값 리턴
-    limited_data = list(db.recipes.find({}, {'_id': False}).limit(18))
-    return jsonify({'append_data': limited_data})
+    # limited_data = list(db.recipes.find({}, {'_id': False}).limit(18))
+    # return jsonify({'append_data': limited_data})
+
+    # 설계
+    # 1. 사용자 요청값 GET
+    # 스크롤 리시브
+    scroll_receive = request.args.get('scroll_give')
+    # 초기 데이터
+    append_data = []
+
+    # 2. 조건1 - 스크롤 값이 무엇인가?
+    # 스크롤 값이 off 라면, 데이터를 18개만 어펜딩
+    if scroll_receive == "off":
+        data = list(db.recipes.find({},{'_id': False}).limit(18))
+        append_data.append(data)
+        print("거짓",scroll_receive,"데이터의 갯수는 ", len(data))
+        return jsonify({'append_data': append_data})
+    # 스크롤 값이 on 라면, 데이터를 19번째부터 어펜딩
+    elif scroll_receive == "on":
+        data = list(db.recipes.find({},{'_id': False}).skip(18))
+        append_data.append(data)
+        print("참",scroll_receive,"데이터의 갯수는 ", len(data))
+        return jsonify({'append_data': append_data})
 
 
 # 리스트 페이지 API
@@ -609,6 +633,22 @@ def recipe_detail():
     print(target_recipe)
     return jsonify({'target_recipe': target_recipe})
 
+# 좋아요 기능
+@app.route('/recipe-like', methods=['POST'])
+def review_like():
+    idx_receive = request.form['idx_give']
+    data = db.recipes.find_one({"_id": ObjectId(idx_receive)})
+    print(data)
+
+    like_receive = int(data.get('recipe_like'))
+    temp_like = int(data.get('recipe_like')) + 1
+    like_receive = str(temp_like)
+    print(like_receive)
+
+    db.recipes.update_one({"_id": ObjectId(idx_receive)}, {'$set': {'recipe_like': like_receive}})
+    return jsonify({'like_count': like_receive})
+
+
 
 # 상세페이지 리뷰(댓글) 조회 api - 해당 상세레시피에 달린 리뷰(댓글)
 @app.route('/detail/review-list', methods=['GET'])
@@ -633,7 +673,7 @@ def objectIdDecoder(list):
 # 리뷰(댓글) 작성 api
 @app.route('/detail/review-post', methods=['POST'])
 def review_post():
-    session['user_id'] = 'admin@gmail.com'
+    # session['user_id'] = 'admin@gmail.com'
     if 'user_id' in session:
         user_nickname_receive = request.form['user_nickname_give']
         user_id_receive = session.get('user_id')
@@ -682,7 +722,7 @@ def myreview_list():
 # 리뷰(댓글) 수정 api
 @app.route('/myreview/update', methods=['POST'])
 def myreview_update():
-    session['user_id'] = 'qqqqqq'
+    # session['user_id'] = 'qqqqqq'
     if 'user_id' in session:
         idx_receive = request.form['idx_give']
         data = db.reviews.find_one({"_id": ObjectId(idx_receive)})
@@ -744,8 +784,6 @@ def myrecipe_write():
         myrecipe_detail_receive = request.form['myrecipe_detail_give']
         # print(myrecipe_title_receive,myrecipe_diff_receive, myrecipe_time_receive,myrecipe_ing_receive,myrecipe_detail_receive )
 
-        myrecipe_user_id_receive = session.get('user_id')  # 세션에서 가져와
-        # print(myrecipe_writter_receive)
 
         myrecipe_user_id_receive = session.get('user_id')  # 세션에서 가져와
         # print(myrecipe_user_id_receive)
@@ -806,17 +844,15 @@ def myrecipe_update():
             update_ing_receive = request.form['myrecipe_ing_give']
             update_detail_receive = request.form['myrecipe_detail_give']
 
-            # 이미지파일 추가업데이트
 
             # 이전 이미지파일 삭제 부분
             delete_img = data.get('myrecipe_img')
             # print(delete_img)
-            # 이미지삭제경로 -
+            # 이미지삭제경로
             path = 'static/myrecipe_img/{}'.format(delete_img)
             if os.path.isfile(delete_img):
                 os.remove(path)
 
-            # 이미지파일 추가 업데이트
 
             update_img_receive = request.files['myrecipe_img_give']  # 이미지파일
             today = datetime.now()
@@ -825,10 +861,6 @@ def myrecipe_update():
             img_filename = f'{mytime}-{temp_filename}'  # 최종 저장되는 이미지파일이름
             # print(img_filename)
 
-            # 이전 이미지데이터 삭제 부분 - 미완성
-            # delete_img =
-            # data.get('myrecipe_img')
-            # delete_to =
 
             save_to = 'static/myrecipe_img/{}-{}'.format(mytime, img_filename)
             update_img_receive.save(save_to)
@@ -892,7 +924,7 @@ def myrecipe_delete():
         return jsonify({'msg': '로그인해주세요'})
 
 
-# 나만의 레시피 조회 리스트 API
+# 나만의 레시피  리스트 API
 @app.route('/myrecipe/list', methods=['GET'])
 def myrecipe_list():
     if 'user_id' in session:
@@ -958,13 +990,62 @@ def random_recipe():
     return jsonify({'random_value': random_value})
 
 # 마이페이지 즐겨찾기 폴더 생성
+@app.route('/bookmark/folder', methods=['POST'])
+def bookmark_folder():
+    if 'user_id' in session:
+
+        user_nickname = request.form['user_nickname']
+        bookmark_name = request.form['bookmark_name']
+        recipe_name = request.form['recipe_name']
+        user_id = request.form['user_id']
+
+        doc = {
+            'user_nickname': user_nickname,
+             'bookmark_name': bookmark_name,
+             'recipe_name': recipe_name,
+             'user_id': user_id
+        }
 
 
-@app.route('/bookmark/list', methods=['POST'])
+        db.bookmarks.insert_one(doc)
+
+        return jsonify({'msg': '폴더 생성이 완료되었습니다.'})
+    else:
+        return jsonify({'msg': '로그인해주세요'})
+
+# 마이페이지 즐겨찾기 출력
+@app.route('/bookmark/list', methods=['GET'])
 def bookmark_list():
-    bookmark_name = request.form['bookmark_name']
-    return jsonify({'msg': '폴더 생성이 완료되었습니다.'})
+    if 'user_id' in session:
+        bookmark_list = list(db.bookmarks.find({}, {'_id': False, 'user_pwd': False}))
+        return jsonify({'msg': bookmark_list})
+    else:
+        return jsonify({'msg': '로그인해주세요'})
 
+# 마이페이지 즐겨찾기 삭제
+@app.route('/bookmark/delete', methods=['POST'])
+def bookmark_delete():
+    if 'user_id' in session:
+        bookmark_name = request.form['bookmark_name']
+        db.bookmark.delete_one({"bookmark_name": bookmark_name})
+        return jsonify({'msg': '저장한 레시피가 삭제되었습니다.'})
+    else:
+        return jsonify({'msg': '로그인해주세요'})
+
+# 마이페이지 즐겨찾기 수정
+@app.route('/bookmark/update', methods=['POST'])
+def bookmark_update():
+
+    # 기존 즐겨찾기 데이터
+    bookmark_name = request.form['bookmark_name']
+
+    # 수정할 즐겨찾기 데이터
+    update_bookmark_name = request.form['update_bookmark_name']
+
+    # 즐겨찾기 폴더 위치(이름) 수정
+    db.bookmarks.update_one({'bookmark_name':bookmark_name},{'$set':{'bookmark_name':update_bookmark_name}})
+
+    return jsonify({'msg': '수정 완료!'})
 
 # localhost:5000 으로 들어갈 수 있게 해주는 코드
 if __name__ == '__main__':
