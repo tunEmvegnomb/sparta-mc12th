@@ -20,8 +20,8 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 
 # 클라이언트 정의 - MongoClient를 로컬호스트와 연결
-client = MongoClient('mongodb+srv://making:making@cluster0.ymxju.mongodb.net/Cluster0?retryWrites=true&w=majority')
-# client = MongoClient('localhost', 27017)
+# client = MongoClient('mongodb+srv://making:making@cluster0.ymxju.mongodb.net/Cluster0?retryWrites=true&w=majority')
+client = MongoClient('localhost', 27017)
 
 
 # 컬렉션 정의. mc12th라는 컬렉션이 생성됨
@@ -327,7 +327,7 @@ def list_filter():
 @app.route('/list/search', methods=['GET'])
 def list_search():
     # 페이크 값 리턴
-    searched_data = list(db.recipes.find({}, {'_id': False}).limit(18))
+    searched_data = list(db.recipes.find({}, {'_id': False}))
     return jsonify({'filtered_data': searched_data})
 
 

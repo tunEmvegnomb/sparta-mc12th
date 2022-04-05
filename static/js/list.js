@@ -1,7 +1,10 @@
-
+const sortByDate = document.querySelector(".sortByDate")
+const sortByLike = document.querySelector(".sortByLike")
 
 //최신순 정렬 -> 문제는 검색값, 필터값과 중복 안됨. 현재는 있는 내용을 지우고 다시 불러오는 형태
 $(".sortByDate").on("click", function() {
+  sortByLike.classList.remove("current")
+  sortByDate.classList.add("current")
   $.ajax({
     type: "GET",
     url: "/list/order",
@@ -46,6 +49,17 @@ $(".sortByDate").on("click", function() {
           </div>`
             $('.card-group').append(temp_html)
         }
+        let recipe_name = "";
+                $('.card-title').on('click', function () {
+                    recipe_name = $(this).text()
+                    console.log(recipe_name)
+                })
+
+                $(document).on('click', '.card-title', function () {
+                    if (recipe_name != null) {
+                        document.location.href = `/detail?recipe_name=${recipe_name}`;
+                    }
+                })
         $('.spinner-border').hide();
     }  
 })
@@ -53,6 +67,8 @@ $(".sortByDate").on("click", function() {
 
 //인기순 정렬 -> 문제는 검색값, 필터값과 중복 안됨. 현재는 있는 내용을 지우고 다시 불러오는 형태
 $(".sortByLike").on("click", function() {
+  sortByDate.classList.remove("current")
+  sortByLike.classList.add("current")
   $.ajax({
     type: "GET",
     url: "/list/order",
@@ -97,6 +113,17 @@ $(".sortByLike").on("click", function() {
           </div>`
             $('.card-group').append(temp_html)
         }
+        let recipe_name = "";
+                $('.card-title').on('click', function () {
+                    recipe_name = $(this).text()
+                    console.log(recipe_name)
+                })
+
+                $(document).on('click', '.card-title', function () {
+                    if (recipe_name != null) {
+                        document.location.href = `/detail?recipe_name=${recipe_name}`;
+                    }
+                })
         $('.spinner-border').hide();
     }  
 })
@@ -107,7 +134,6 @@ $(".sortByLike").on("click", function() {
 $("form").on("submit", function(event){
   event.preventDefault()
   const inputVal = $("#searchInput").val()
-  console.log(inputVal)
   $.ajax({
     type: "GET",
     url: "/list/search",
@@ -158,7 +184,24 @@ $("form").on("submit", function(event){
           </div>`
             $('.card-group').append(temp_html)}
         }
+        let recipe_name = "";
+                $('.card-title').on('click', function () {
+                    recipe_name = $(this).text()
+                    console.log(recipe_name)
+                })
+
+                $(document).on('click', '.card-title', function () {
+                    if (recipe_name != null) {
+                        document.location.href = `/detail?recipe_name=${recipe_name}`;
+                    }
+                })
+        const count = $('.card').length
+        const searchInfo = `총 ${count}개의 "${inputVal}" 레시피가 있습니다.`
+        $('#searchInfo').empty();
+        $('#searchInfo').append(searchInfo);
         $('.spinner-border').hide();
+
+
 
     }  
 })
