@@ -33,6 +33,38 @@
   transform: rotateY(180deg) scale(1.2);
 }
 
+.menuLink {
+    text-decoration: none;
+    color: #3A3845;
+    display: block;
+    width: 180px;
+    font-size: 18px;
+    font-weight: bolder;
+}
+
+.menuLink:hover {
+    transition: 0.5s;
+    font-size: 19px;
+    text-decoration: none;
+    color: #3A3845;
+    background: #FFF3ED;
+}
+
+.myPageLink {
+    position: absolute;
+    right: 19%;
+}
+
+.loginIcon {
+    height: 38px;
+
+}
+
+.loginIcon:hover {
+    transition: 0.5s;
+    transform: scale(1.08)
+}
+
 /*실제 컨텐츠 작성*/
 .wrap {
     width: 1080px;
