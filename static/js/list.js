@@ -220,6 +220,7 @@ $("form").on("submit", function(event){
 //필터 선택값 불러오기 -> TasteFilter만 작동함
 function onTasteFilter(event) {
   Array.from($(".filter-value")).forEach(value => value.classList.remove("current"))
+  $('#searchInfo').empty();
   sortByLike.classList.remove("current")
   sortByDate.classList.remove("current")
   event.target.classList.add("current")
@@ -271,12 +272,24 @@ function onTasteFilter(event) {
           </div>`
             $('.card-group').append(temp_html)
         }
+        let recipe_name = "";
+                $('.card-title').on('click', function () {
+                    recipe_name = $(this).text()
+                    console.log(recipe_name)
+                })
+
+                $(document).on('click', '.card-title', function () {
+                    if (recipe_name != null) {
+                        document.location.href = `/detail?recipe_name=${recipe_name}`;
+                    }
+                })
     }  
 })
 }
 
 function onIngFilter(event) {
   Array.from($(".filter-value")).forEach(value => value.classList.remove("current"))
+  $('#searchInfo').empty();
   sortByLike.classList.remove("current")
   sortByDate.classList.remove("current")
   const value = event.target.innerText
@@ -327,12 +340,24 @@ function onIngFilter(event) {
           </div>`
             $('.card-group').append(temp_html)
         }
+        let recipe_name = "";
+                $('.card-title').on('click', function () {
+                    recipe_name = $(this).text()
+                    console.log(recipe_name)
+                })
+
+                $(document).on('click', '.card-title', function () {
+                    if (recipe_name != null) {
+                        document.location.href = `/detail?recipe_name=${recipe_name}`;
+                    }
+                })
     }  
 })
 }
 
 function onTimeFilter(event) {
   Array.from($(".filter-value")).forEach(value => value.classList.remove("current"))
+  $('#searchInfo').empty();
   sortByLike.classList.remove("current")
   sortByDate.classList.remove("current")
   const value = event.target.innerText
@@ -383,12 +408,24 @@ function onTimeFilter(event) {
           </div>`
             $('.card-group').append(temp_html)
         }
+        let recipe_name = "";
+                $('.card-title').on('click', function () {
+                    recipe_name = $(this).text()
+                    console.log(recipe_name)
+                })
+
+                $(document).on('click', '.card-title', function () {
+                    if (recipe_name != null) {
+                        document.location.href = `/detail?recipe_name=${recipe_name}`;
+                    }
+                })
     }  
 })
 }
 
 function onDiffFilter(event) {
   Array.from($(".filter-value")).forEach(value => value.classList.remove("current"))
+  $('#searchInfo').empty();
   sortByLike.classList.remove("current")
   sortByDate.classList.remove("current")
   const value = event.target.innerText
@@ -439,6 +476,17 @@ function onDiffFilter(event) {
           </div>`
             $('.card-group').append(temp_html)
         }
+        let recipe_name = "";
+                $('.card-title').on('click', function () {
+                    recipe_name = $(this).text()
+                    console.log(recipe_name)
+                })
+
+                $(document).on('click', '.card-title', function () {
+                    if (recipe_name != null) {
+                        document.location.href = `/detail?recipe_name=${recipe_name}`;
+                    }
+                })
     }  
 })
 }
