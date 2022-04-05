@@ -924,17 +924,32 @@ def random_recipe():
 # 마이페이지 즐겨찾기 폴더 생성
 @app.route('/bookmark/folder', methods=['POST'])
 def bookmark_folder():
-    # 즐겨찾기 생성 버튼 클릭 요청 받기
-    # click_receive = request.args.get(’click_give’)
-    bookmark_name = request.form['bookmark_name']
-    return jsonify({'msg': '폴더 생성이 완료되었습니다.'})
+    if 'user_id' in session:
+        # 즐겨찾기 생성 버튼 클릭 요청 받기
+        # click_receive = request.args.get(’click_give’)
+        bookmark_name = request.form['bookmark_name']
+        return jsonify({'msg': '폴더 생성이 완료되었습니다.'})
+    else:
+        return jsonify({'msg': '로그인해주세요'})
 
 # 마이페이지 즐겨찾기 출력
 @app.route('/bookmark/list', methods=['GET'])
 def bookmark_list():
-    bookmark_list = list(db.bookmarks.find({}, {'_id': False, 'user_pwd': False}))
-    return jsonify({'msg': bookmark_list})
+    if 'user_id' in session:
+        bookmark_list = list(db.bookmarks.find({}, {'_id': False, 'user_pwd': False}))
+        return jsonify({'msg': bookmark_list})
+    else:
+        return jsonify({'msg': '로그인해주세요'})
 
+# 마이페이지 즐겨찾기 삭제
+@app.route('/bookmark/delete', methods=['POST'])
+def bookmark_delete():
+    if 'user_id' in session:
+        bookmark_name = request.form['bookmark_name']
+        db.bookmark.delete_one({"bookmark_name": bookmark_name})
+        return jsonify({'msg': '저장한 레시피가 삭제되었습니다.'})
+    else:
+        return jsonify({'msg': '로그인해주세요'})
 
 # localhost:5000 으로 들어갈 수 있게 해주는 코드
 if __name__ == '__main__':
