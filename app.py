@@ -922,10 +922,18 @@ def random_recipe():
     return jsonify({'random_value': random_value})
 
 # 마이페이지 즐겨찾기 폴더 생성
-@app.route('/bookmark/list', methods=['POST'])
-def bookmark_list():
+@app.route('/bookmark/folder', methods=['POST'])
+def bookmark_folder():
+    # 즐겨찾기 생성 버튼 클릭 요청 받기
+    # click_receive = request.args.get(’click_give’)
     bookmark_name = request.form['bookmark_name']
     return jsonify({'msg': '폴더 생성이 완료되었습니다.'})
+
+# 마이페이지 즐겨찾기 출력
+@app.route('/bookmark/list', methods=['GET'])
+def bookmark_list():
+    bookmark_list = list(db.bookmarks.find({}, {'_id': False, 'user_pwd': False}))
+    return jsonify({'msg': bookmark_list})
 
 
 # localhost:5000 으로 들어갈 수 있게 해주는 코드
