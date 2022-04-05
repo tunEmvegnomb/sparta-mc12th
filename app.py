@@ -135,8 +135,29 @@ def render_list():
 @app.route('/list/data', methods=['GET'])
 def list_data_append():
     # 페이크 값 리턴
-    limited_data = list(db.recipes.find({}, {'_id': False}).limit(18))
-    return jsonify({'append_data': limited_data})
+    # limited_data = list(db.recipes.find({}, {'_id': False}).limit(18))
+    # return jsonify({'append_data': limited_data})
+
+    # 설계
+    # 1. 사용자 요청값 GET
+    # 스크롤 리시브
+    scroll_receive = request.args.get('scroll_give')
+    # 초기 데이터
+    append_data = []
+
+    # 2. 조건1 - 스크롤 값이 무엇인가?
+    # 스크롤 값이 off 라면, 데이터를 18개만 어펜딩
+    if scroll_receive == "off":
+        data = list(db.recipes.find({},{'_id': False}).limit(18))
+        append_data.append(data)
+        print("거짓",scroll_receive,"데이터의 갯수는 ", len(data))
+        return jsonify({'append_data': append_data})
+    # 스크롤 값이 on 라면, 데이터를 19번째부터 어펜딩
+    elif scroll_receive == "on":
+        data = list(db.recipes.find({},{'_id': False}).skip(18))
+        append_data.append(data)
+        print("참",scroll_receive,"데이터의 갯수는 ", len(data))
+        return jsonify({'append_data': append_data})
 
 
 # 리스트 페이지 API
@@ -590,6 +611,22 @@ def recipe_detail():
     print(target_recipe)
     return jsonify({'target_recipe': target_recipe})
 
+# 좋아요 기능
+@app.route('/recipe-like', methods=['POST'])
+def review_like():
+    idx_receive = request.form['idx_give']
+    data = db.recipes.find_one({"_id": ObjectId(idx_receive)})
+    print(data)
+
+    like_receive = int(data.get('recipe_like'))
+    temp_like = int(data.get('recipe_like')) + 1
+    like_receive = str(temp_like)
+    print(like_receive)
+
+    db.recipes.update_one({"_id": ObjectId(idx_receive)}, {'$set': {'recipe_like': like_receive}})
+    return jsonify({'like_count': like_receive})
+
+
 
 # 상세페이지 리뷰(댓글) 조회 api - 해당 상세레시피에 달린 리뷰(댓글)
 @app.route('/detail/review-list', methods=['GET'])
@@ -613,7 +650,7 @@ def objectIdDecoder(list):
 # 리뷰(댓글) 작성 api
 @app.route('/detail/review-post', methods=['POST'])
 def review_post():
-    session['user_id'] = 'admin@gmail.com'
+    # session['user_id'] = 'admin@gmail.com'
     if 'user_id' in session:
         user_nickname_receive = request.form['user_nickname_give']
         user_id_receive = session.get('user_id')
@@ -661,7 +698,7 @@ def myreview_list():
 # 리뷰(댓글) 수정 api
 @app.route('/myreview/update', methods=['POST'])
 def myreview_update():
-    session['user_id'] = 'qqqqqq'
+    # session['user_id'] = 'qqqqqq'
     if 'user_id' in session:
         idx_receive = request.form['idx_give']
         data = db.reviews.find_one({"_id": ObjectId(idx_receive)})
@@ -927,17 +964,32 @@ def random_recipe():
 # 마이페이지 즐겨찾기 폴더 생성
 @app.route('/bookmark/folder', methods=['POST'])
 def bookmark_folder():
-    # 즐겨찾기 생성 버튼 클릭 요청 받기
-    # click_receive = request.args.get(’click_give’)
-    bookmark_name = request.form['bookmark_name']
-    return jsonify({'msg': '폴더 생성이 완료되었습니다.'})
+    if 'user_id' in session:
+        # 즐겨찾기 생성 버튼 클릭 요청 받기
+        # click_receive = request.args.get(’click_give’)
+        bookmark_name = request.form['bookmark_name']
+        return jsonify({'msg': '폴더 생성이 완료되었습니다.'})
+    else:
+        return jsonify({'msg': '로그인해주세요'})
 
 # 마이페이지 즐겨찾기 출력
 @app.route('/bookmark/list', methods=['GET'])
 def bookmark_list():
-    bookmark_list = list(db.bookmarks.find({}, {'_id': False, 'user_pwd': False}))
-    return jsonify({'msg': bookmark_list})
+    if 'user_id' in session:
+        bookmark_list = list(db.bookmarks.find({}, {'_id': False, 'user_pwd': False}))
+        return jsonify({'msg': bookmark_list})
+    else:
+        return jsonify({'msg': '로그인해주세요'})
 
+# 마이페이지 즐겨찾기 삭제
+@app.route('/bookmark/delete', methods=['POST'])
+def bookmark_delete():
+    if 'user_id' in session:
+        bookmark_name = request.form['bookmark_name']
+        db.bookmark.delete_one({"bookmark_name": bookmark_name})
+        return jsonify({'msg': '저장한 레시피가 삭제되었습니다.'})
+    else:
+        return jsonify({'msg': '로그인해주세요'})
 
 # localhost:5000 으로 들어갈 수 있게 해주는 코드
 if __name__ == '__main__':
