@@ -64,6 +64,7 @@
     transition: 0.5s;
     transform: scale(1.08)
 }
+
 /*실제 컨텐츠 작성*/
 .wrap {
     width: 1080px;
@@ -75,7 +76,7 @@
 .random-food {
     width: 500px;
     right: 229px;
-    margin-top: 30px;
+    margin-top: 100px;
 }
 
 .recipe-total {
