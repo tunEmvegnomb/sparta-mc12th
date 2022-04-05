@@ -33,38 +33,6 @@
   transform: rotateY(180deg) scale(1.2);
 }
 
-.menuLink {
-    text-decoration: none;
-    color: #3A3845;
-    display: block;
-    width: 180px;
-    font-size: 18px;
-    font-weight: bolder;
-}
-
-.menuLink:hover {
-    transition: 0.5s;
-    font-size: 19px;
-    text-decoration: none;
-    color: #3A3845;
-    background: #FFF3ED;
-}
-
-.myPageLink {
-    position: absolute;
-    right: 19%;
-}
-
-.loginIcon {
-    height: 38px;
-
-}
-
-.loginIcon:hover {
-    transition: 0.5s;
-    transform: scale(1.08)
-}
-
 /*실제 컨텐츠 작성*/
 .wrap {
     width: 1080px;
@@ -93,7 +61,7 @@
     box-sizing: border-box;
     border-radius: 5px;
     width: 643px;
-    height: 200px;
+    height: 90%;
     padding: 21px;
 }
 
@@ -104,14 +72,19 @@
     margin-left: 10px;
 }
 
-.input-title > label {
+.input-title > div{
+    display: flex;
+    flex-direction: column;
+}
+
+.input-title-label {
     font-weight: 500;
     font-size: 15px;
     line-height: 18px;
 }
 
-.input-title > input {
-    width: 390px;
+.input-title-input {
+    width: 473px;
     height: 30px;
     border: 1px solid #8C8C8C;
     border-radius: 2px 0 0 2px;
@@ -120,9 +93,11 @@
     text-align: left;
     font-weight: 500;
     color: #3A3845;
+    margin-right: 10px;
+    padding: 10px;
 }
 
-.input-title > button {
+.input-title-button {
     width: 83px;
     height: 30px;
     border: 1px solid #8C8C8C;
@@ -132,13 +107,6 @@
     display: block;
     text-align: center;
     font-weight: 500;
-}
-
-.input-title > button > span {
-    font-weight: 500;
-    font-size: 13px;
-    line-height: 18px;
-    text-align: center;
 }
 
 /*이미지 첨부*/
@@ -169,7 +137,7 @@
     box-sizing: border-box;
     border-radius: 5px;
     width: 643px;
-    height: 675px;
+
     padding: 21px;
 }
 
@@ -324,5 +292,4 @@
     line-height: 23px;
 
     color: #FFFFFF;
-
 }
