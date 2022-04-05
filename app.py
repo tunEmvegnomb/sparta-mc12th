@@ -135,8 +135,29 @@ def render_list():
 @app.route('/list/data', methods=['GET'])
 def list_data_append():
     # 페이크 값 리턴
-    limited_data = list(db.recipes.find({}, {'_id': False}).limit(18))
-    return jsonify({'append_data': limited_data})
+    # limited_data = list(db.recipes.find({}, {'_id': False}).limit(18))
+    # return jsonify({'append_data': limited_data})
+
+    # 설계
+    # 1. 사용자 요청값 GET
+    # 스크롤 리시브
+    scroll_receive = request.args.get('scroll_give')
+    # 초기 데이터
+    append_data = []
+
+    # 2. 조건1 - 스크롤 값이 무엇인가?
+    # 스크롤 값이 off 라면, 데이터를 18개만 어펜딩
+    if scroll_receive == "off":
+        data = list(db.recipes.find({},{'_id': False}).limit(18))
+        append_data.append(data)
+        print("거짓",scroll_receive,"데이터의 갯수는 ", len(data))
+        return jsonify({'append_data': append_data})
+    # 스크롤 값이 on 라면, 데이터를 19번째부터 어펜딩
+    elif scroll_receive == "on":
+        data = list(db.recipes.find({},{'_id': False}).skip(18))
+        append_data.append(data)
+        print("참",scroll_receive,"데이터의 갯수는 ", len(data))
+        return jsonify({'append_data': append_data})
 
 
 # 리스트 페이지 API
