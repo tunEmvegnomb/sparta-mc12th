@@ -587,6 +587,22 @@ def recipe_detail():
     print(target_recipe)
     return jsonify({'target_recipe': target_recipe})
 
+# 좋아요 기능
+@app.route('/recipe-like', methods=['POST'])
+def review_like():
+    idx_receive = request.form['idx_give']
+    data = db.recipes.find_one({"_id": ObjectId(idx_receive)})
+    print(data)
+
+    like_receive = int(data.get('recipe_like'))
+    temp_like = int(data.get('recipe_like')) + 1
+    like_receive = str(temp_like)
+    print(like_receive)
+
+    db.recipes.update_one({"_id": ObjectId(idx_receive)}, {'$set': {'recipe_like': like_receive}})
+    return jsonify({'like_count': like_receive})
+
+
 
 # 상세페이지 리뷰(댓글) 조회 api - 해당 상세레시피에 달린 리뷰(댓글)
 @app.route('/detail/review-list', methods=['GET'])
@@ -610,7 +626,7 @@ def objectIdDecoder(list):
 # 리뷰(댓글) 작성 api
 @app.route('/detail/review-post', methods=['POST'])
 def review_post():
-    session['user_id'] = 'admin@gmail.com'
+    # session['user_id'] = 'admin@gmail.com'
     if 'user_id' in session:
         user_nickname_receive = request.form['user_nickname_give']
         user_id_receive = session.get('user_id')
@@ -658,7 +674,7 @@ def myreview_list():
 # 리뷰(댓글) 수정 api
 @app.route('/myreview/update', methods=['POST'])
 def myreview_update():
-    session['user_id'] = 'qqqqqq'
+    # session['user_id'] = 'qqqqqq'
     if 'user_id' in session:
         idx_receive = request.form['idx_give']
         data = db.reviews.find_one({"_id": ObjectId(idx_receive)})
