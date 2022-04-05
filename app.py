@@ -719,8 +719,6 @@ def myrecipe_write():
         myrecipe_detail_receive = request.form['myrecipe_detail_give']
         # print(myrecipe_title_receive,myrecipe_diff_receive, myrecipe_time_receive,myrecipe_ing_receive,myrecipe_detail_receive )
 
-        myrecipe_user_id_receive = session.get('user_id')  # 세션에서 가져와
-        # print(myrecipe_writter_receive)
 
         myrecipe_user_id_receive = session.get('user_id')  # 세션에서 가져와
         # print(myrecipe_user_id_receive)
@@ -861,7 +859,7 @@ def myrecipe_delete():
         return jsonify({'msg': '로그인해주세요'})
 
 
-# 나만의 레시피 조회 리스트 API
+# 나만의 레시피  리스트 API
 @app.route('/myrecipe/list', methods=['GET'])
 def myrecipe_list():
     if 'user_id' in session:
