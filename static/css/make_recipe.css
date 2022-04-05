@@ -4,15 +4,33 @@
 }
 
 /*여기서부터 네비게이션바*/
-.navbar {
+.naviBar {
     background-color: #FF6219;
+    width: 100%;
+    height: 70px;
+    position: fixed;
+    z-index: 100;
 }
 
-.nav-item {
+.naviBar ul li {
+    list-style: none;
     color: #3A3845;
-    font-weight: 900;
-    text-decoration: none;
-    margin-right: 30px;
+    background-color: #FF6219;
+    float: left;
+    line-height: 70px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.naviBar .logoIcon {
+    height: 65px;
+    transition: all 0.3s ease-in-out;
+    margin-left: 55px;
+    margin-right: 55px;
+}
+
+.naviBar .logoIcon:hover {
+  transform: rotateY(180deg) scale(1.2);
 }
 
 /*실제 컨텐츠 작성*/
