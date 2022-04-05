@@ -587,7 +587,7 @@ def recipe_detail():
     print(target_recipe)
     return jsonify({'target_recipe': target_recipe})
 
-# 좋아요 기능
+# 좋아요 기능 - 리스트페이지, 상세페이지
 @app.route('/recipe-like', methods=['POST'])
 def review_like():
     idx_receive = request.form['idx_give']
