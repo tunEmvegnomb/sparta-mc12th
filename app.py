@@ -23,8 +23,8 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 
 # 클라이언트 정의 - MongoClient를 로컬호스트와 연결
-client = MongoClient('mongodb+srv://making:making@cluster0.ymxju.mongodb.net/Cluster0?retryWrites=true&w=majority')
- # client = MongoClient('localhost',27017)
+# client = MongoClient('mongodb+srv://making:making@cluster0.ymxju.mongodb.net/Cluster0?retryWrites=true&w=majority')
+client = MongoClient('localhost',27017)
 
 
 # 컬렉션 정의. mc12th라는 컬렉션이 생성됨
@@ -466,9 +466,11 @@ def login_check():
     # 설계
     # 1. 사용자 요청값 POST
     # 아이디 리시브
-    id_receive = request.form['user_id']
+    id_receive = request.form['id_give']
     # 비밀번호 리시브
-    pwd_receive = request.form['user_pwd']
+    pwd_receive = request.form['pwd_give']
+
+    print(id_receive, pwd_receive)
 
     # 2. 조건문1 - 입력확인
     # 인풋의 모든 데이터가 없다면 실패 메시지 리턴
@@ -478,6 +480,7 @@ def login_check():
         # 3. 아이디, 비밀번호 조회
         # 데이터베이스에서 아이디에 일치하는 데이터 찾기
         find_db = list(db.users.find({'user_id': id_receive}, {'_id': False}))
+
 
         # 4. 조건문2 - 아이디 일치
         # 조회 데이터가 존재하지 않는다면 실패 메시지 리턴
