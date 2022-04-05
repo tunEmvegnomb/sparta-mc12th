@@ -968,13 +968,15 @@ def bookmark_folder():
         recipe_name = request.form['recipe_name']
         user_id = request.form['user_id']
 
-        db.bookmarks.update_one({
-                'user_nickname': user_nickname,
-                'bookmark_name': bookmark_name,
-                'recipe_name': recipe_name,
-                'user_id': user_id
-            }
-        )
+        doc = {
+            'user_nickname': user_nickname,
+             'bookmark_name': bookmark_name,
+             'recipe_name': recipe_name,
+             'user_id': user_id
+        }
+
+
+        db.bookmarks.insert_one(doc)
 
         return jsonify({'msg': '폴더 생성이 완료되었습니다.'})
     else:
@@ -998,7 +1000,21 @@ def bookmark_delete():
         return jsonify({'msg': '저장한 레시피가 삭제되었습니다.'})
     else:
         return jsonify({'msg': '로그인해주세요'})
-    
+
+# 마이페이지 즐겨찾기 수정
+@app.route('/bookmark/update', methods=['POST'])
+def bookmark_update():
+
+    # 기존 즐겨찾기 데이터
+    bookmark_name = request.form['bookmark_name']
+
+    # 수정할 즐겨찾기 데이터
+    update_bookmark_name = request.form['update_bookmark_name']
+
+    # 즐겨찾기 폴더 위치(이름) 수정
+    db.bookmarks.update_one({'bookmark_name':bookmark_name},{'$set':{'bookmark_name':update_bookmark_name}})
+
+    return jsonify({'msg': '수정 완료!'})
 
 # localhost:5000 으로 들어갈 수 있게 해주는 코드
 if __name__ == '__main__':
