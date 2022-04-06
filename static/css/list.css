@@ -54,6 +54,14 @@
   border: 0.5px solid var(--orange);
 }
 
+#searchInfo {
+  font-size: 25px;
+  font-weight: 500;
+  margin-left: 30px;
+  margin-bottom: 20px;
+}
+
+
 .filters {
   display: flex;
   flex-direction: column;
@@ -110,25 +118,38 @@
   transition: all 0.2s ease-in-out;
 }
 
+.filter-values .current {
+  color: var(--default);
+}
+
 .filter-value:hover {
   color: var(--default);
 }
 
+
+.list-sort a {
+  margin-right: 15px;
+  color: #8c8c8c;
+  transition: all 0.1s ease-in-out;
+}
 .list-sort {
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 400;
   margin-left: 30px;
   margin-bottom: 15px;
 }
 
-.list-sort a {
-  margin-right: 15px;
+.list-sort .current {
+  font-weight: 600;
   color: var(--default);
-  transition: all 0.1s ease-in-out;
 }
 
+
+
 .list-sort a:hover {
-  color: var(--orange);
+  font-weight: 600;
+  color: var(--default);
+
 }
 
 .spinner-border {
